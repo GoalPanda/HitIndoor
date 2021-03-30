@@ -2,6 +2,23 @@ import axios from 'axios'
 import { call, put } from 'redux-saga/effects'
 import { get } from 'lodash'
 import { requestFail, requestPending, requestSuccess } from './request'
+import { SERVER_BASE_URL } from 'helpers/utils'
+
+const defaultHeaders = () => {
+  const auth = localStorage.getItem('HitIndoor_token')
+  axios.defaults.baseURL = SERVER_BASE_URL
+  let headers = {
+    'Accept': '*/*',
+    'Content-Type': 'application/json'
+  }
+
+  if (auth) {
+    const token = JSON.parse(auth).access.token
+    headers['Authorization'] = 'Bearer ' + token
+  }
+
+  return headers
+}
 
 export default ({
   type,
@@ -28,7 +45,7 @@ export default ({
     const res = yield call(axios.request, {
       url: typeof path === 'function' ? path(action) : path,
       method: method.toLowerCase(),
-      headers,
+      headers: Object.assign({}, defaultHeaders(), headers),
       data: body,
       params
     })

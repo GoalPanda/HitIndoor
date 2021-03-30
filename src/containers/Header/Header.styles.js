@@ -41,5 +41,10 @@ export default makeStyles(theme => ({
   },
   hightButton: {
     color: '#E52F3A'
+  },
+  loader: {
+    position: 'absolute',
+    top: '0px',
+    width: '100%',
   }
 }))

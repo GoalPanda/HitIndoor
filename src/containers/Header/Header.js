@@ -3,16 +3,23 @@ import {
   AppBar,
   Toolbar,
   Container,
+  LinearProgress,
 } from '@material-ui/core'
 import useStyles from './Header.styles.js'
 import logo from 'assets/images/logo/logo.svg'
 import * as cx from 'classnames'
 import { useHistory } from 'react-router-dom'
 import { CustomButton } from 'components/CustomButton'
+import PropTypes from 'prop-types'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { statusSelector } from 'redux/modules/global/selectors'
+import { createStructuredSelector } from 'reselect'
 
 const Header = ({
   mode,
   onChanageMode,
+  status,
 }) => {
   const history = useHistory()
   const classes = useStyles()
@@ -28,6 +35,7 @@ const Header = ({
   return (
     <>
       <AppBar position='fixed' className={classes.root}>
+        {status === 'PENDING' && <LinearProgress className={classes.loader} />}
         <Container maxWidth={false} className={classes.container}>
           <Toolbar className={classes.toolbar} >
             <img className={classes.image} src={logo} alt='logo' onClick={handleClick('/')} />
@@ -53,4 +61,12 @@ const Header = ({
   )
 }
 
-export default Header
+Header.propTypes = {
+  status: PropTypes.any,
+}
+
+const selector = createStructuredSelector({
+  status: statusSelector,
+})
+
+export default compose(connect(selector, null))(Header)

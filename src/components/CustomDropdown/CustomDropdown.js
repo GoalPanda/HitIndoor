@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Popper,
   Paper,
@@ -14,12 +14,18 @@ import svgDownArrow from 'assets/images/icon/down-arrow.svg'
 const CustomDropdown = ({
   className,
   dropContent,
+  onSelect,
+  selected,
 }) => {
   const classes = useStyles()
   const [openDrop, setOpenDrop] = useState(false)
-  const [selectedText, setSelectedText] = useState(dropContent[0].text)
+  const [selectedText, setSelectedText] = useState(dropContent[selected].text)
   const [arrowRef, setArrowRef] = useState(null)
   const [anchorEl, setAnchorEl] = useState(null)
+
+  useEffect(() => {
+    setSelectedText(dropContent[selected].text)
+  }, [dropContent, selected])
 
   const handleToggle = (event) => {
     setAnchorEl(event.currentTarget)
@@ -28,6 +34,12 @@ const CustomDropdown = ({
 
   const handleClose = () => {
     setOpenDrop(false)
+  }
+
+  const handleClickItem = (key) => () => {
+    onSelect(key)
+    setSelectedText(dropContent[key].text)
+    handleClose()
   }
 
   return (
@@ -72,10 +84,7 @@ const CustomDropdown = ({
                     <div key={key}>
                       <ListItem
                         button
-                        onClick={() => {
-                          setSelectedText(item.text)
-                          handleClose()
-                        }}
+                        onClick={handleClickItem(key)}
                         className={cx(classes.dropContentList)}
                       >
                         {item.text}

@@ -1,29 +1,19 @@
 import { get } from 'lodash'
-import { AUDIO_PLAY_STATUS } from 'redux/constants'
 
 export const globalStateSelector = (state) =>
   get(state, 'global')
 
-export const audioLoadingSelector = (state) =>
-  get(state, 'global.audio.loading', null)
+export const statusSelector = (state) =>
+  get(state, 'global.status', null)
 
-export const audioPlaySelector = (state) =>
-  get(state, 'global.audio.play', AUDIO_PLAY_STATUS.STOPPED)
+export const resourceSelector = (state) =>
+  get(state, 'global.resource', null)
 
-export const audioSpeedSelector = (state) =>
-  get(state, 'global.audio.speed', 1.0)
+export const appointmentSelector = (state) =>
+  get(state, 'global.appointment', null)
 
-export const audioPositionSelector = (state) =>
-  get(state, 'global.audio.position', 0)
+export const weekAppointmentSelector = (state) =>
+  get(state, 'global.weekAppointment', null)
 
-export const audioDurationSelector = (state) =>
-  get(state, 'global.audio.duration', 0)
-
-export const transcriptSelector = (state) =>
-  get(state, 'global.transcript', {})
-
-export const loadingStatusSelector = (state) =>
-  get(state, 'global.status', 'INIT')
-
-export const searchTextSelector = (state) =>
-get(state, 'global.searchText', '')
+export const selectedResourceSelector = (state) =>
+  get(state, 'global.selectedResource', null)

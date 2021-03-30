@@ -34,5 +34,10 @@ export default makeStyles(theme => ({
   },
   menu: {
     width: '295px',
+  },
+  loader: {
+    position: 'absolute',
+    top: '0px',
+    width: '100%',
   }
 }))

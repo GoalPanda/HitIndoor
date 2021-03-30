@@ -2,12 +2,27 @@ import { takeLatest } from 'redux-saga/effects'
 import * as CONSTANTS from 'redux/modules/global/constants'
 import apiCall from '../api/apiCall'
 
-const doGetTranscript = apiCall({
-  type: CONSTANTS.GET_TRANSCRIPT,
+const doGetResource = apiCall({
+  type: CONSTANTS.GET_RESOURCE,
   method: 'get',
-  path: ({ payload }) => `/assets/js/${payload.fileName}`
+  path: 'mind/resource',
 })
 
-export default function* rootSaga () {
-  yield takeLatest(CONSTANTS.GET_TRANSCRIPT, doGetTranscript)
+const doGetAppointment = apiCall({
+  type: CONSTANTS.GET_APPOINTMENT,
+  method: 'post',
+  path: 'mind/appointment',
+})
+
+const doGetWeekAppointment = apiCall({
+  type: CONSTANTS.GET_APPOINTMENT_BY_WEEK,
+  method: 'post',
+  path: 'mind/appointment',
+})
+
+
+export default function* rootSaga() {
+  yield takeLatest(CONSTANTS.GET_RESOURCE, doGetResource)
+  yield takeLatest(CONSTANTS.GET_APPOINTMENT, doGetAppointment)
+  yield takeLatest(CONSTANTS.GET_APPOINTMENT_BY_WEEK, doGetWeekAppointment)
 }

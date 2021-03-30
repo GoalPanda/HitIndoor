@@ -1,15 +1,39 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import useStyles from './styles'
 import { Mobile, Default } from 'containers/ResponseLayout'
 import * as cx from 'classnames'
 import { CustomDropdown } from 'components/CustomDropdown'
-import { dropContent } from 'containers/ScheduleTable/mockup'
+import PropTypes from 'prop-types'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import {
+  resourceSelector,
+  selectedResourceSelector,
+} from 'redux/modules/global/selectors'
+import { createStructuredSelector } from 'reselect'
+import { selectResource } from 'redux/modules/global/actions'
 
 const Filterbar = ({
   title,
   mode,
+  resource,
+  selectedResource,
+  selectResource,
 }) => {
   const classes = useStyles()
+  const [dropContent, setDropContent] = useState([{ text: 'All Resources', value: -1 }])
+  const [selected, setSelected] = useState(0)
+
+  useEffect(() => {
+    if (resource) {
+      let initValue = [{ text: 'All Resources', value: -1 }].concat(resource)
+      setDropContent(initValue)
+    }
+  }, [resource])
+
+  useEffect(() => {
+    setSelected(selectedResource + 1)
+  }, [selectedResource])
 
   return (
     <>
@@ -19,7 +43,11 @@ const Filterbar = ({
             {mode === 2 && title}
           </h1>
           <div className={classes.center}>
-            <CustomDropdown dropContent={dropContent} />
+            <CustomDropdown
+              dropContent={dropContent}
+              onSelect={key => selectResource(key - 1)}
+              selected={selected}
+            />
           </div>
         </div>
       </Mobile>
@@ -30,7 +58,11 @@ const Filterbar = ({
             {mode === 2 && title}
           </h1>
           <div className={classes.center}>
-            <CustomDropdown dropContent={dropContent} />
+            <CustomDropdown
+              dropContent={dropContent}
+              onSelect={key => selectResource(key - 1)}
+              selected={selected}
+            />
           </div>
         </div>
       </Default>
@@ -38,4 +70,19 @@ const Filterbar = ({
   )
 }
 
-export default Filterbar
+Filterbar.propTypes = {
+  resource: PropTypes.any,
+  selectResource: PropTypes.func,
+  selectedResource: PropTypes.any,
+}
+
+const actions = {
+  selectResource,
+}
+
+const selector = createStructuredSelector({
+  resource: resourceSelector,
+  selectedResource: selectedResourceSelector,
+})
+
+export default compose(connect(selector, actions))(Filterbar)

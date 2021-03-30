@@ -1,83 +1,151 @@
 import { handleActions } from 'redux-actions'
 import { requestSuccess, requestFail } from 'redux/api/request'
-import { AUDIO_PLAY_STATUS } from 'redux/constants'
 import * as CONSTANTS from './constants'
+import moment from 'moment-timezone'
 
 const getInitialState = () => {
   return {
-    audio: {
-      loading: true,
-      position: 0,
-      speed: 1,
-      play: AUDIO_PLAY_STATUS.STOPPED,  // should be one of "PLAYING", "STOPPED", "PAUSED"
-      duration: 0
-    },
-    transcript: null,
+    resource: null,
+    appointment: [],
+    weekAppointment: [],
+    selectedResource: -1,
+
     status: 'INIT',
     error: null,
-    searchText: ''
   }
 }
 
-// ------------------------------------
-// Reducer
-// ------------------------------------
 export default handleActions({
-  [CONSTANTS.SET_AUDIO_LOADING]: (state, { payload }) => ({
+  [CONSTANTS.GET_RESOURCE]: (state, { payload }) => ({
     ...state,
-    audio: {
-      ...state.audio,
-      loading: payload.loading
-    }
+    status: 'PENDING'
   }),
 
-  [CONSTANTS.SET_AUDIO_PLAY]: (state, { payload }) => ({
+  [requestSuccess(CONSTANTS.GET_RESOURCE)]: (state, { payload }) => ({
     ...state,
-    audio: {
-      ...state.audio,
-      play: payload.play
-    }
-  }),
-
-  [CONSTANTS.SET_AUDIO_SPEED]: (state, { payload }) => ({
-    ...state,
-    audio: {
-      ...state.audio,
-      speed: payload.speed
-    }
-  }),
-
-  [CONSTANTS.SET_AUDIO_POSITION]: (state, { payload }) => ({
-    ...state,
-    audio: {
-      ...state.audio,
-      position: payload.position
-    }
-  }),
-
-  [CONSTANTS.SET_AUDIO_DURATION]: (state, { payload }) => ({
-    ...state,
-    audio: {
-      ...state.audio,
-      duration: payload.duration
-    }
-  }),
-
-  [requestSuccess(CONSTANTS.GET_TRANSCRIPT)]: (state, { payload }) => ({
-    ...state,
-    transcript: payload,
-    status: requestSuccess(CONSTANTS.GET_TRANSCRIPT),
+    resource: payload,
+    status: requestSuccess(CONSTANTS.GET_RESOURCE),
     error: null
   }),
 
-  [requestFail(CONSTANTS.GET_TRANSCRIPT)]: (state, { payload }) => ({
+  [requestFail(CONSTANTS.GET_RESOURCE)]: (state, { payload }) => ({
     ...state,
-    status: requestFail(CONSTANTS.GET_TRANSCRIPT),
+    status: requestFail(CONSTANTS.GET_RESOURCE),
+    resource: null,
     error: payload
   }),
 
-  [CONSTANTS.SET_SEARCH_TEXT]: (state, { payload }) => ({
+  [CONSTANTS.GET_APPOINTMENT]: (state, { payload }) => ({
     ...state,
-    searchText: payload.text
-  })
+    status: 'PENDING',
+    appointment: []
+  }),
+
+  [requestSuccess(CONSTANTS.GET_APPOINTMENT)]: (state, { payload }) => {
+    const content = payload.StaffMembers.map(item => {
+      let value = {}
+      item.Availabilities.forEach(element => {
+        for (let i = moment(element.StartDateTime)
+          ;
+          moment(i).isBefore(element.EndDateTime)
+          ;
+          i = moment(i).add(30, 'minutes')) {
+          const times = moment(i).format('h:mm a')
+          Object.assign(value, { [times]: 2 })
+        }
+      })
+
+      item.Appointments.forEach(element => {
+        for (let i = 0; i < element.Duration; i += 30) {
+          const times = moment(element.StartDateTime).add(i, 'minutes').format('h:mm a')
+          Object.assign(value, { [times]: 1 })
+        }
+      })
+
+      return {
+        text: `${item.LastName} ${item.FirstName}`,
+        value,
+        staffId: item.Id
+      }
+    })
+
+    return ({
+      ...state,
+      appointment: content,
+      status: requestSuccess(CONSTANTS.GET_APPOINTMENT),
+      error: null
+    })
+  },
+
+  [requestFail(CONSTANTS.GET_APPOINTMENT)]: (state, { payload }) => ({
+    ...state,
+    status: requestFail(CONSTANTS.GET_APPOINTMENT),
+    appointment: [],
+    error: payload
+  }),
+
+  [CONSTANTS.SELECT_RESOURCE]: (state, { payload }) => ({
+    ...state,
+    selectedResource: payload
+  }),
+
+  [CONSTANTS.GET_APPOINTMENT_BY_WEEK]: (state, { payload }) => ({
+    ...state,
+    status: 'PENDING',
+    weekAppointment: []
+  }),
+
+  [requestSuccess(CONSTANTS.GET_APPOINTMENT_BY_WEEK)]: (state, { payload }) => {
+    const content = payload.StaffMembers.map(item => {
+      let weekValue = []
+      item.Availabilities.forEach(element => {
+        const weekDate = moment(element.StartDateTime).format('ddd MM/DD')
+        let value = weekValue[weekDate] ? weekValue[weekDate] : {}
+
+        for (let i = moment(element.StartDateTime)
+          ;
+          moment(i).isBefore(element.EndDateTime)
+          ;
+          i = moment(i).add(30, 'minutes')) {
+          const times = moment(i).format('h:mm a')
+          Object.assign(value, { [times]: 2 })
+        }
+
+        weekValue[weekDate] = value
+      })
+
+      item.Appointments.forEach(element => {
+        const weekDate = moment(element.StartDateTime).format('ddd MM/DD')
+        let value = weekValue[weekDate] ? weekValue[weekDate] : {}
+
+        for (let i = 0; i < element.Duration; i += 30) {
+          const times = moment(element.StartDateTime).add(i, 'minutes').format('h:mm a')
+          Object.assign(value, { [times]: 1 })
+        }
+
+        weekValue[weekDate] = value
+      })
+
+      return {
+        text: `${item.LastName} ${item.FirstName}`,
+        value: weekValue,
+        staffId: item.Id
+      }
+    })
+
+    return ({
+      ...state,
+      weekAppointment: content,
+      status: requestSuccess(CONSTANTS.GET_APPOINTMENT_BY_WEEK),
+      error: null
+    })
+  },
+
+  [requestFail(CONSTANTS.GET_APPOINTMENT_BY_WEEK)]: (state, { payload }) => ({
+    ...state,
+    status: requestFail(CONSTANTS.GET_APPOINTMENT_BY_WEEK),
+    weekAppointment: [],
+    error: payload
+  }),
+
 }, getInitialState())
