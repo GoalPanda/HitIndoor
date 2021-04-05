@@ -19,7 +19,7 @@ const CustomDropdown = ({
 }) => {
   const classes = useStyles()
   const [openDrop, setOpenDrop] = useState(false)
-  const [selectedText, setSelectedText] = useState(dropContent[selected].text)
+  const [selectedText, setSelectedText] = useState(selected && dropContent[selected].text)
   const [arrowRef, setArrowRef] = useState(null)
   const [anchorEl, setAnchorEl] = useState(null)
 

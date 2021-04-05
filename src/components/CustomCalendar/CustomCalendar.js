@@ -12,7 +12,6 @@ const CustomCalendar = ({
   onChange,
 }) => {
   const classes = useStyles()
-  //const [selectedDate, setSelectedDate] = useState(date)
 
   const handleDateChange = (selectedDate) => {
     onChange(selectedDate)

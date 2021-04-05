@@ -16,20 +16,12 @@ import { selectResource } from 'redux/modules/global/actions'
 const Filterbar = ({
   title,
   mode,
-  resource,
+  dropContent,
   selectedResource,
   selectResource,
 }) => {
   const classes = useStyles()
-  const [dropContent, setDropContent] = useState([{ text: 'All Resources', value: -1 }])
   const [selected, setSelected] = useState(0)
-
-  useEffect(() => {
-    if (resource) {
-      let initValue = [{ text: 'All Resources', value: -1 }].concat(resource)
-      setDropContent(initValue)
-    }
-  }, [resource])
 
   useEffect(() => {
     setSelected(selectedResource + 1)

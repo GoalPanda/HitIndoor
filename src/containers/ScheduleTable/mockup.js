@@ -26,124 +26,27 @@ const TimeLine = [
   { text: '9:00 pm', value: '1' },
 ]
 
-const moreInfoContent = {
-  title: `Cage #2 Machines Jugs BBall & Slow Pitch.`,
-  content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- Condimentum nibh massa mauris arcu nisi velit, pulvinar semper et.
- Consectetur sit viverra posuere magna ultrices. Lacus sodales quis congue tortor imperdiet.
- Pulvinar interdum cras arcu amet lacus, in mauris.
- Amet maecenas viverra risus donec viverra fermentum ipsum.
- Sollicitudin dictumst id malesuada faucibus diam et, tempus.
- Ac sagittis, enim cum urna a, vestibulum, sit aliquam.
- Quam odio ipsum commodo, etiam diam eu nibh id quis.
- Eget at odio viverra maecenas morbi dignissim ac ut quis.
- Mattis sit eu id tincidunt diam. Sed feugiat pulvinar sed in ultrices fames nunc.
- Sit felis viverra viverra amet, vel sed.v`
-}
+const bookContent = [
+  { text: '30 Min Cage', value: 5 },
+  { text: '60 Min Cage', value: 6 },
+  { text: '90 Min Cage', value: 29 },
+  { text: '120 Min Cage', value: 30 },
+  { text: '30 Min Outdoor Cage', value: 51 },
+  { text: '60 Min Outdoor Cage', value: 52 },
+  { text: '90 Min Outdoor Cage', value: 53 },
+  { text: '120 Min Outdoor Cage', value: 54 },
 
-const dropContent = [
-  { text: 'All Resources', value: '1' },
-  { text: 'Cage #1 Machine Baseball VP .', value: '2' },
-  { text: 'Cage #2 Machines JUGS BBall & Slow Pitch .', value: '3' },
-  { text: 'Cage #4 Machine Fast Pitch Softball VP .', value: '1' },
-  { text: 'Cage #1 Machine Baseball VP .', value: '1' },
-  { text: 'Cage #1 Machine Baseball VP .', value: '1' },
-  { text: 'Cage #1 Machine Baseball VP .', value: '1' },
-  { text: 'Cage #1 Machine Baseball VP .', value: '1' },
-  { text: 'Cage #1 Machine Baseball VP .', value: '1' },
-  { text: 'Cage #1 Machine Baseball VP .', value: '1' },
-]
-
-const classTypes = [
-  {
-    text: 'President’s Day Camp', value: [
-      {
-        'Date': 'Mon 2/15/2021',
-        'Start Time': '9:00 am (18 Reserved, 2 Open)',
-        'Classes': `President's Day Camp`,
-        'Teacher': 'HIT Indoor',
-        'Duration': '5 Hours'
-      },
-      {
-        'Date': 'Mon 2/15/2021',
-        'Start Time': '9:00 am (18 Reserved, 2 Open)',
-        'Classes': `President's Day Camp`,
-        'Teacher': 'HIT Indoor',
-        'Duration': '5 Hours'
-      },
-      {
-        'Date': 'Mon 2/15/2021',
-        'Start Time': '9:00 am (18 Reserved, 2 Open)',
-        'Classes': `President's Day Camp`,
-        'Teacher': 'HIT Indoor',
-        'Duration': '5 Hours'
-      },
-    ]
-  },
-  {
-    text: 'Spring Camps', value: [
-      {
-        'Date': 'Mon 2/15/2021',
-        'Start Time': '9:00 am (18 Reserved, 2 Open)',
-        'Classes': `President's Day Camp`,
-        'Teacher': 'HIT Indoor',
-        'Duration': '5 Hours'
-      },
-    ]
-  },
-  {
-    text: 'Spring Camps1', value: [
-      {
-        'Date': 'Mon 2/15/2021',
-        'Start Time': '9:00 am (18 Reserved, 2 Open)',
-        'Classes': `President's Day Camp`,
-        'Teacher': 'HIT Indoor',
-        'Duration': '5 Hours'
-      },
-      {
-        'Date': 'Mon 2/15/2021',
-        'Start Time': '9:00 am (18 Reserved, 2 Open)',
-        'Classes': `President's Day Camp`,
-        'Teacher': 'HIT Indoor',
-        'Duration': '5 Hours'
-      },
-    ]
-  },
-  {
-    text: 'Spring Break Camps', value: [
-      {
-        'Date': 'Mon 2/15/2021',
-        'Start Time': '9:00 am (18 Reserved, 2 Open)',
-        'Classes': `President's Day Camp`,
-        'Teacher': 'HIT Indoor',
-        'Duration': '5 Hours'
-      },
-      {
-        'Date': 'Mon 2/15/2021',
-        'Start Time': '9:00 am (18 Reserved, 2 Open)',
-        'Classes': `President's Day Camp`,
-        'Teacher': 'HIT Indoor',
-        'Duration': '5 Hours'
-      },
-      {
-        'Date': 'Mon 2/15/2021',
-        'Start Time': '9:00 am (18 Reserved, 2 Open)',
-        'Classes': `President's Day Camp`,
-        'Teacher': 'HIT Indoor',
-        'Duration': '5 Hours'
-      },
-    ]
-  },
-  {
-    text: 'Summer Camps - Baseball', value: [
-
-    ]
-  },
+  { text: 'Baseball/Batting 60 Min', value: 87 },
+  { text: 'Baseball/Batting 30 Min', value: 83 },
+  { text: 'Softball/Batting 30 Min', value: 84 },
+  { text: 'Softball/Batting 60 Min', value: 88 },
+  { text: 'Baseball/Pitching 30 Min', value: 85 },
+  { text: 'Baseball/Pitching 60 Min', value: 89 },
+  { text: 'Softball/Pitching 30 Min', value: 86 },
+  { text: 'Softball/Pitching 60 Min', value: 90 }
 ]
 
 export {
   TimeLine,
-  moreInfoContent,
-  dropContent,
-  classTypes,
+  bookContent,
 }

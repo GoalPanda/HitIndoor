@@ -7,9 +7,13 @@ const getInitialState = () => {
   return {
     resource: null,
     appointment: [],
+    class: [],
+    book: [],
     weekAppointment: [],
     selectedResource: -1,
 
+    selectedDate: Date.now(),
+    viewMode: 'day',
     status: 'INIT',
     error: null,
   }
@@ -19,6 +23,16 @@ export default handleActions({
   [CONSTANTS.GET_RESOURCE]: (state, { payload }) => ({
     ...state,
     status: 'PENDING'
+  }),
+
+  [CONSTANTS.SET_STARTDATE]: (state, { payload }) => ({
+    ...state,
+    selectedDate: payload
+  }),
+
+  [CONSTANTS.SET_VIEWMODE]: (state, { payload }) => ({
+    ...state,
+    viewMode: payload
   }),
 
   [requestSuccess(CONSTANTS.GET_RESOURCE)]: (state, { payload }) => ({
@@ -65,7 +79,12 @@ export default handleActions({
       return {
         text: `${item.LastName} ${item.FirstName}`,
         value,
-        staffId: item.Id
+        staffId: item.Id,
+        description: {
+          ImageUrl: item.ImageUrl,
+          Bio: item.Bio,
+          title: `${item.LastName} ${item.FirstName}`
+        }
       }
     })
 
@@ -145,6 +164,125 @@ export default handleActions({
     ...state,
     status: requestFail(CONSTANTS.GET_APPOINTMENT_BY_WEEK),
     weekAppointment: [],
+    error: payload
+  }),
+
+  [CONSTANTS.GET_CLASS]: (state, { payload }) => ({
+    ...state,
+    status: 'PENDING',
+    class: []
+  }),
+
+  [requestSuccess(CONSTANTS.GET_CLASS)]: (state, { payload }) => {
+    let text = []
+    let description = []
+    let value = []
+
+    payload.ClassSchedules.forEach(item => {
+      if (item.IsAvailable === true) {
+        const ind = item.ClassDescription.Name
+        if (!value[ind]) {
+          value[ind] = []
+        }
+        const startDate = state.viewMode === 'day'
+          ? moment(state.selectedDate)
+          : moment(state.selectedDate).startOf('week')
+
+        const endDate = state.viewMode === 'day' ? startDate : moment(startDate).add(6, 'days')
+        const loopEndDate = moment(endDate).isAfter(item.EndDate) ? item.EndDate : endDate
+
+        for (
+          let st = moment(startDate)
+          ; moment(st).isBefore(moment(loopEndDate).add(1, 'day'));
+          st = moment(st).add(1, 'day')
+        ) {
+
+          value[ind].push({
+            'Date': moment(st).format('ddd MM/DD/YYYY'),
+            'Start Time': `${moment(item.StartTime).format('h:mm a')} CDT`,
+            'Classes': ind,
+            'Teacher': `${item.Staff.LastName} ${item.Staff.FirstName}`,
+            'Duration': `${moment.duration(moment(item.EndTime).diff(moment(item.StartTime))).asHours()} hours`
+          })
+        }
+
+        text.push(ind)
+        description[ind] = item.Id
+      }
+    })
+
+    const content = text.map(item => {
+      return {
+        text: item,
+        value: value[item],
+        description: description[item]
+      }
+    })
+
+    return ({
+      ...state,
+      class: content,
+      status: requestSuccess(CONSTANTS.GET_CLASS),
+      error: null
+    })
+  },
+
+  [requestFail(CONSTANTS.GET_CLASS)]: (state, { payload }) => ({
+    ...state,
+    status: requestFail(CONSTANTS.GET_CLASS),
+    class: [],
+    error: payload
+  }),
+
+  [CONSTANTS.GET_BOOK]: (state, { payload }) => ({
+    ...state,
+    status: 'PENDING',
+    book: []
+  }),
+
+  [requestSuccess(CONSTANTS.GET_BOOK)]: (state, { payload }) => {
+    let bookItems = []
+
+    payload.Availabilities.forEach(item => {
+      const staffId = item.Staff.Id
+      const sessionId = item.SessionType.Id
+      const bookableStartTime = item.StartDateTime
+      const bookableEndTime = item.BookableEndDateTime
+      
+      if(!bookItems[staffId]) {
+        bookItems[staffId] = {
+          sessions: [],
+          //name: item.Staff.FirstName,
+          mbo_location_id: item.Location.Id,
+        }
+      }
+
+      for (
+        let st = moment(bookableStartTime)
+        ; moment(st).isBefore(moment(bookableEndTime));
+        st = moment(st).add(30, 'minute')
+      ) {
+        const time = moment(st).format('h:mm a')
+        if (!bookItems[staffId].sessions[time]) {
+          bookItems[staffId].sessions[time] = []
+        }
+
+        bookItems[staffId].sessions[time].push(sessionId)
+      }
+    })
+
+    return ({
+      ...state,
+      book: bookItems,
+      status: requestSuccess(CONSTANTS.GET_BOOK),
+      error: null
+    })
+  },
+
+  [requestFail(CONSTANTS.GET_BOOK)]: (state, { payload }) => ({
+    ...state,
+    status: requestFail(CONSTANTS.GET_BOOK),
+    book: [],
     error: payload
   }),
 

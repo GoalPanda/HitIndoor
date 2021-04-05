@@ -27,8 +27,10 @@ const ClassTable = ({
   const [contentAreaWidth, setContentAreaWidth] = useState(null)
 
   window.addEventListener('resize', () => {
-    setScrollWidth(document.querySelector('#table-area').offsetWidth)
-    setContentAreaWidth(document.querySelector('#class-table-header').offsetWidth)
+    const area1 = document.querySelector('#table-area')
+    const area2 = document.querySelector('#class-table-header')
+    area1 && setScrollWidth(area1.offsetWidth)
+    area2 && setContentAreaWidth(area2.offsetWidth)
   })
 
   useEffect(() => {

@@ -25,6 +25,11 @@ const Toolbar = ({
     onChangeDate(selectedDate)
   }
 
+  const handleClickToday = () => {
+    onClickMode('today')
+    onChangeDate(Date.now())
+  }
+
   const handleActionClick = (buttonMode, actionStr) => {
     onClickMode(buttonMode)
     if (buttonMode === 'day') {
@@ -50,7 +55,7 @@ const Toolbar = ({
             <div>
               <CustomButton
                 className={cx(classes.mobileButton, mode === 'today' && classes.selectedMode)}
-                onClick={() => onClickMode('today')}
+                onClick={handleClickToday}
                 variant='outlined'
                 content='Today'
               />
@@ -99,7 +104,7 @@ const Toolbar = ({
               className={cx(classes.button, mode === 'today' && classes.selectedMode)}
               variant='outlined'
               content='Today'
-              onClick={() => onClickMode('today')}
+              onClick={handleClickToday}
             />
             <CustomGroupButton
               className={mode === 'day' && classes.selectedMode}

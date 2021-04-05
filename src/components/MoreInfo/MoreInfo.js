@@ -6,7 +6,6 @@ import {
   Dialog,
 } from '@material-ui/core'
 import useStyles from './styles'
-import background from 'assets/images/background/moreInfo.svg'
 import { Mobile, Default } from 'containers/ResponseLayout'
 
 const MoreInfo = ({
@@ -31,8 +30,8 @@ const MoreInfo = ({
           <Paper elevation={0} className={classes.paper}>
             <div className={classes.contentDiv}>
               <h1 className={classes.title}>{info.title}</h1>
-              <img className={classes.background} src={background} alt='back' />
-              <div className={classes.content}>{info.content}</div>
+              <img className={classes.background} src={info.ImageUrl} alt='back' />
+              <div className={classes.content} dangerouslySetInnerHTML={{ __html: info.Bio }}></div>
             </div>
           </Paper>
         </Dialog>
@@ -65,8 +64,8 @@ const MoreInfo = ({
               <span className={classes.arrow} ref={setArrowRef} />
               <div className={classes.contentDiv}>
                 <h1 className={classes.title}>{info.title}</h1>
-                <img className={classes.background} src={background} alt='back' />
-                <div className={classes.content}>{info.content}</div>
+                <img className={classes.background} src={info.ImageUrl} alt='back' />
+                <div className={classes.content} dangerouslySetInnerHTML={{ __html: info.Bio }}></div>
               </div>
             </Paper>
           </ClickAwayListener>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import useStyles from './styles'
 import * as cx from 'classnames'
-import { TimeLine, moreInfoContent } from './mockup'
+import { TimeLine } from './mockup'
 import { TimeLineRow } from 'components/TimeLineRow'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import 'react-perfect-scrollbar/dist/css/styles.css'
@@ -22,8 +22,10 @@ const ScheduleTable = ({
   const [anchorEl, setAnchorEl] = useState(null)
   const [openMoreInfo, setOpenMoreInfo] = useState(false)
   const [scrollWidth, setScrollWidth] = useState(1000)
+  const [moreInfoContent, setMoreInfoContent] = useState({ title: '', content: '' })
 
-  const handleClickMoreInfo = (event) => {
+  const handleClickMoreInfo = (key) => (event) => {
+    setMoreInfoContent(content[key].description)
     setAnchorEl(event.currentTarget)
     setOpenMoreInfo(event.currentTarget !== anchorEl ? true : !openMoreInfo)
     openFlag = true
@@ -83,12 +85,13 @@ const ScheduleTable = ({
                                     content='More Info'
                                     className={classes.moreInfoButton}
                                     variant='contained'
-                                    onClick={handleClickMoreInfo}
+                                    onClick={handleClickMoreInfo(key)}
+                                    disabled={item.text === 'Loading...' && true}
                                   />
                                   :
                                   (<strong
                                     className={classes.moreInfo}
-                                    onClick={handleClickMoreInfo}
+                                    onClick={handleClickMoreInfo(key)}
                                   >
                                     More Info
                                   </strong>)
@@ -123,7 +126,7 @@ const ScheduleTable = ({
                               <td
                                 key={key1}
                                 className={cx(classes.tableCell, stateTextClass)}
-                                onClick={() => value === 2 && onClikcGetCage(time.value, item)}
+                                onClick={() => value === 2 && onClikcGetCage(time.text, item.staffId)}
                               >{stateText}</td>
                             )
                           })

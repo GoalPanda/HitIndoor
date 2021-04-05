@@ -7,18 +7,29 @@ import useStyles from './styles'
 import { CustomDropdown } from 'components/CustomDropdown'
 import { CustomButton } from 'components/CustomButton'
 
-const dropContent = [
-  { text: '30 Min Cage', value: '1' },
-  { text: '60 Min Cage', value: '2' },
-  { text: '90 Min Cage', value: '3' },
-  { text: '120 Min Cage', value: '4' },
-]
-
 const BookAppointment = ({
   open,
   onClose,
+  bookContent,
 }) => {
   const classes = useStyles()
+
+  const handleSelect = (key) => {
+    const session_type_id = bookContent.sessions[key].value
+    const cageName = bookContent.sessions[key].text
+    const url =
+      `https://cart.mindbodyonline.com/sites/29397/cart/add_booking?
+item[info]=${bookContent.info}&
+item[mbo_location_id]=${bookContent.mbo_location_id}&
+item[name]=${cageName}&
+item[session_type_id]=${session_type_id}&
+item[staff_id]=${bookContent.staff_id}&
+item[start_date_time]=${bookContent.start_date_time}&
+item[type]=Appointment`
+
+    console.log(url)
+    window.open(url, '_blank')
+  }
 
   return (
     <>
@@ -36,7 +47,7 @@ const BookAppointment = ({
 
           <div className={classes.control}>
             <div className={classes.type}>Appointment Type:</div>
-            <CustomDropdown dropContent={dropContent} />
+            <CustomDropdown dropContent={bookContent.sessions} selected={0} onSelect={handleSelect} />
           </div>
           <div style={{ display: 'flex' }}>
             <div className={classes.buttons}>
@@ -51,6 +62,7 @@ const BookAppointment = ({
                 content='Close'
                 className={classes.close}
                 variant='outlined'
+                onClick={() => onClose()}
               />
             </div>
           </div>
