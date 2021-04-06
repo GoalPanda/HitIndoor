@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Dialog,
   Divider,
@@ -13,10 +13,16 @@ const BookAppointment = ({
   bookContent,
 }) => {
   const classes = useStyles()
+  const [key, setKey] = useState(0)
 
-  const handleSelect = (key) => {
+  const handleSelect = (ind) => {
+    setKey(ind)
+  }
+
+  const handleBookClick = () => {
     const session_type_id = bookContent.sessions[key].value
     const cageName = bookContent.sessions[key].text
+
     const url =
       `https://cart.mindbodyonline.com/sites/29397/cart/add_booking?
 item[info]=${bookContent.info}&
@@ -27,8 +33,8 @@ item[staff_id]=${bookContent.staff_id}&
 item[start_date_time]=${bookContent.start_date_time}&
 item[type]=Appointment`
 
-    console.log(url)
     window.open(url, '_blank')
+    onClose()
   }
 
   return (
@@ -55,6 +61,7 @@ item[type]=Appointment`
                 content='Book'
                 className={classes.book}
                 variant='contained'
+                onClick={handleBookClick}
               />
             </div>
             <div className={classes.buttons}>
@@ -62,7 +69,7 @@ item[type]=Appointment`
                 content='Close'
                 className={classes.close}
                 variant='outlined'
-                onClick={() => onClose()}
+                onClick={onClose}
               />
             </div>
           </div>

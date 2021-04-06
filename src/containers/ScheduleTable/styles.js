@@ -79,6 +79,9 @@ export default makeStyles(theme => ({
     }
   },
   moreInfo: {
+    fontWeight: '500',
+    fontSize: '12px',
+    lineHeight: '14px',
     textDecoration: 'underline',
     cursor: 'pointer',
   },

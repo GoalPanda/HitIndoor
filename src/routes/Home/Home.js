@@ -5,7 +5,11 @@ import { ScheduleTable } from 'containers/ScheduleTable'
 import { ClassTable } from 'containers/ClassTable'
 import { Toolbar } from 'containers/Toolbar'
 import { Filterbar } from 'containers/Filterbar'
-import { Container } from '@material-ui/core'
+import {
+  Container,
+  Backdrop,
+  CircularProgress,
+} from '@material-ui/core'
 import { BookAppointment } from 'components/BookAppointment'
 import PropTypes from 'prop-types'
 import { compose } from 'redux'
@@ -26,11 +30,11 @@ import {
   weekAppointmentSelector,
   selectedResourceSelector,
   classSelector,
-  bookSelector,
 } from 'redux/modules/global/selectors'
 import { createStructuredSelector } from 'reselect'
 import moment from 'moment-timezone'
 import { bookContent } from 'containers/ScheduleTable/mockup'
+import useStyles from './styles.js'
 
 const Home = ({
   getResource,
@@ -46,8 +50,9 @@ const Home = ({
   setViewMode,
   setStartDate,
   getBook,
-  book,
 }) => {
+  const classes = useStyles()
+
   const [tableContent, setTableContent] = useState([{ text: 'Loading...', value: {} }])
   const [classTableData, setClassTableData] = useState([])
   const [toolbarMode, setToolbarMode] = useState('today')
@@ -57,8 +62,8 @@ const Home = ({
   const [headerMode, setHeaderMode] = useState(2)
   const [dropContent, setDropContent] = useState([{ text: 'All Resources', value: -1 }])
   const [bookItems, setBookItems] = useState([{ text: 'nothing', value: -1 }])
-  const [books, setBooks] = useState([])
-  
+  const [cageLoading, setCageLoading] = useState(false)
+
   useEffect(() => {
     getResource()
   }, [getResource])
@@ -103,16 +108,6 @@ const Home = ({
             endDate: startDate
           }
         })
-
-        const sessionTypeIds = bookContent.map(item => item.value)
-        getBook({
-          body: {
-            sessionTypeIds,
-            staffIds,
-            startDate,
-            endDate: startDate
-          }
-        })
       } else if (tableMode === 'week') {
         const weekStartDate = moment(date).startOf('week')
         getWeekAppointment({
@@ -124,13 +119,13 @@ const Home = ({
         })
       }
     }
-  }, [resource, getAppointment, getBook, getWeekAppointment, headerMode, date, tableMode])
+  }, [resource, getAppointment, getWeekAppointment, headerMode, date, tableMode])
 
   useEffect(() => {
     if (headerMode === 1 && date) {
       const startDate = tableMode === 'day' ? moment(date).tz('America/Chicago') : moment(date).startOf('week')
       const endDate = tableMode === 'day' ? startDate : moment(startDate).add(6, 'days')
-      let initValue = [{ text: 'All Resources', value: -1 }]
+      let initValue = [{ text: 'All Classes', value: -1 }]
       setDropContent(initValue)
       getClass({
         body: {
@@ -150,7 +145,7 @@ const Home = ({
           value: 1
         }
       })
-      let initValue = [{ text: 'All Resources', value: -1 }].concat(classDropContent)
+      let initValue = [{ text: 'All Classes', value: -1 }].concat(classDropContent)
       setDropContent(initValue)
     }
   }, [classContent, headerMode])
@@ -164,9 +159,11 @@ const Home = ({
       for (let i = 0; i < 7; i++) {
         let weekDates = moment(weekStartDate).add(i, 'day').format('ddd MM/DD')
         let weekValue = weekAppointment[sel].value[weekDates]
+        const staffId = weekAppointment[sel].staffId
         weekData.push({
           text: weekDates,
-          value: weekValue ? weekValue : {}
+          value: weekValue ? weekValue : {},
+          staffId,
         })
       }
       setTableContent(weekData)
@@ -179,31 +176,72 @@ const Home = ({
     }
   }, [selectedResource, appointment, tableMode])
 
-  useEffect(() => {
-    if (book.length > 0) {
-      setBooks(book)
+  const handleClickGetCage = (tableMode, text, time, staffId) => {
+    const sessionTypeIds = bookContent.map(item => item.value)
+    let startDate
+    if (tableMode === 'day') {
+      startDate = moment(date).format('MM/DD/YYYY')
+    } else if (tableMode === 'week') {
+      startDate = moment(text + moment(date).format('/YYYY')).format('MM/DD/YYYY')
     }
-  }, [book])
 
+    setCageLoading(true)
+    getBook({
+      body: {
+        sessionTypeIds,
+        staffIds: staffId,
+        startDate,
+        endDate: startDate
+      },
+      success: ({ data }) => {
+        let bookRes = null
 
-  const handleClickGetCage = (time, staffId) => {
-    if (books.length > 0) {
-      const bookItemRes = books[staffId].sessions[time].map(item => {
-        return bookContent.find(ind => ind.value === item)
-      })
+        data.Availabilities.forEach(item => {
+          const sessionId = item.SessionType.Id
+          const bookableStartTime = item.StartDateTime
+          const bookableEndTime = item.BookableEndDateTime
+          if (!bookRes) {
+            bookRes = {
+              sessions: [],
+              mbo_location_id: item.Location.Id,
+            }
+          }
 
-      const startDateTime = moment(date).format('ddd. MMM  D, YYYY  ') + `${time}`
-      setBookItems({
-        info: startDateTime,
-        mbo_location_id: books[staffId].mbo_location_id,
-        name: books[staffId].name,
-        staff_id: staffId,
-        start_date_time: moment(date).format('YYYY-MM-DDThh:mm:ss+00:00'),
-        type: 'Appointment',
-        sessions: bookItemRes
-      })
-      setOpenBook(true)
-    }
+          for (
+            let st = moment(bookableStartTime)
+            ; moment(st).isBefore(moment(bookableEndTime));
+            st = moment(st).add(30, 'minute')
+          ) {
+            const time = moment(st).format('h:mm a')
+            if (!bookRes.sessions[time]) {
+              bookRes.sessions[time] = []
+            }
+
+            bookRes.sessions[time].push(sessionId)
+          }
+        })
+
+        const bookItemRes = bookRes.sessions[time].map(item => {
+          return bookContent.find(ind => ind.value === item)
+        })
+
+        const startDateTime = moment(date).format('ddd. MMM  D, YYYY  ') + `${time}`
+        setBookItems({
+          info: startDateTime,
+          mbo_location_id: bookRes.mbo_location_id,
+          staff_id: staffId,
+          start_date_time: moment(date).format('YYYY-MM-DDThh:mm:ss+00:00'),
+          type: 'Appointment',
+          sessions: bookItemRes
+        })
+
+        setCageLoading(false)
+        setOpenBook(true)
+      },
+      fail: (err) => {
+        setCageLoading(false)
+      }
+    })
   }
 
   const handleClickHeader = (key) => {
@@ -233,6 +271,9 @@ const Home = ({
 
   return (
     <>
+      <Backdrop className={classes.backdrop} open={cageLoading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <BookAppointment open={openBook} onClose={() => setOpenBook(false)} bookContent={bookItems} />
       <Mobile>
         <MobileHeader onChanageMode={(val) => setHeaderMode(val)} />
@@ -246,7 +287,7 @@ const Home = ({
             onChangeWeek={handleChangeWeek}
           />
           <Filterbar
-            title={moment(date).format('dddd DD/MM/YYYY')}
+            title={moment(date).format('dddd MM/DD/YYYY')}
             mode={headerMode}
             dropContent={dropContent}
           />
@@ -277,7 +318,7 @@ const Home = ({
             onChangeWeek={handleChangeWeek}
           />
           <Filterbar
-            title={moment(date).format('dddd DD/MM/YYYY')}
+            title={moment(date).format('dddd MM/DD/YYYY')}
             mode={headerMode}
             dropContent={dropContent}
           />
@@ -333,7 +374,6 @@ const selector = createStructuredSelector({
   classContent: classSelector,
   weekAppointment: weekAppointmentSelector,
   selectedResource: selectedResourceSelector,
-  book: bookSelector,
 })
 
 export default compose(connect(selector, actions))(Home)

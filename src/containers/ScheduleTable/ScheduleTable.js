@@ -93,7 +93,7 @@ const ScheduleTable = ({
                                     className={classes.moreInfo}
                                     onClick={handleClickMoreInfo(key)}
                                   >
-                                    More Info
+                                    Click for more info
                                   </strong>)
                               )
                             }
@@ -121,12 +121,18 @@ const ScheduleTable = ({
                             } else if (value && value === 2) {
                               stateText = 'Get Cage'
                               stateTextClass = classes.getCage
+                            } else if (value && value === 3) {
+                              stateText = 'Lesson'
+                              stateTextClass = classes.getCage
                             }
                             return (
                               <td
                                 key={key1}
                                 className={cx(classes.tableCell, stateTextClass)}
-                                onClick={() => value === 2 && onClikcGetCage(time.text, item.staffId)}
+                                onClick={() =>
+                                  (value === 2 || value === 3) &&
+                                  onClikcGetCage(mode, item.text, time.text, item.staffId)
+                                }
                               >{stateText}</td>
                             )
                           })

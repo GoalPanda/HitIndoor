@@ -23,7 +23,7 @@ const CustomCalendar = ({
         className={classes.calendar}
         //disableToolbar
         variant='inline'
-        format='dd/MM/yyyy'
+        format='MM/dd/yyyy'
         value={date}
         onChange={handleDateChange}
         keyboardIcon={<img src={calendarSvg} alt='calendar' />}

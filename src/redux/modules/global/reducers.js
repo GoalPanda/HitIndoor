@@ -8,7 +8,6 @@ const getInitialState = () => {
     resource: null,
     appointment: [],
     class: [],
-    book: [],
     weekAppointment: [],
     selectedResource: -1,
 
@@ -59,13 +58,17 @@ export default handleActions({
     const content = payload.StaffMembers.map(item => {
       let value = {}
       item.Availabilities.forEach(element => {
+        let type = 2
+        if (element.Programs[0].Name === 'Lesson') {
+          type = 3
+        }
         for (let i = moment(element.StartDateTime)
           ;
           moment(i).isBefore(element.EndDateTime)
           ;
           i = moment(i).add(30, 'minutes')) {
           const times = moment(i).format('h:mm a')
-          Object.assign(value, { [times]: 2 })
+          Object.assign(value, { [times]: type })
         }
       })
 
@@ -231,58 +234,6 @@ export default handleActions({
     ...state,
     status: requestFail(CONSTANTS.GET_CLASS),
     class: [],
-    error: payload
-  }),
-
-  [CONSTANTS.GET_BOOK]: (state, { payload }) => ({
-    ...state,
-    status: 'PENDING',
-    book: []
-  }),
-
-  [requestSuccess(CONSTANTS.GET_BOOK)]: (state, { payload }) => {
-    let bookItems = []
-
-    payload.Availabilities.forEach(item => {
-      const staffId = item.Staff.Id
-      const sessionId = item.SessionType.Id
-      const bookableStartTime = item.StartDateTime
-      const bookableEndTime = item.BookableEndDateTime
-      
-      if(!bookItems[staffId]) {
-        bookItems[staffId] = {
-          sessions: [],
-          //name: item.Staff.FirstName,
-          mbo_location_id: item.Location.Id,
-        }
-      }
-
-      for (
-        let st = moment(bookableStartTime)
-        ; moment(st).isBefore(moment(bookableEndTime));
-        st = moment(st).add(30, 'minute')
-      ) {
-        const time = moment(st).format('h:mm a')
-        if (!bookItems[staffId].sessions[time]) {
-          bookItems[staffId].sessions[time] = []
-        }
-
-        bookItems[staffId].sessions[time].push(sessionId)
-      }
-    })
-
-    return ({
-      ...state,
-      book: bookItems,
-      status: requestSuccess(CONSTANTS.GET_BOOK),
-      error: null
-    })
-  },
-
-  [requestFail(CONSTANTS.GET_BOOK)]: (state, { payload }) => ({
-    ...state,
-    status: requestFail(CONSTANTS.GET_BOOK),
-    book: [],
     error: payload
   }),
 

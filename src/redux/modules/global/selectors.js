@@ -15,9 +15,6 @@ export const appointmentSelector = (state) =>
 export const classSelector = (state) =>
   get(state, 'global.class', null)
 
-export const bookSelector = (state) =>
-  get(state, 'global.book', null)
-
 export const weekAppointmentSelector = (state) =>
   get(state, 'global.weekAppointment', null)
 
