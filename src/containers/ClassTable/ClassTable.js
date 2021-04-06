@@ -10,6 +10,7 @@ import {
   AccordionDetails,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import moment from 'moment-timezone'
 
 const tableHeader = [
   { text: 'Date', value: 1 },
@@ -38,7 +39,24 @@ const ClassTable = ({
     setScrollWidth(document.querySelector('#table-area').offsetWidth)
   }, [setScrollWidth, setContentAreaWidth])
 
-  const handleClickSignup = () => {
+  const handleClickSignup = (key, index) => {
+    const curIndexValue = content[key].value[index]
+
+    const mbo_id = content[key].description
+    const location_id = curIndexValue.LocationId
+    const name = curIndexValue.Classes
+    const dateTime = moment(curIndexValue.Date).format('ddd. MMM  D, YYYY  ') +
+      `${curIndexValue['Start Time']}`
+
+    const url =
+      `https://cart.mindbodyonline.com/sites/29397/cart/add_booking?
+item[info]=${dateTime}&
+item[mbo_id]=${mbo_id}&
+item[mbo_location_id]=${location_id}&
+item[name]=${name}&
+item[type]=Class`
+
+    window.open(url, '_blank')
   }
 
   return (
@@ -108,12 +126,15 @@ const ClassTable = ({
                                               >
                                                 {contentItem[ind]}
                                                 {
+                                                  key1 === 1 && ' CDT'
+                                                }
+                                                {
                                                   key1 === 1 &&
                                                   <CustomButton
                                                     content='Sign Up'
                                                     className={classes.signupButton}
                                                     variant='contained'
-                                                    onClick={handleClickSignup}
+                                                    onClick={() => handleClickSignup(key, index)}
                                                   />
                                                 }
                                               </td>

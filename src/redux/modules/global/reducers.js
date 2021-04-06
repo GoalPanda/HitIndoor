@@ -184,6 +184,8 @@ export default handleActions({
     payload.ClassSchedules.forEach(item => {
       if (item.IsAvailable === true) {
         const ind = item.ClassDescription.Name
+        const location_id = item.Location.Id
+
         if (!value[ind]) {
           value[ind] = []
         }
@@ -202,10 +204,11 @@ export default handleActions({
 
           value[ind].push({
             'Date': moment(st).format('ddd MM/DD/YYYY'),
-            'Start Time': `${moment(item.StartTime).format('h:mm a')} CDT`,
+            'Start Time': `${moment(item.StartTime).format('h:mm a')}`,
             'Classes': ind,
             'Teacher': `${item.Staff.LastName} ${item.Staff.FirstName}`,
-            'Duration': `${moment.duration(moment(item.EndTime).diff(moment(item.StartTime))).asHours()} hours`
+            'Duration': `${moment.duration(moment(item.EndTime).diff(moment(item.StartTime))).asHours()} hours`,
+            'LocationId': location_id,
           })
         }
 
