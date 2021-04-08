@@ -8,12 +8,13 @@ import {
   Divider,
 } from '@material-ui/core'
 import * as cx from 'classnames'
-import CustomCheckbox from 'components/CustomCheckbox/CustomCheckbox'
+import { HelpLabel } from 'components/HelpLabel'
 import moment from 'moment'
 
 const Toolbar = ({
   title,
   mode,
+  headerMode,
   date,
   onClickMode,
   onChangeDate,
@@ -76,12 +77,13 @@ const Toolbar = ({
           <div style={{ paddingLeft: '10px', paddingRight: '10px' }}>
             <CustomCalendar date={date} onChange={handleChange} />
           </div>
-
-          <div style={{ padding: '17px' }}>
-            <CustomCheckbox label='Available Times' color='#C7F3F3' />
-            <CustomCheckbox label='Unavailable Times' color='#BCE9C6' />
-          </div>
-
+          {
+            headerMode === 2 &&
+            <div style={{ padding: '17px', display: 'flex' }}>
+              <HelpLabel label='Available Times' color='#C7F3F3' />
+              <HelpLabel label='Unavailable Times' color='#BCE9C6' />
+            </div>
+          }
         </div>
       </Mobile>
 
@@ -91,14 +93,13 @@ const Toolbar = ({
             {title}
           </h1>
           <div className={classes.center}>
-            <div className={classes.checkboxArea}>
-              <div>
-                <CustomCheckbox label='Available Times' color='#C7F3F3' />
+            {
+              headerMode === 2 &&
+              <div className={classes.checkboxArea}>
+                <HelpLabel label='Available Times' color='#C7F3F3' />
+                <HelpLabel label='Unavailable Times' color='#BCE9C6' />
               </div>
-              <div>
-                <CustomCheckbox label='Unavailable Times' color='#BCE9C6' />
-              </div>
-            </div>
+            }
 
             <CustomButton
               className={cx(classes.button, mode === 'today' && classes.selectedMode)}

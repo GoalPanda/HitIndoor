@@ -67,10 +67,14 @@ export default handleActions({
           moment(i).isBefore(element.EndDateTime)
           ;
           i = moment(i).add(30, 'minutes')) {
+          if (moment(i).isBefore(Date.now())) {
+            continue
+          }
           const times = moment(i).format('h:mm a')
           Object.assign(value, { [times]: type })
         }
       })
+      console.log(value)
 
       item.Appointments.forEach(element => {
         for (let i = 0; i < element.Duration; i += 30) {

@@ -65,6 +65,13 @@ const Home = ({
   const [cageLoading, setCageLoading] = useState(false)
 
   useEffect(() => {
+    if (headerMode === 1) {
+      setToolbarMode('day')
+      setDate(prev => moment(prev).add(1, 'day'))
+    }
+  }, [headerMode])
+
+  useEffect(() => {
     getResource()
   }, [getResource])
 
@@ -141,7 +148,7 @@ const Home = ({
       setClassTableData(classContent)
       const classDropContent = classContent.map(item => {
         return {
-          text: item.value[0].Teacher,
+          text: item.value[0].Classes,
           value: 1
         }
       })
@@ -281,6 +288,7 @@ const Home = ({
           <Toolbar
             title={headerMode === 2 ? 'Select an Appointment' : 'Class Schedule'}
             mode={toolbarMode}
+            headerMode={headerMode}
             date={date}
             onClickMode={handleClickMode}
             onChangeDate={handleChangeDate}
@@ -312,6 +320,7 @@ const Home = ({
           <Toolbar
             title={headerMode === 2 ? 'Select an Appointment' : 'Class Schedule'}
             mode={toolbarMode}
+            headerMode={headerMode}
             date={date}
             onClickMode={handleClickMode}
             onChangeDate={handleChangeDate}
