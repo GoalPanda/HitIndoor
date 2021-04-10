@@ -67,14 +67,34 @@ export default handleActions({
           moment(i).isBefore(element.EndDateTime)
           ;
           i = moment(i).add(30, 'minutes')) {
-          if (moment(i).isBefore(Date.now())) {
-            continue
+
+          const weekend = moment(i).format('ddd')
+          if (weekend === 'Sun' || weekend === 'Sat') {
+            if (moment(i).isBefore(Date.now()) || moment(i).isAfter(moment(i).set({ h: '7', m: '00', a: 'P' }))) {
+              continue
+            }
           }
+          else {
+            if (moment(i).isBefore(Date.now()) || moment(i).isBefore(moment(i).set({ h: '11', m: '30', a: 'A' }))) {
+              continue
+            }
+          }
+
           const times = moment(i).format('h:mm a')
           Object.assign(value, { [times]: type })
         }
       })
-      console.log(value)
+
+      item.Unavailabilities.forEach(element => {
+        for (let i = moment(element.StartDateTime)
+          ;
+          moment(i).isBefore(element.EndDateTime)
+          ;
+          i = moment(i).add(30, 'minutes')) {
+          const times = moment(i).format('h:mm a')
+          Object.assign(value, { [times]: 4 })
+        }
+      })
 
       item.Appointments.forEach(element => {
         for (let i = 0; i < element.Duration; i += 30) {

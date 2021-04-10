@@ -124,6 +124,9 @@ const ScheduleTable = ({
                             } else if (value && value === 3) {
                               stateText = 'Lesson'
                               stateTextClass = classes.getCage
+                            } else if (value && value === 3) {
+                              stateText = ' '
+                              stateTextClass = classes.out
                             }
                             return (
                               <td

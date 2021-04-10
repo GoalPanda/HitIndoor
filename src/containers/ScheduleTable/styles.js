@@ -106,6 +106,9 @@ export default makeStyles(theme => ({
       textDecoration: 'underline',
     }
   },
+  out: {
+    background: '#aaaaaa',
+  },
   moreInfoButton: {
     background: '#E52F3A',
     boxShadow: '0px 6px 20px rgba(229, 47, 58, 0.4)',

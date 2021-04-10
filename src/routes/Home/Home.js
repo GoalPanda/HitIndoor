@@ -106,7 +106,7 @@ const Home = ({
   useEffect(() => {
     if (resource && date && headerMode === 2) {
       const staffIds = resource.map(item => item.value)
-      const startDate = moment(date).tz('America/Chicago')
+      const startDate = date
       if (tableMode === 'day') {
         getAppointment({
           body: {
@@ -130,7 +130,7 @@ const Home = ({
 
   useEffect(() => {
     if (headerMode === 1 && date) {
-      const startDate = tableMode === 'day' ? moment(date).tz('America/Chicago') : moment(date).startOf('week')
+      const startDate = tableMode === 'day' ? date : moment(date).startOf('week')
       const endDate = tableMode === 'day' ? startDate : moment(startDate).add(6, 'days')
       let initValue = [{ text: 'All Classes', value: -1 }]
       setDropContent(initValue)
