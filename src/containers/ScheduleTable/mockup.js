@@ -27,23 +27,23 @@ const TimeLine = [
 ]
 
 const bookContent = [
-  { text: '30 Min Cage', value: 5 },
-  { text: '60 Min Cage', value: 6 },
-  { text: '90 Min Cage', value: 29 },
-  { text: '120 Min Cage', value: 30 },
-  { text: '30 Min Outdoor Cage', value: 51 },
-  { text: '60 Min Outdoor Cage', value: 52 },
-  { text: '90 Min Outdoor Cage', value: 53 },
-  { text: '120 Min Outdoor Cage', value: 54 },
+  { text: '30 Min Cage', value: 5, duration: 1 },
+  { text: '60 Min Cage', value: 6, duration:2 },
+  { text: '90 Min Cage', value: 29, duration: 3 },
+  { text: '120 Min Cage', value: 30, duration: 4 },
+  { text: '30 Min Outdoor Cage', value: 51, duration: 1 },
+  { text: '60 Min Outdoor Cage', value: 52, duration: 2 },
+  { text: '90 Min Outdoor Cage', value: 53, duration: 3 },
+  { text: '120 Min Outdoor Cage', value: 54, duration: 4 },
 
-  { text: 'Baseball/Batting 60 Min', value: 87 },
-  { text: 'Baseball/Batting 30 Min', value: 83 },
-  { text: 'Softball/Batting 30 Min', value: 84 },
-  { text: 'Softball/Batting 60 Min', value: 88 },
-  { text: 'Baseball/Pitching 30 Min', value: 85 },
-  { text: 'Baseball/Pitching 60 Min', value: 89 },
-  { text: 'Softball/Pitching 30 Min', value: 86 },
-  { text: 'Softball/Pitching 60 Min', value: 90 }
+  { text: 'Baseball/Batting 60 Min', value: 87, duration: 2 },
+  { text: 'Baseball/Batting 30 Min', value: 83, duration: 1 },
+  { text: 'Softball/Batting 30 Min', value: 84, duration: 1 },
+  { text: 'Softball/Batting 60 Min', value: 88, duration: 2 },
+  { text: 'Baseball/Pitching 30 Min', value: 85, duration: 1 },
+  { text: 'Baseball/Pitching 60 Min', value: 89, duration: 2 },
+  { text: 'Softball/Pitching 30 Min', value: 86, duration: 1 },
+  { text: 'Softball/Pitching 60 Min', value: 90, duration: 2 }
 ]
 
 export {

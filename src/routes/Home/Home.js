@@ -183,7 +183,7 @@ const Home = ({
     }
   }, [selectedResource, appointment, tableMode])
 
-  const handleClickGetCage = (tableMode, text, time, staffId) => {
+  const handleClickGetCage = (tableMode, text, time, staffId, availableTimes) => {
     const sessionTypeIds = bookContent.map(item => item.value)
     let startDate
     if (tableMode === 'day') {
@@ -216,7 +216,7 @@ const Home = ({
 
           for (
             let st = moment(bookableStartTime)
-            ; moment(st).isBefore(moment(bookableEndTime));
+            ; moment(st).isBefore(moment(bookableEndTime).add(30, 'minute'));
             st = moment(st).add(30, 'minute')
           ) {
             const stime = moment(st).format('h:mm a')
@@ -228,8 +228,23 @@ const Home = ({
           }
         })
 
-        const bookItemRes = bookRes.sessions[time].map(item => {
-          return bookContent.find(ind => ind.value === item)
+        let bookItemRes = []
+
+        bookRes.sessions[time].forEach(timeItem => {
+          const sessionItem = bookContent.find(ind => ind.value === timeItem)
+
+          let ableFlag = true
+          for (let i = 0; i < sessionItem.duration; i++) {
+            let st = moment(time, 'h:mm a').add(i * 30, 'minute').format('h:mm a')
+            if (availableTimes[st] !== 2) {
+              ableFlag = false
+              break
+            }
+          }
+
+          if (ableFlag === true) {
+            bookItemRes.push(sessionItem)
+          }
         })
 
         const startDateTime = moment(date).format('ddd. MMM  D, YYYY  ') + `${time}`
@@ -288,7 +303,10 @@ const Home = ({
       <Backdrop className={classes.backdrop} open={cageLoading}>
         <CircularProgress color="inherit" />
       </Backdrop>
-      <BookAppointment open={openBook} onClose={() => setOpenBook(false)} bookContent={bookItems} />
+      {
+        openBook &&
+        <BookAppointment open={openBook} onClose={() => setOpenBook(false)} bookContent={bookItems} />
+      }
       <Mobile>
         <MobileHeader onChanageMode={(val) => setHeaderMode(val)} />
         <Container maxWidth={false}>

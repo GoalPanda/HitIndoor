@@ -135,7 +135,7 @@ const ScheduleTable = ({
                                 className={cx(classes.tableCell, stateTextClass)}
                                 onClick={() =>
                                   (value === 2 || value === 3) &&
-                                  onClickGetCage(mode, item.text, time.text, item.staffId)
+                                  onClickGetCage(mode, item.text, time.text, item.staffId, item.value)
                                 }
                               >{stateText}</td>
                             )

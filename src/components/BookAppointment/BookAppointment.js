@@ -37,6 +37,11 @@ item[type]=Appointment`
     onClose()
   }
 
+  if (bookContent.sessions && bookContent.sessions.length === 1) {
+    handleBookClick()
+  }
+
+
   return (
     <>
       <Dialog
