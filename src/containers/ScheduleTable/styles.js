@@ -107,7 +107,7 @@ export default makeStyles(theme => ({
     }
   },
   out: {
-    background: '#aaaaaa',
+    background: 'white',
   },
   moreInfoButton: {
     background: '#E52F3A',

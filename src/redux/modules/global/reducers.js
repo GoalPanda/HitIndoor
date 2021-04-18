@@ -2,6 +2,7 @@ import { handleActions } from 'redux-actions'
 import { requestSuccess, requestFail } from 'redux/api/request'
 import * as CONSTANTS from './constants'
 import moment from 'moment-timezone'
+import { isBusinessTime } from 'helpers/dateCheck'
 
 const getInitialState = () => {
   return {
@@ -68,16 +69,9 @@ export default handleActions({
           ;
           i = moment(i).add(30, 'minutes')) {
 
-          const weekend = moment(i).format('ddd')
-          if (weekend === 'Sun' || weekend === 'Sat') {
-            if (moment(i).isBefore(Date.now()) || moment(i).isAfter(moment(i).set({ h: '7', m: '00', a: 'P' }))) {
-              continue
-            }
-          }
-          else {
-            if (moment(i).isBefore(Date.now()) || moment(i).isBefore(moment(i).set({ h: '11', m: '30', a: 'A' }))) {
-              continue
-            }
+          const dayOfWeek = moment(i).format('ddd')
+          if (isBusinessTime(dayOfWeek, i) === true) {
+            continue
           }
 
           const times = moment(i).format('h:mm a')
@@ -91,6 +85,10 @@ export default handleActions({
           moment(i).isBefore(element.EndDateTime)
           ;
           i = moment(i).add(30, 'minutes')) {
+          const dayOfWeek = moment(i).format('ddd')
+          if (isBusinessTime(dayOfWeek, i) === true) {
+            continue
+          }
           const times = moment(i).format('h:mm a')
           Object.assign(value, { [times]: 4 })
         }
@@ -153,6 +151,10 @@ export default handleActions({
           moment(i).isBefore(element.EndDateTime)
           ;
           i = moment(i).add(30, 'minutes')) {
+          const dayOfWeek = moment(i).format('ddd')
+          if (isBusinessTime(dayOfWeek, i) === true) {
+            continue
+          }
           const times = moment(i).format('h:mm a')
           Object.assign(value, { [times]: 2 })
         }

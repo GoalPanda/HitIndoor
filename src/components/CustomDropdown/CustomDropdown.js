@@ -16,6 +16,7 @@ const CustomDropdown = ({
   dropContent,
   onSelect,
   selected,
+  tableMode,
 }) => {
   const classes = useStyles()
   const [openDrop, setOpenDrop] = useState(false)
@@ -37,6 +38,10 @@ const CustomDropdown = ({
   }
 
   const handleClickItem = (key) => () => {
+    if (tableMode === 'week' && key === 0) {
+      window.alert('Please click Day to check all resources')
+      return
+    } 
     onSelect(key)
     setSelectedText(dropContent[key].text)
     handleClose()

@@ -219,12 +219,12 @@ const Home = ({
             ; moment(st).isBefore(moment(bookableEndTime));
             st = moment(st).add(30, 'minute')
           ) {
-            const time = moment(st).format('h:mm a')
-            if (!bookRes.sessions[time]) {
-              bookRes.sessions[time] = []
+            const stime = moment(st).format('h:mm a')
+            if (!bookRes.sessions[stime]) {
+              bookRes.sessions[stime] = []
             }
 
-            bookRes.sessions[time].push(sessionId)
+            bookRes.sessions[stime].push(sessionId)
           }
         })
 
@@ -260,6 +260,9 @@ const Home = ({
   }
 
   const handleClickMode = (mode) => {
+    if (mode === 'week' && selectedResource === -1) {
+      return
+    }
     setToolbarMode(mode)
     setTableMode(mode === 'week' ? 'week' : 'day')
     setViewMode(mode === 'week' ? 'week' : 'day')
@@ -271,6 +274,10 @@ const Home = ({
   }
 
   const handleChangeWeek = (changedDate) => {
+    if (selectedResource === -1) {
+      window.alert('Please select one resource to go the weekly view.')
+      return
+    }
     setDate(changedDate)
     setStartDate(changedDate)
     setTableMode('week')
@@ -297,6 +304,7 @@ const Home = ({
           <Filterbar
             title={moment(date).format('dddd MM/DD/YYYY')}
             mode={headerMode}
+            tableMode={tableMode}
             dropContent={dropContent}
           />
           {
@@ -305,7 +313,7 @@ const Home = ({
               <ScheduleTable
                 mode={tableMode}
                 content={tableContent}
-                onClikcGetCage={handleClickGetCage}
+                onClickGetCage={handleClickGetCage}
                 onClickHeader={handleClickHeader}
               />
               :
@@ -329,6 +337,7 @@ const Home = ({
           <Filterbar
             title={moment(date).format('dddd MM/DD/YYYY')}
             mode={headerMode}
+            tableMode={tableMode}
             dropContent={dropContent}
           />
           {
@@ -337,7 +346,7 @@ const Home = ({
               <ScheduleTable
                 mode={tableMode}
                 content={tableContent}
-                onClikcGetCage={handleClickGetCage}
+                onClickGetCage={handleClickGetCage}
                 onClickHeader={handleClickHeader}
               />
               :

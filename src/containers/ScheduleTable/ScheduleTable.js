@@ -15,7 +15,7 @@ const ScheduleTable = ({
   content,
   mode,
   onClickHeader,
-  onClikcGetCage,
+  onClickGetCage,
 }) => {
   const classes = useStyles()
   const isMobile = useMediaQuery({ maxWidth: 600 })
@@ -124,17 +124,18 @@ const ScheduleTable = ({
                             } else if (value && value === 3) {
                               stateText = 'Lesson'
                               stateTextClass = classes.getCage
-                            } else if (value && value === 3) {
-                              stateText = ' '
+                            } else if (value && value === 4) {
+                              stateText = 'Out'
                               stateTextClass = classes.out
                             }
+
                             return (
                               <td
                                 key={key1}
                                 className={cx(classes.tableCell, stateTextClass)}
                                 onClick={() =>
                                   (value === 2 || value === 3) &&
-                                  onClikcGetCage(mode, item.text, time.text, item.staffId)
+                                  onClickGetCage(mode, item.text, time.text, item.staffId)
                                 }
                               >{stateText}</td>
                             )

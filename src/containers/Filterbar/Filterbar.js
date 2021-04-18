@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import useStyles from './styles'
-import { Mobile, Default } from 'containers/ResponseLayout'
 import * as cx from 'classnames'
 import { CustomDropdown } from 'components/CustomDropdown'
 import PropTypes from 'prop-types'
@@ -12,15 +11,18 @@ import {
 } from 'redux/modules/global/selectors'
 import { createStructuredSelector } from 'reselect'
 import { selectResource } from 'redux/modules/global/actions'
+import { useMediaQuery } from 'react-responsive'
 
 const Filterbar = ({
   title,
   mode,
+  tableMode,
   dropContent,
   selectedResource,
   selectResource,
 }) => {
   const classes = useStyles()
+  const isMobile = useMediaQuery({ maxWidth: 767 })
   const [selected, setSelected] = useState(0)
 
   useEffect(() => {
@@ -28,37 +30,19 @@ const Filterbar = ({
   }, [selectedResource])
 
   return (
-    <>
-      <Mobile>
-        <div className={classes.mobileRoot}>
-          <h1 className={cx(classes.typo, classes.center)} >
-            {mode === 2 && title}
-          </h1>
-          <div className={classes.center}>
-            <CustomDropdown
-              dropContent={dropContent}
-              onSelect={key => selectResource(key - 1)}
-              selected={selected}
-            />
-          </div>
-        </div>
-      </Mobile>
-
-      <Default>
-        <div className={classes.pageTitleContainer}>
-          <h1 className={cx(classes.typo, classes.center)} >
-            {mode === 2 && title}
-          </h1>
-          <div className={classes.center}>
-            <CustomDropdown
-              dropContent={dropContent}
-              onSelect={key => selectResource(key - 1)}
-              selected={selected}
-            />
-          </div>
-        </div>
-      </Default>
-    </>
+    <div className={isMobile ? classes.mobileRoot : classes.pageTitleContainer}>
+      <h1 className={cx(classes.typo, classes.center)} >
+        {mode === 2 && title}
+      </h1>
+      <div className={classes.center}>
+        <CustomDropdown
+          dropContent={dropContent}
+          tableMode={tableMode}
+          onSelect={key => selectResource(key - 1)}
+          selected={selected}
+        />
+      </div>
+    </div>
   )
 }
 
