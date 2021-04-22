@@ -9,6 +9,9 @@ export const statusSelector = (state) =>
 export const resourceSelector = (state) =>
   get(state, 'global.resource', null)
 
+export const availableResourceSelector = (state) =>
+  get(state, 'global.availableResource', null)
+
 export const appointmentSelector = (state) =>
   get(state, 'global.appointment', null)
 

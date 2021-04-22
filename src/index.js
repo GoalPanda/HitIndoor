@@ -5,6 +5,7 @@ import { CssBaseline } from '@material-ui/core'
 import App from './containers/AppContainer'
 import * as serviceWorker from './serviceWorker'
 import Themes from './themes'
+import 'styles/core.scss'
 
 ReactDOM.render(
   <ThemeProvider theme={Themes.default}>

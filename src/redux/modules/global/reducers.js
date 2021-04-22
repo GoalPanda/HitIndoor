@@ -7,6 +7,7 @@ import { isBusinessTime } from 'helpers/dateCheck'
 const getInitialState = () => {
   return {
     resource: null,
+    availableResource: null,
     appointment: [],
     class: [],
     weekAppointment: [],
@@ -113,9 +114,15 @@ export default handleActions({
       }
     })
 
+    const availableAppointment = content.filter(item => Object.keys(item.value).length > 0)
+    const availableResource = availableAppointment.map(item => {
+      return state.resource.find(element => element.value === item.staffId)
+    })
+
     return ({
       ...state,
-      appointment: content,
+      availableResource,
+      appointment: availableAppointment,
       status: requestSuccess(CONSTANTS.GET_APPOINTMENT),
       error: null
     })

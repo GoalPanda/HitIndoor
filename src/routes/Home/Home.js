@@ -29,6 +29,7 @@ import {
   appointmentSelector,
   weekAppointmentSelector,
   selectedResourceSelector,
+  availableResourceSelector,
   classSelector,
 } from 'redux/modules/global/selectors'
 import { createStructuredSelector } from 'reselect'
@@ -43,6 +44,7 @@ const Home = ({
   getWeekAppointment,
   selectResource,
   resource,
+  availableResource,
   appointment,
   classContent,
   weekAppointment,
@@ -76,11 +78,11 @@ const Home = ({
   }, [getResource])
 
   useEffect(() => {
-    if (resource && headerMode === 2) {
-      let initValue = [{ text: 'All Resources', value: -1 }].concat(resource)
+    if (availableResource && headerMode === 2) {
+      let initValue = [{ text: 'All Resources', value: -1 }].concat(availableResource)
       setDropContent(initValue)
     }
-  }, [resource, headerMode])
+  }, [availableResource, headerMode])
 
   useEffect(() => {
     if (headerMode === 1) {
@@ -252,7 +254,7 @@ const Home = ({
           info: startDateTime,
           mbo_location_id: bookRes.mbo_location_id,
           staff_id: staffId,
-          start_date_time: moment(date).format('YYYY-MM-DDThh:mm:ss+00:00'),
+          start_date_time: moment(date).format('YYYY-MM-DDT') + moment(time, 'h:mm a').format('hh:mm:00'),
           type: 'Appointment',
           sessions: bookItemRes
         })
@@ -406,6 +408,7 @@ const actions = {
 
 const selector = createStructuredSelector({
   resource: resourceSelector,
+  availableResource: availableResourceSelector,
   appointment: appointmentSelector,
   classContent: classSelector,
   weekAppointment: weekAppointmentSelector,

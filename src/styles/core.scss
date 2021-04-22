@@ -2,3 +2,13 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+.ps__rail-x {
+  top: 110px !important;
+  @media only screen and (max-width: 600px) {
+    top: 90px;
+  }
+  .ps__thumb-x {
+    //bottom: auto !important;
+  }
+}

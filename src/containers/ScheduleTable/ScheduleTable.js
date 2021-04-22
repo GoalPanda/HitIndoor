@@ -125,7 +125,7 @@ const ScheduleTable = ({
                               stateText = 'Lesson'
                               stateTextClass = classes.getCage
                             } else if (value && value === 4) {
-                              stateText = 'Out'
+                              stateText = ''
                               stateTextClass = classes.out
                             }
 
