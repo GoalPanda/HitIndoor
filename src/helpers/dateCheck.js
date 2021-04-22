@@ -1,9 +1,8 @@
 import moment from 'moment-timezone'
 
 const isBusinessTime = (dayOfWeek, curTime) => {
-  const today = moment(Date.now()).tz('America/Chicago')
-
-  if (moment(curTime).isBefore(moment(today))) {
+  const today = moment.tz(Date.now(), 'America/Chicago').format('YYY/MM/DD H:mm')
+  if (moment(curTime).isBefore(moment(today, 'YYY/MM/DD H:mm'))) {
     return true
   }
   if (dayOfWeek === 'Sun' || dayOfWeek === 'Sat') {
@@ -12,7 +11,8 @@ const isBusinessTime = (dayOfWeek, curTime) => {
     }
   }
   else {
-    if (moment(curTime).isBefore(moment(curTime).set({ h: '11', m: '00' }))) {
+    if ((moment(curTime).isBefore(moment(curTime).set({ h: '11', m: '00' })))
+      || (moment(curTime).isAfter(moment(curTime).set({ h: '20', m: '30' })))) {
       return true
     }
   }

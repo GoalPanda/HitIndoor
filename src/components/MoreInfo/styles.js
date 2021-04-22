@@ -14,7 +14,7 @@ export default makeStyles(theme => ({
     zIndex: 2,
     background: '#FFFFFF',
     borderRadius: '10px',
-    width: '500px',
+    width: '300px',
     boxShadow: '0px 15px 25px rgba(0, 0, 0, 0.25)',
     marginTop: '20px',
     '@media only screen and (max-width: 768px)': {

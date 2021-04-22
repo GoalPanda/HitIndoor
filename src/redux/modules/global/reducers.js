@@ -13,7 +13,7 @@ const getInitialState = () => {
     weekAppointment: [],
     selectedResource: -1,
 
-    selectedDate: Date.now(),
+    selectedDate: moment(Date.now()).format('MM/DD/YYYY'),
     viewMode: 'day',
     status: 'INIT',
     error: null,
@@ -103,13 +103,13 @@ export default handleActions({
       })
 
       return {
-        text: `${item.LastName} ${item.FirstName}`,
+        text: `${item.FirstName} ${item.LastName}`,
         value,
         staffId: item.Id,
         description: {
           ImageUrl: item.ImageUrl,
           Bio: item.Bio,
-          title: `${item.LastName} ${item.FirstName}`
+          title: `${item.FirstName} ${item.LastName}`
         }
       }
     })
@@ -182,7 +182,7 @@ export default handleActions({
       })
 
       return {
-        text: `${item.LastName} ${item.FirstName}`,
+        text: `${item.FirstName} ${item.LastName}`,
         value: weekValue,
         staffId: item.Id
       }
@@ -223,8 +223,8 @@ export default handleActions({
           value[ind] = []
         }
         const startDate = state.viewMode === 'day'
-          ? moment(state.selectedDate)
-          : moment(state.selectedDate).startOf('week')
+          ? moment(state.selectedDate, 'MM/DD/YYYY')
+          : moment(state.selectedDate, 'MM/DD/YYYY').startOf('week')
 
         const endDate = state.viewMode === 'day' ? startDate : moment(startDate).add(6, 'days')
         const loopEndDate = moment(endDate).isAfter(item.EndDate) ? item.EndDate : endDate
@@ -239,7 +239,7 @@ export default handleActions({
             'Date': moment(st).format('ddd MM/DD/YYYY'),
             'Start Time': `${moment(item.StartTime).format('h:mm a')}`,
             'Classes': ind,
-            'Teacher': `${item.Staff.LastName} ${item.Staff.FirstName}`,
+            'Teacher': `${item.Staff.FirstName} ${item.Staff.LastName}`,
             'Duration': `${moment.duration(moment(item.EndTime).diff(moment(item.StartTime))).asHours()} hours`,
             'LocationId': location_id,
           })

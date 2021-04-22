@@ -60,7 +60,7 @@ const Home = ({
   const [toolbarMode, setToolbarMode] = useState('today')
   const [tableMode, setTableMode] = useState('day')
   const [openBook, setOpenBook] = useState(false)
-  const [date, setDate] = useState(Date.now())
+  const [date, setDate] = useState(moment(Date.now()).format('MM/DD/YYYY'))
   const [headerMode, setHeaderMode] = useState(2)
   const [dropContent, setDropContent] = useState([{ text: 'All Resources', value: -1 }])
   const [bookItems, setBookItems] = useState([{ text: 'nothing', value: -1 }])
@@ -69,7 +69,7 @@ const Home = ({
   useEffect(() => {
     if (headerMode === 1) {
       setToolbarMode('day')
-      setDate(prev => moment(prev).add(1, 'day'))
+      setDate(prev => moment(prev).add(1, 'day').format('MM/DD/YYYY'))
     }
   }, [headerMode])
 
@@ -89,7 +89,7 @@ const Home = ({
       setClassTableData([{ text: '...', value: [] }])
     } else {
       if (tableMode === 'week') {
-        const weekStartDate = moment(date).startOf('week')
+        const weekStartDate = moment(date, 'MM/DD/YYYY').startOf('week')
         let weekData = []
         for (let i = 0; i < 7; i++) {
           let weekDates = moment(weekStartDate).add(i, 'day').format('ddd MM/DD')
@@ -118,7 +118,7 @@ const Home = ({
           }
         })
       } else if (tableMode === 'week') {
-        const weekStartDate = moment(date).startOf('week')
+        const weekStartDate = moment(date, 'MM/DD/YYYY').startOf('week').format()
         getWeekAppointment({
           body: {
             staffIds,
@@ -132,8 +132,8 @@ const Home = ({
 
   useEffect(() => {
     if (headerMode === 1 && date) {
-      const startDate = tableMode === 'day' ? date : moment(date).startOf('week')
-      const endDate = tableMode === 'day' ? startDate : moment(startDate).add(6, 'days')
+      const startDate = tableMode === 'day' ? date : moment(date, 'MM/DD/YYYY').startOf('week').format()
+      const endDate = tableMode === 'day' ? startDate : moment(startDate).add(6, 'days').format()
       let initValue = [{ text: 'All Classes', value: -1 }]
       setDropContent(initValue)
       getClass({
@@ -163,7 +163,7 @@ const Home = ({
     if (weekAppointment.length > 0 && tableMode === 'week') {
       const sel = selectedResource === -1 ? 0 : selectedResource
 
-      const weekStartDate = moment(date).startOf('week')
+      const weekStartDate = moment(date, 'MM/DD/YYYY').startOf('week').format()
       let weekData = []
       for (let i = 0; i < 7; i++) {
         let weekDates = moment(weekStartDate).add(i, 'day').format('ddd MM/DD')
@@ -189,9 +189,9 @@ const Home = ({
     const sessionTypeIds = bookContent.map(item => item.value)
     let startDate
     if (tableMode === 'day') {
-      startDate = moment(date).format('MM/DD/YYYY')
+      startDate = date
     } else if (tableMode === 'week') {
-      startDate = moment(text + moment(date).format('/YYYY')).format('MM/DD/YYYY')
+      startDate = moment(text + moment(date, 'MM/DD/YYYY').format('/YYYY')).format('MM/DD/YYYY')
     }
 
     setCageLoading(true)
@@ -249,12 +249,12 @@ const Home = ({
           }
         })
 
-        const startDateTime = moment(date).format('ddd. MMM  D, YYYY  ') + `${time}`
+        const startDateTime = moment(date, 'MM/DD/YYYY').format('ddd. MMM  D, YYYY  ') + `${time}`
         setBookItems({
           info: startDateTime,
           mbo_location_id: bookRes.mbo_location_id,
           staff_id: staffId,
-          start_date_time: moment(date).format('YYYY-MM-DDT') + moment(time, 'h:mm a').format('hh:mm:00'),
+          start_date_time: moment(date, 'MM/DD/YYYY').format('YYYY-MM-DDT') + moment(time, 'h:mm a').format('hh:mm:00'),
           type: 'Appointment',
           sessions: bookItemRes
         })
@@ -286,7 +286,7 @@ const Home = ({
   }
 
   const handleChangeDate = (changedDate) => {
-    setDate(changedDate)
+    setDate(moment(changedDate).format('MM/DD/YYYY'))
     setStartDate(changedDate)
   }
 
@@ -295,7 +295,7 @@ const Home = ({
       window.alert('Please select one resource to go the weekly view.')
       return
     }
-    setDate(changedDate)
+    setDate(moment(changedDate).format('MM/DD/YYYY'))
     setStartDate(changedDate)
     setTableMode('week')
   }
