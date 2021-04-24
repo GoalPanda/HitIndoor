@@ -43,4 +43,26 @@ export default makeStyles(theme => ({
     fontSize: '16px',
     lineHeight: '24px',
   },
+  selectedMode: {
+    background: '#243DBF',
+    border: '1px solid #243DBF !important',
+    color: 'white',
+    '&:hOver': {
+      background: '#4f63cb',
+      border: '1px solid #4f63cb',
+    }
+  },
+  selectArea: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    '@media only screen and (max-width: 768px)': {
+      display: 'block',
+    },
+  },
+  buttonArea: {
+    '@media only screen and (max-width: 768px)': {
+      marginBottom: '10px',
+    },
+  }
 }))

@@ -66,7 +66,7 @@ export default handleActions({
         }
         for (let i = moment(element.StartDateTime)
           ;
-          moment(i).isBefore(element.EndDateTime)
+          moment(i).isBefore(moment(element.EndDateTime).add(30, 'minutes'))
           ;
           i = moment(i).add(30, 'minutes')) {
 
@@ -83,7 +83,7 @@ export default handleActions({
       item.Unavailabilities.forEach(element => {
         for (let i = moment(element.StartDateTime)
           ;
-          moment(i).isBefore(element.EndDateTime)
+          moment(i).isBefore(moment(element.EndDateTime).add(30, 'minutes'))
           ;
           i = moment(i).add(30, 'minutes')) {
           const dayOfWeek = moment(i).format('ddd')
@@ -114,7 +114,20 @@ export default handleActions({
       }
     })
 
-    const availableAppointment = content.filter(item => Object.keys(item.value).length > 0)
+    const availableAppointment = content.filter(item => {
+      if (Object.keys(item.value).length > 0) {
+        let flag = false
+        Object.values(item.value).forEach(valueItem => {
+          if(valueItem !== 4) {
+            flag = true
+            return
+          }
+        })
+        return flag
+      } else {
+        return false
+      }
+    })
     const availableResource = availableAppointment.map(item => {
       return state.resource.find(element => element.value === item.staffId)
     })
@@ -155,7 +168,7 @@ export default handleActions({
 
         for (let i = moment(element.StartDateTime)
           ;
-          moment(i).isBefore(element.EndDateTime)
+          moment(i).isBefore(moment(element.EndDateTime).add(30, 'minutes'))
           ;
           i = moment(i).add(30, 'minutes')) {
           const dayOfWeek = moment(i).format('ddd')

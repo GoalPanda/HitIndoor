@@ -65,6 +65,7 @@ const Home = ({
   const [dropContent, setDropContent] = useState([{ text: 'All Resources', value: -1 }])
   const [bookItems, setBookItems] = useState([{ text: 'nothing', value: -1 }])
   const [cageLoading, setCageLoading] = useState(false)
+  const [filterMode, setFilterMode] = useState(0)
 
   useEffect(() => {
     if (headerMode === 1) {
@@ -326,6 +327,8 @@ const Home = ({
             mode={headerMode}
             tableMode={tableMode}
             dropContent={dropContent}
+            filterMode={filterMode}
+            setFilterMode={(value) => setFilterMode(value)}
           />
           {
             headerMode === 2
@@ -335,6 +338,7 @@ const Home = ({
                 content={tableContent}
                 onClickGetCage={handleClickGetCage}
                 onClickHeader={handleClickHeader}
+                filterMode={filterMode}
               />
               :
               <ClassTable content={classTableData} />
@@ -359,6 +363,8 @@ const Home = ({
             mode={headerMode}
             tableMode={tableMode}
             dropContent={dropContent}
+            filterMode={filterMode}
+            setFilterMode={(value) => setFilterMode(value)}
           />
           {
             headerMode === 2
@@ -368,6 +374,7 @@ const Home = ({
                 content={tableContent}
                 onClickGetCage={handleClickGetCage}
                 onClickHeader={handleClickHeader}
+                filterMode={filterMode}
               />
               :
               <ClassTable content={classTableData} />

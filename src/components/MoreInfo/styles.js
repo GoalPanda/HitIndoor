@@ -55,14 +55,21 @@ export default makeStyles(theme => ({
     borderRadius: '10px',
   },
   background: {
-    width: '100%',
+    // width: '100%',
+    padding: 'auto',
     borderRadius: '6px',
+  },
+  center: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
   },
   content: {
     marginTop: '12px',
     fontWeight: 'normal',
-    fontSize: '16px',
-    lineHeight: '24px',
+    fontSize: '14px',
+    lineHeight: '22px',
     color: '#616366'
   }
 }))

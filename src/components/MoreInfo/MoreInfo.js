@@ -64,7 +64,9 @@ const MoreInfo = ({
               <span className={classes.arrow} ref={setArrowRef} />
               <div className={classes.contentDiv}>
                 <h1 className={classes.title}>{info.title}</h1>
-                <img className={classes.background} src={info.ImageUrl} alt='back' />
+                <div className={classes.center}>
+                  <img className={classes.background} src={info.ImageUrl} alt='back' />
+                </div>
                 <div className={classes.content} dangerouslySetInnerHTML={{ __html: info.Bio }}></div>
               </div>
             </Paper>

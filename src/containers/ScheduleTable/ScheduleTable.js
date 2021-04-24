@@ -16,6 +16,7 @@ const ScheduleTable = ({
   mode,
   onClickHeader,
   onClickGetCage,
+  filterMode,
 }) => {
   const classes = useStyles()
   const isMobile = useMediaQuery({ maxWidth: 600 })
@@ -93,7 +94,7 @@ const ScheduleTable = ({
                                     className={classes.moreInfo}
                                     onClick={handleClickMoreInfo(key)}
                                   >
-                                    Click for more info
+                                    { isMobile ? 'More Info' : 'Click for more info'}
                                   </strong>)
                               )
                             }
@@ -118,10 +119,12 @@ const ScheduleTable = ({
                             if (value && value === 1) {
                               stateText = 'Reserved'
                               stateTextClass = classes.reserved
-                            } else if (value && value === 2) {
+                            } else if (value && value === 2
+                              && (filterMode === 1 || filterMode === 0)) {
                               stateText = 'Get Cage'
                               stateTextClass = classes.getCage
-                            } else if (value && value === 3) {
+                            } else if (value && value === 3
+                              && (filterMode === 2 || filterMode === 0)) {
                               stateText = 'Lesson'
                               stateTextClass = classes.getCage
                             } else if (value && value === 4) {
