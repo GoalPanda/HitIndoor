@@ -120,11 +120,11 @@ const ScheduleTable = ({
                               stateText = 'Reserved'
                               stateTextClass = classes.reserved
                             } else if (value && value === 2
-                              && (filterMode === 1 || filterMode === 0)) {
+                              && (filterMode === 1 || filterMode === 0 || filterMode === 3)) {
                               stateText = 'Get Cage'
                               stateTextClass = classes.getCage
                             } else if (value && value === 3
-                              && (filterMode === 2 || filterMode === 0)) {
+                              && (filterMode === 2 || filterMode === 0 || filterMode === 3)) {
                               stateText = 'Lesson'
                               stateTextClass = classes.getCage
                             } else if (value && value === 4) {

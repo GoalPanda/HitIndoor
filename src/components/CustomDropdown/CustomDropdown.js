@@ -25,7 +25,7 @@ const CustomDropdown = ({
   const [anchorEl, setAnchorEl] = useState(null)
 
   useEffect(() => {
-    setSelectedText(dropContent[selected].text)
+    setSelectedText(dropContent.length > 0 && dropContent[selected].text)
   }, [dropContent, selected])
 
   const handleToggle = (event) => {
@@ -41,9 +41,9 @@ const CustomDropdown = ({
     if (tableMode === 'week' && key === 0) {
       window.alert('Please click Day to check all resources')
       return
-    } 
+    }
     onSelect(key)
-    setSelectedText(dropContent[key].text)
+    setSelectedText(dropContent.length > 0 && dropContent[key].text)
     handleClose()
   }
 

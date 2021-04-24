@@ -32,6 +32,44 @@ const Filterbar = ({
     setSelected(selectedResource + 1)
   }, [selectedResource])
 
+  const handleSelect = (key) => {
+    if (key === 0) {
+      let tmpMode = filterMode
+
+      switch (filterMode) {
+        case 0:
+        case 2:
+          tmpMode = filterMode + 1
+          break
+        case 1:
+        case 3:
+          tmpMode = filterMode - 1
+          break
+        default:
+          break
+      }
+
+      setFilterMode(tmpMode)
+    } else if (key === 1) {
+      let tmpMode = filterMode
+
+      switch (filterMode) {
+        case 0:
+        case 1:
+          tmpMode = filterMode + 2
+          break
+        case 2:
+        case 3:
+          tmpMode = filterMode - 2
+          break
+        default:
+          break
+      }
+
+      setFilterMode(tmpMode)
+    }
+  }
+
   return (
     <div className={isMobile ? classes.mobileRoot : classes.pageTitleContainer}>
       <h1 className={cx(classes.typo, classes.center)} >
@@ -42,16 +80,16 @@ const Filterbar = ({
           mode === 2 &&
           <div className={classes.buttonArea}>
             <CustomButton
-              className={cx(classes.button, filterMode === 1 && classes.selectedMode)}
+              className={cx(classes.button, (filterMode === 1 || filterMode === 3) && classes.selectedMode)}
               variant='outlined'
               content='Cages'
-              onClick={() => setFilterMode(filterMode === 1 ? 0 : 1)}
+              onClick={() => handleSelect(0)}
             />
             <CustomButton
-              className={cx(classes.button, filterMode === 2 && classes.selectedMode)}
+              className={cx(classes.button, (filterMode === 2 || filterMode === 3) && classes.selectedMode)}
               variant='outlined'
               content='Lesson'
-              onClick={() => setFilterMode(filterMode === 2 ? 0 : 2)}
+              onClick={() => handleSelect(1)}
             />
           </div>
         }

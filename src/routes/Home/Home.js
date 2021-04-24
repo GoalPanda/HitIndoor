@@ -239,7 +239,7 @@ const Home = ({
           let ableFlag = true
           for (let i = 0; i < sessionItem.duration; i++) {
             let st = moment(time, 'h:mm a').add(i * 30, 'minute').format('h:mm a')
-            if (availableTimes[st] !== 2) {
+            if (availableTimes[st] === 1 || availableTimes[st] === 4) {
               ableFlag = false
               break
             }
@@ -249,7 +249,7 @@ const Home = ({
             bookItemRes.push(sessionItem)
           }
         })
-
+        console.log(bookItemRes)
         const startDateTime = moment(date, 'MM/DD/YYYY').format('ddd. MMM  D, YYYY  ') + `${time}`
         setBookItems({
           info: startDateTime,
@@ -308,7 +308,7 @@ const Home = ({
       </Backdrop>
       {
         openBook &&
-        <BookAppointment open={openBook} onClose={() => setOpenBook(false)} bookContent={bookItems} />
+        <BookAppointment open={true} onClose={() => setOpenBook(false)} bookContent={bookItems} />
       }
       <Mobile>
         <MobileHeader onChanageMode={(val) => setHeaderMode(val)} />
