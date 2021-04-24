@@ -83,7 +83,7 @@ export default handleActions({
       item.Unavailabilities.forEach(element => {
         for (let i = moment(element.StartDateTime)
           ;
-          moment(i).isBefore(moment(element.EndDateTime).add(30, 'minutes'))
+          moment(i).isBefore(element.EndDateTime)
           ;
           i = moment(i).add(30, 'minutes')) {
           const dayOfWeek = moment(i).format('ddd')
