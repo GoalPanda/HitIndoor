@@ -66,7 +66,7 @@ export default handleActions({
         }
         for (let i = moment(element.StartDateTime)
           ;
-          moment(i).isBefore(moment(element.EndDateTime).add(30, 'minutes'))
+          moment(i).isBefore(element.EndDateTime)
           ;
           i = moment(i).add(30, 'minutes')) {
 
