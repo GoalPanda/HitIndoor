@@ -9,11 +9,18 @@ export default makeStyles(theme => ({
   tableHeaderTr: {
     borderRadius: '0px 10px 10px 10px',
   },
+  span: {
+    height: '20px',
+    background: '#616366',
+    '@media only screen and (max-width: 768px)': {
+      height: '15px',
+    }
+  },
   timeLineCell: {
     width: '80px',
     height: '40px',
     minHeight: '40px',
-    borderTop: '1px solid white !important',
+    // borderTop: '1px solid white !important',
     color: 'white',
     fontWeight: '600',
     fontSize: '14px',
@@ -34,6 +41,7 @@ export default makeStyles(theme => ({
     width: '80px',
     minWidth: '80px',
     borderTop: 'none !important',
+    borderBottom: '1px solid white !important',
     fontSize: '20px',
     lineHeight: '30px',
     borderRadius: '10px 0px 0px 0px',

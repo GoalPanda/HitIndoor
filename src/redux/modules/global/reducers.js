@@ -105,6 +105,7 @@ export default handleActions({
       return {
         text: `${item.FirstName} ${item.LastName}`,
         value,
+        type: item.Email ? 'Lesson' : 'Cage',
         staffId: item.Id,
         description: {
           ImageUrl: item.ImageUrl,
@@ -168,7 +169,7 @@ export default handleActions({
 
         for (let i = moment(element.StartDateTime)
           ;
-          moment(i).isBefore(moment(element.EndDateTime).add(30, 'minutes'))
+          moment(i).isBefore(element.EndDateTime)
           ;
           i = moment(i).add(30, 'minutes')) {
           const dayOfWeek = moment(i).format('ddd')
@@ -196,6 +197,7 @@ export default handleActions({
 
       return {
         text: `${item.FirstName} ${item.LastName}`,
+        type: item.Email ? 'Lesson' : 'Cage',
         value: weekValue,
         staffId: item.Id
       }

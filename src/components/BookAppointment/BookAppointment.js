@@ -33,7 +33,7 @@ item[staff_id]=${bookContent.staff_id}&
 item[start_date_time]=${bookContent.start_date_time}&
 item[type]=Appointment`
 
-    window.open(url, '_blank')
+    setTimeout(() => { window.open(url, '_blank') }, 500)
     onClose()
   }
 

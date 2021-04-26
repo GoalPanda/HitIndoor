@@ -55,7 +55,7 @@ const Home = ({
 }) => {
   const classes = useStyles()
 
-  const [tableContent, setTableContent] = useState([{ text: 'Loading...', value: {} }])
+  const [tableContent, setTableContent] = useState([{ text: 'Loading...', value: {}, type: 'Cage' }])
   const [classTableData, setClassTableData] = useState([])
   const [toolbarMode, setToolbarMode] = useState('today')
   const [tableMode, setTableMode] = useState('day')
@@ -101,7 +101,7 @@ const Home = ({
         }
         setTableContent(weekData)
       } else {
-        setTableContent([{ text: 'Loading...', value: {} }])
+        setTableContent([{ text: 'Loading...', value: {}, type: 'Cage' }])
       }
     }
   }, [date, tableMode, headerMode])
@@ -239,7 +239,7 @@ const Home = ({
           let ableFlag = true
           for (let i = 0; i < sessionItem.duration; i++) {
             let st = moment(time, 'h:mm a').add(i * 30, 'minute').format('h:mm a')
-            if (availableTimes[st] === 1 || availableTimes[st] === 4) {
+            if (availableTimes[st] === 1 || availableTimes[st] === 4 || !availableTimes[st]) {
               ableFlag = false
               break
             }
@@ -249,7 +249,7 @@ const Home = ({
             bookItemRes.push(sessionItem)
           }
         })
-        console.log(bookItemRes)
+
         const startDateTime = moment(date, 'MM/DD/YYYY').format('ddd. MMM  D, YYYY  ') + `${time}`
         setBookItems({
           info: startDateTime,

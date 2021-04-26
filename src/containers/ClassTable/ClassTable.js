@@ -56,7 +56,7 @@ item[mbo_location_id]=${location_id}&
 item[name]=${name}&
 item[type]=Class`
 
-    window.open(url, '_blank')
+    setTimeout(() => { window.open(url, '_blank') }, 500)
   }
 
   return (

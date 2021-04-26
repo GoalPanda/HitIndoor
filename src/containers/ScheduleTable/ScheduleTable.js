@@ -66,52 +66,98 @@ const ScheduleTable = ({
                 <tr className={classes.tableHeaderTr}>
                   {
                     content.map((item, key) => {
+                      let availableHeader = true
+                      if ((filterMode !== 2 && item.type === 'Cage') || (filterMode !== 1 && item.type === 'Lesson')) {
+                        availableHeader = true
+                      } else {
+                        availableHeader = false
+                      }
+
                       return (
-                        <th key={key} className={cx(classes.tableHeader,
-                          key === (content.length - 1) && classes.lastTableHeaderCell)}>
-                          <div
-                            className={cx(classes.cages,
-                              (content.length === 1 || mode === 'week') && classes.bigFont)}
-                            onClick={() => (content.length > 1 && mode !== 'week') && onClickHeader(key)}
-                          >
-                            {item.text}
-                          </div>
-                          <div>
-                            {
-                              mode === 'day' &&
-                              (
-                                content.length === 1
-                                  ?
-                                  <CustomButton
-                                    content='More Info'
-                                    className={classes.moreInfoButton}
-                                    variant='contained'
-                                    onClick={handleClickMoreInfo(key)}
-                                    disabled={item.text === 'Loading...' && true}
-                                  />
-                                  :
-                                  (<strong
-                                    className={classes.moreInfo}
-                                    onClick={handleClickMoreInfo(key)}
-                                  >
-                                    { isMobile ? 'More Info' : 'Click for more info'}
-                                  </strong>)
-                              )
-                            }
-                          </div>
-                        </th>
+                        <>
+                          {
+                            availableHeader ?
+                              <th key={key} className={cx(classes.tableHeader,
+                                key === (content.length - 1) && classes.lastTableHeaderCell)}>
+                                <div
+                                  className={cx(classes.cages,
+                                    (content.length === 1 || mode === 'week') && classes.bigFont)}
+                                  onClick={() => (content.length > 1 && mode !== 'week') && onClickHeader(key)}
+                                >
+                                  {item.text}
+                                </div>
+                                <div>
+                                  {
+                                    mode === 'day' &&
+                                    (
+                                      content.length === 1
+                                        ?
+                                        <CustomButton
+                                          content='More Info'
+                                          className={classes.moreInfoButton}
+                                          variant='contained'
+                                          onClick={handleClickMoreInfo(key)}
+                                          disabled={item.text === 'Loading...' && true}
+                                        />
+                                        :
+                                        (<strong
+                                          className={classes.moreInfo}
+                                          onClick={handleClickMoreInfo(key)}
+                                        >
+                                          { isMobile ? 'More Info' : 'Click for more info'}
+                                        </strong>)
+                                    )
+                                  }
+                                </div>
+                              </th>
+                              :
+                              null
+                          }
+                        </>
                       )
                     })
                   }
                 </tr>
               </thead>
               <tbody>
+                <tr>
+                  {
+                    content.map((item, key) => {
+                      let availableHeader = true
+                      if ((filterMode !== 2 && item.type === 'Cage')
+                        || (filterMode !== 1 && item.type === 'Lesson')) {
+                        availableHeader = true
+                      } else {
+                        availableHeader = false
+                      }
+
+                      return (
+                        <>
+                          {
+                            availableHeader
+                              ?
+                              <td key={key} className={cx(classes.tableCell)}></td>
+                              : null
+                          }
+                        </>
+                      )
+                    })
+                  }
+                </tr>
                 {
                   TimeLine.map((time, key) => {
                     return (
                       <tr key={key}>
                         {
                           content.map((item, key1) => {
+                            let availableHeader = true
+                            if ((filterMode !== 2 && item.type === 'Cage')
+                              || (filterMode !== 1 && item.type === 'Lesson')) {
+                              availableHeader = true
+                            } else {
+                              availableHeader = false
+                            }
+
                             const value = item.value[time.text]
                             let stateText = ''
                             let stateTextClass = null
@@ -119,12 +165,10 @@ const ScheduleTable = ({
                             if (value && value === 1) {
                               stateText = 'Reserved'
                               stateTextClass = classes.reserved
-                            } else if (value && value === 2
-                              && (filterMode === 1 || filterMode === 0 || filterMode === 3)) {
+                            } else if (value && value === 2) {
                               stateText = 'Get Cage'
                               stateTextClass = classes.getCage
-                            } else if (value && value === 3
-                              && (filterMode === 2 || filterMode === 0 || filterMode === 3)) {
+                            } else if (value && value === 3) {
                               stateText = 'Lesson'
                               stateTextClass = classes.getCage
                             } else if (value && value === 4) {
@@ -133,14 +177,21 @@ const ScheduleTable = ({
                             }
 
                             return (
-                              <td
-                                key={key1}
-                                className={cx(classes.tableCell, stateTextClass)}
-                                onClick={() =>
-                                  (value === 2 || value === 3) &&
-                                  onClickGetCage(mode, item.text, time.text, item.staffId, item.value)
+                              <>
+                                {
+                                  availableHeader ?
+                                    <td
+                                      key={key1}
+                                      className={cx(classes.tableCell, stateTextClass)}
+                                      onClick={() =>
+                                        (value === 2 || value === 3) &&
+                                        onClickGetCage(mode, item.text, time.text, item.staffId, item.value)
+                                      }
+                                    >{stateText}</td>
+                                    :
+                                    null
                                 }
-                              >{stateText}</td>
+                              </>
                             )
                           })
                         }

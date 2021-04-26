@@ -15,19 +15,20 @@ const TimeLineRow = ({
           <tr className={classes.tableHeaderTr}>
             <td className={cx(classes.timeLineCell, classes.timePin)}>Time</td>
           </tr>
+          <div className={classes.span}></div>
           {
             TimeLine.map((item, key) => {
               return (
                 <tr key={key}>
-                  <td className={cx(classes.timeLineCell,
-                    key === (TimeLine.length - 1) && classes.lastTimeCell)}>{item.text}</td>
+                  <td className={cx(classes.timeLineCell)}> <div>{item.text}</div></td>
                 </tr>
               )
             })
           }
+          <div className={cx(classes.span, classes.lastTimeCell)}></div>
         </tbody>
       </table>
-    </div>
+    </div >
   )
 }
 export default TimeLineRow
