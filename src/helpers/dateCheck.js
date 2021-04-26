@@ -6,7 +6,7 @@ const isBusinessTime = (dayOfWeek, curTime) => {
     return true
   }
   if (dayOfWeek === 'Sun' || dayOfWeek === 'Sat') {
-    if (moment(curTime).isAfter(moment(curTime).set({ h: '19', m: '00' }))) {
+    if (moment(curTime).isAfter(moment(curTime).set({ h: '18', m: '30' }))) {
       return true
     }
   }
