@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/styles"
 
 export default makeStyles(theme => ({
   root: {
-    height: '100px',
+    height: '80px',
     background: 'white',
     boxShadow: '0px 6px 35px rgba(239, 207, 207, 0.5)',
   },
@@ -16,7 +16,7 @@ export default makeStyles(theme => ({
   image: {
     cursor: 'pointer',
     userSelect: 'none',
-    height: '80px',
+    height: '60px',
   },
   grow: {
     flexGrow: 1,

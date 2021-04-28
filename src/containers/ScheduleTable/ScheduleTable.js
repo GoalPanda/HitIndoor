@@ -50,24 +50,26 @@ const ScheduleTable = ({
     <div className={classes.root} id='table-area'>
       <MoreInfo info={moreInfoContent} anchorEl={anchorEl} open={openMoreInfo} onClose={handleClose} />
 
-      <TimeLineRow />
-      <div className={classes.timeLineEffect}></div>
-
-      <div style={{ width: `${scrollWidth - (isMobile ? 66 : 80)}px` }}>
+      <div style={{
+        width: `${scrollWidth}px`,
+      }}>
         <PerfectScrollbar
           options={{
-            suppressScrollY: true,
-            useBothWheelAxes: false,
+            useBothWheelAxes: true,
           }}
         >
-          <div className={classes.contentTable} style={{ width: `100%` }}>
+          <div className={classes.contentTable} style={{ width: `100%`, display: 'flex' }}>
+            <div className={cx(classes.timeLineArea, classes.timeLineEffect)}>
+              <TimeLineRow />
+            </div>
             <table style={{ width: '100%' }}>
               <thead>
                 <tr className={classes.tableHeaderTr}>
                   {
                     content.map((item, key) => {
                       let availableHeader = true
-                      if ((filterMode !== 2 && item.type === 'Cage') || (filterMode !== 1 && item.type === 'Lesson')) {
+                      if ((filterMode !== 2 && item.type === 'Cage')
+                        || (filterMode !== 1 && item.type === 'Lesson')) {
                         availableHeader = true
                       } else {
                         availableHeader = false

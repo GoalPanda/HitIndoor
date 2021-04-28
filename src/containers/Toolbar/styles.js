@@ -4,13 +4,13 @@ export default makeStyles(theme => ({
   pageTitleContainer: {
     display: 'flex',
     justifyContent: 'space-between',
-    marginTop: '130px',
+    marginTop: '90px',
     background: '#FFFFFF',
     boxShadow: '0px 6px 35px rgba(239, 207, 207, 0.5)',
     borderRadius: '7px',
-    height: '80px',
-    paddingLeft: '30px',
-    paddingRight: '30px',
+    height: '70px',
+    paddingLeft: '10px',
+    paddingRight: '10px',
   },
   typo: {
     fontWeight: '500',

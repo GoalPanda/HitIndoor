@@ -4,17 +4,22 @@ export default makeStyles(theme => ({
   root: {
     display: 'flex',
     position: 'relative',
-    marginBottom: '80px',
     boxShadow: '0px 15px 25px rgba(239, 207, 207, 0.5)',
+    height: 'calc(100vh - 260px)'
+  },
+  timeLineArea: {
+    left: '0',
+    zIndex: '3',
+    position: 'sticky',
   },
   contentTable: {
     '& > table, th, td': {
       borderCollapse: 'collapse',
     },
+    position: 'relative',
   },
   timeLineEffect: {
-    position: 'absolute',
-    zIndex: '2',
+    zIndex: '4',
     height: '100%',
     width: '80px',
     minWidth: '80px',
@@ -30,6 +35,11 @@ export default makeStyles(theme => ({
     borderRadius: '0px 10px 0px 0px',
   },
   tableHeader: {
+    position: '-webkit-sticky',
+    position: 'sticky',
+    top: '0',
+    zIndex: '2',
+
     minWidth: '135px',
     height: '110px',
     maxHeight: '110px',

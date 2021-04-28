@@ -37,6 +37,10 @@ export default makeStyles(theme => ({
     }
   },
   timePin: {
+    position: 'sticky',
+    left: '0',
+    top: '0',
+
     height: '110px ',
     width: '80px',
     minWidth: '80px',

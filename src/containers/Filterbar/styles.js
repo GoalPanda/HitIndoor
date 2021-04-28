@@ -8,8 +8,8 @@ export default makeStyles(theme => ({
   pageTitleContainer: {
     display: 'flex',
     justifyContent: 'space-between',
-    marginTop: '26px',
-    marginBottom: '24px',
+    marginTop: '10px',
+    marginBottom: '10px',
     padding: 0
   },
   typo: {
