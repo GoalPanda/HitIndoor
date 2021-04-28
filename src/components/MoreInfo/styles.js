@@ -11,7 +11,7 @@ export default makeStyles(theme => ({
     marginTop: 0,
   },
   popper: {
-    zIndex: 2,
+    zIndex: 6,
     background: '#FFFFFF',
     borderRadius: '10px',
     width: '300px',

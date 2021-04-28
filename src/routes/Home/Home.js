@@ -189,6 +189,12 @@ const Home = ({
   }, [classContent, headerMode])
 
   useEffect(() => {
+    if (selectedResource !== -1) {
+      setFilterMode(3)
+    }
+  }, [selectedResource])
+
+  useEffect(() => {
     if (weekAppointment.length > 0 && tableMode === 'week') {
       const sel = selectedResource === -1 ? 0 : selectedResource
 
@@ -329,6 +335,17 @@ const Home = ({
     setTableMode('week')
   }
 
+  const handleSelectFilterMode = (value) => {
+    if(selectedResource !== -1) {
+      const valueString = ['Null', 'Lesson', 'Cage', 'Both']
+      if(appointment[selectedResource].type === valueString[value] || valueString[value] === 'Null') {
+        window.alert(`You can't unselect "${appointment[selectedResource].type}" now!`)
+        return
+      }
+    }
+    setFilterMode(value)
+  }
+  
   return (
     <>
       <Backdrop className={classes.backdrop} open={cageLoading}>
@@ -356,10 +373,7 @@ const Home = ({
             tableMode={tableMode}
             dropContent={dropContent}
             filterMode={filterMode}
-            setFilterMode={(value) => {
-              setFilterMode(value)
-              selectResource(-1)
-            }}
+            
           />
           {
             headerMode === 2
@@ -370,7 +384,8 @@ const Home = ({
                 onClickGetCage={handleClickGetCage}
                 onClickHeader={handleClickHeader}
                 filterMode={filterMode}
-              />
+                setFilterMode={(value) => handleSelectFilterMode(value)}
+            />
               :
               <ClassTable content={classTableData} />
           }
@@ -395,10 +410,7 @@ const Home = ({
             tableMode={tableMode}
             dropContent={dropContent}
             filterMode={filterMode}
-            setFilterMode={(value) => {
-              setFilterMode(value)
-              selectResource(-1)
-            }}
+            setFilterMode={(value) => handleSelectFilterMode(value)}
           />
           {
             headerMode === 2

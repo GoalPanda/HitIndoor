@@ -158,11 +158,13 @@ const ScheduleTable = ({
                         {
                           content.map((item, key1) => {
                             let availableHeader = true
-                            if ((filterMode !== 2 && item.type === 'Cage')
-                              || (filterMode !== 1 && item.type === 'Lesson')) {
-                              availableHeader = true
-                            } else {
-                              availableHeader = false
+                            if (mode !== 'week') {
+                              if ((filterMode !== 2 && item.type === 'Cage')
+                                || (filterMode !== 1 && item.type === 'Lesson')) {
+                                availableHeader = true
+                              } else {
+                                availableHeader = false
+                              }
                             }
 
                             const value = item.value[time.text]
