@@ -62,17 +62,20 @@ const ScheduleTable = ({
             <div className={cx(classes.timeLineArea, classes.timeLineEffect)}>
               <TimeLineRow />
             </div>
-            <table style={{ width: '100%' }}>
+            <table style={{ width: `calc(100% - ${isMobile ? 60 : 80}px)` }}>
               <thead>
                 <tr className={classes.tableHeaderTr}>
                   {
                     content.map((item, key) => {
                       let availableHeader = true
-                      if ((filterMode !== 2 && item.type === 'Cage')
-                        || (filterMode !== 1 && item.type === 'Lesson')) {
-                        availableHeader = true
-                      } else {
-                        availableHeader = false
+
+                      if (mode !== 'week') {
+                        if ((filterMode !== 2 && item.type === 'Cage')
+                          || (filterMode !== 1 && item.type === 'Lesson')) {
+                          availableHeader = true
+                        } else {
+                          availableHeader = false
+                        }
                       }
 
                       return (
@@ -126,11 +129,13 @@ const ScheduleTable = ({
                   {
                     content.map((item, key) => {
                       let availableHeader = true
-                      if ((filterMode !== 2 && item.type === 'Cage')
-                        || (filterMode !== 1 && item.type === 'Lesson')) {
-                        availableHeader = true
-                      } else {
-                        availableHeader = false
+                      if (mode !== 'week') {
+                        if ((filterMode !== 2 && item.type === 'Cage')
+                          || (filterMode !== 1 && item.type === 'Lesson')) {
+                          availableHeader = true
+                        } else {
+                          availableHeader = false
+                        }
                       }
 
                       return (

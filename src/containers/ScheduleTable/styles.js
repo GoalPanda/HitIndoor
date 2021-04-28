@@ -35,7 +35,6 @@ export default makeStyles(theme => ({
     borderRadius: '0px 10px 0px 0px',
   },
   tableHeader: {
-    position: '-webkit-sticky',
     position: 'sticky',
     top: '0',
     zIndex: '2',

@@ -77,7 +77,7 @@ const Filterbar = ({
       </h1>
       <div className={classes.selectArea}>
         {
-          mode === 2 &&
+          mode === 2 && tableMode !== 'week' && 
           <div className={classes.buttonArea}>
             <CustomButton
               className={cx(classes.button, (filterMode === 1 || filterMode === 3) && classes.selectedMode)}

@@ -35,6 +35,7 @@ import {
 import { createStructuredSelector } from 'reselect'
 import moment from 'moment-timezone'
 import { bookContent } from 'containers/ScheduleTable/mockup'
+import { useLocation, useHistory } from 'react-router-dom'
 import useStyles from './styles.js'
 
 const Home = ({
@@ -54,6 +55,8 @@ const Home = ({
   getBook,
 }) => {
   const classes = useStyles()
+  const location = useLocation()
+  const history = useHistory()
 
   const [tableContent, setTableContent] = useState([{ text: 'Loading...', value: {}, type: 'Cage' }])
   const [classTableData, setClassTableData] = useState([])
@@ -66,6 +69,31 @@ const Home = ({
   const [bookItems, setBookItems] = useState([{ text: 'nothing', value: -1 }])
   const [cageLoading, setCageLoading] = useState(false)
   const [filterMode, setFilterMode] = useState(0)
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search)
+    const arg_date = params.get('date')
+    const arg_button = params.get('btn')
+    if (arg_date || arg_button) {
+      setDate(moment(arg_date, 'MM/DD/YYYY'))
+      setToolbarMode(moment(arg_date, 'MM/DD/YYYY') === moment(Date.now()).format('MM/DD/YYYY') ? 'today' : 'day')
+      switch (arg_button) {
+        case 'cage':
+          setFilterMode(1)
+          break
+        case 'lesson':
+          setFilterMode(2)
+          break
+        case 'both':
+          setFilterMode(3)
+          break
+        default:
+          setFilterMode(0)
+          break
+      }
+      history.push('/')
+    }
+  }, [location, history])
 
   useEffect(() => {
     if (headerMode === 1) {
@@ -328,7 +356,10 @@ const Home = ({
             tableMode={tableMode}
             dropContent={dropContent}
             filterMode={filterMode}
-            setFilterMode={(value) => setFilterMode(value)}
+            setFilterMode={(value) => {
+              setFilterMode(value)
+              selectResource(-1)
+            }}
           />
           {
             headerMode === 2
@@ -364,7 +395,10 @@ const Home = ({
             tableMode={tableMode}
             dropContent={dropContent}
             filterMode={filterMode}
-            setFilterMode={(value) => setFilterMode(value)}
+            setFilterMode={(value) => {
+              setFilterMode(value)
+              selectResource(-1)
+            }}
           />
           {
             headerMode === 2
