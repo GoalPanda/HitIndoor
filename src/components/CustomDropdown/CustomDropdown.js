@@ -20,12 +20,12 @@ const CustomDropdown = ({
 }) => {
   const classes = useStyles()
   const [openDrop, setOpenDrop] = useState(false)
-  const [selectedText, setSelectedText] = useState(selected && dropContent[selected].text)
+  const [selectedText, setSelectedText] = useState(selected && dropContent[selected] && dropContent[selected].text)
   const [arrowRef, setArrowRef] = useState(null)
   const [anchorEl, setAnchorEl] = useState(null)
 
   useEffect(() => {
-    setSelectedText(dropContent.length > 0 && dropContent[selected].text)
+    setSelectedText(dropContent.length > 0 && dropContent[selected] && dropContent[selected].text)
   }, [dropContent, selected])
 
   const handleToggle = (event) => {

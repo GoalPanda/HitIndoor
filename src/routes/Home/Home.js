@@ -69,6 +69,7 @@ const Home = ({
   const [bookItems, setBookItems] = useState([{ text: 'nothing', value: -1 }])
   const [cageLoading, setCageLoading] = useState(false)
   const [filterMode, setFilterMode] = useState(0)
+  const [filteredAppointment, setFilteredAppointment] = useState([])
 
   useEffect(() => {
     const params = new URLSearchParams(location.search)
@@ -112,6 +113,10 @@ const Home = ({
       setDropContent(initValue)
     }
   }, [availableResource, headerMode])
+
+  useEffect(() => {
+    setFilteredAppointment(appointment)
+  }, [appointment])
 
   useEffect(() => {
     if (headerMode === 1) {
@@ -189,12 +194,6 @@ const Home = ({
   }, [classContent, headerMode])
 
   useEffect(() => {
-    if (selectedResource !== -1) {
-      setFilterMode(3)
-    }
-  }, [selectedResource])
-
-  useEffect(() => {
     if (weekAppointment.length > 0 && tableMode === 'week') {
       const sel = selectedResource === -1 ? 0 : selectedResource
 
@@ -215,10 +214,10 @@ const Home = ({
   }, [weekAppointment, date, selectedResource, tableMode])
 
   useEffect(() => {
-    if (appointment.length > 0 && tableMode === 'day') {
-      setTableContent(selectedResource === -1 ? appointment : [appointment[selectedResource]])
+    if (filteredAppointment.length > 0 && tableMode === 'day') {
+      setTableContent(selectedResource === -1 ? filteredAppointment : [filteredAppointment[selectedResource]])
     }
-  }, [selectedResource, appointment, tableMode])
+  }, [selectedResource, filteredAppointment, tableMode, filterMode])
 
   const handleClickGetCage = (tableMode, text, time, staffId, availableTimes) => {
     const sessionTypeIds = bookContent.map(item => item.value)
@@ -289,7 +288,7 @@ const Home = ({
           info: startDateTime,
           mbo_location_id: bookRes.mbo_location_id,
           staff_id: staffId,
-          start_date_time: moment(date, 'MM/DD/YYYY').format('YYYY-MM-DDT') + moment(time, 'h:mm a').format('hh:mm:00'),
+          start_date_time: moment(date, 'MM/DD/YYYY').format('YYYY-MM-DDT') + moment(time, 'h:mm a').format('HH:mm:00'),
           type: 'Appointment',
           sessions: bookItemRes
         })
@@ -336,16 +335,41 @@ const Home = ({
   }
 
   const handleSelectFilterMode = (value) => {
-    if(selectedResource !== -1) {
-      const valueString = ['Null', 'Lesson', 'Cage', 'Both']
-      if(appointment[selectedResource].type === valueString[value] || valueString[value] === 'Null') {
-        window.alert(`You can't unselect "${appointment[selectedResource].type}" now!`)
-        return
-      }
-    }
+    // if (selectedResource !== -1) {
+    //   const valueString = ['Null', 'Lesson', 'Cage', 'Both']
+    //   if (appointment[selectedResource].type === valueString[value] || valueString[value] === 'Null') {
+    //     window.alert(`You can't unselect "${appointment[selectedResource].type}" now!`)
+    //     return
+    //   }
+    // }
     setFilterMode(value)
+    selectResource(-1)
+    setTableContent(appointment)
+    setDropContent([{ text: 'All Resources', value: -1 }].concat(availableResource))
+    setFilteredAppointment(appointment)
+
+    let filteredAppointmentTmp
+    let filteredResource
+    switch (value) {
+      case 1:
+        filteredAppointmentTmp = appointment.filter(item => item.type === 'Cage')
+        filteredResource = availableResource.filter(item => item.type === 'Cage')
+        setDropContent([{ text: 'All Resources', value: -1 }].concat(filteredResource))
+        setTableContent(filteredAppointmentTmp)
+        setFilteredAppointment(filteredAppointmentTmp)
+        break
+      case 2:
+        filteredAppointmentTmp = appointment.filter(item => item.type === 'Lesson')
+        filteredResource = availableResource.filter(item => item.type === 'Lesson')
+        setDropContent([{ text: 'All Resources', value: -1 }].concat(filteredResource))
+        setTableContent(filteredAppointmentTmp)
+        setFilteredAppointment(filteredAppointmentTmp)
+        break
+      default:
+        break
+    }
   }
-  
+
   return (
     <>
       <Backdrop className={classes.backdrop} open={cageLoading}>
@@ -373,7 +397,7 @@ const Home = ({
             tableMode={tableMode}
             dropContent={dropContent}
             filterMode={filterMode}
-            
+
           />
           {
             headerMode === 2
@@ -385,7 +409,7 @@ const Home = ({
                 onClickHeader={handleClickHeader}
                 filterMode={filterMode}
                 setFilterMode={(value) => handleSelectFilterMode(value)}
-            />
+              />
               :
               <ClassTable content={classTableData} />
           }

@@ -54,6 +54,13 @@ const Header = ({
                 content="Appointments"
               />
             </div>
+            <div className={cx(classes.pin, mode === 3 && classes.hightBorder)}>
+              <CustomButton
+                onClick={() => window.open('https://cart.mindbodyonline.com/sites/29397/client/schedules', 'blank')}
+                className={cx(classes.button, mode === 3 && classes.hightButton)}
+                content="My Schedule"
+              />
+            </div>
           </Toolbar>
         </Container>
       </AppBar>
