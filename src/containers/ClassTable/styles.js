@@ -175,5 +175,20 @@ export default makeStyles(theme => ({
       height: '50px',
       lineHeight: '50px',
     }
+  },
+  summary: {
+    '&:hOver': {
+      background: '#F9E8E8',
+    },
+    '& > .Mui-expanded': {
+      minHeight: '36px !important',
+      height: '36px !important',
+      margin: '12px 0',
+    }
+  },
+  accordion: {
+    '& > .Mui-expanded': {
+      minHeight: '48px !important',
+    }
   }
 }))

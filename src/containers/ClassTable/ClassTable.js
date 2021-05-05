@@ -96,8 +96,8 @@ item[type]=Class`
               {
                 content.map((item, key) => {
                   return (
-                    <Accordion key={key}>
-                      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Accordion key={key} className={classes.accordion}>
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />} className={classes.summary}>
                         <div className={classes.classHeading}>
                           {`${item.text}${item.endDate ? ` (${item.endDate})` : ''}`}
                         </div>
