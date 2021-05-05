@@ -152,9 +152,7 @@ export default makeStyles(theme => ({
     width: '100%'
   },
   detail: {
-    paddingBottom: 0,
-    paddingLeft: 0,
-    paddingRight: 0,
+    padding: '0px !important',
     '& > table, th, td': {
       borderCollapse: 'collapse',
     },
@@ -183,12 +181,17 @@ export default makeStyles(theme => ({
     '& > .Mui-expanded': {
       minHeight: '36px !important',
       height: '36px !important',
-      margin: '12px 0',
+      marginTop: '12px',
+      marginBottom: '12px',
     }
   },
   accordion: {
+    margin: '0 !important',
     '& > .Mui-expanded': {
       minHeight: '48px !important',
+    },
+    '& > .MuiAccordionSummary-expandIcon': {
+      margin: '0 !important'
     }
   }
 }))
