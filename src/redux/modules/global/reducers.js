@@ -119,7 +119,7 @@ export default handleActions({
       if (Object.keys(item.value).length > 0) {
         let flag = false
         Object.values(item.value).forEach(valueItem => {
-          if(valueItem !== 4) {
+          if (valueItem !== 4) {
             flag = true
             return
           }
@@ -226,50 +226,49 @@ export default handleActions({
 
   [requestSuccess(CONSTANTS.GET_CLASS)]: (state, { payload }) => {
     let text = []
-    let description = []
+    let endDates = []
     let value = []
 
     payload.ClassSchedules.forEach(item => {
       if (item.IsAvailable === true) {
-        const ind = item.ClassDescription.Name
+        const className = item.ClassDescription.Name
+        const classId = item.ClassDescription.Id
         const location_id = item.Location.Id
 
-        if (!value[ind]) {
-          value[ind] = []
+        if (!value[classId]) {
+          value[classId] = []
+          endDates[classId] = Date.now()
         }
-        const startDate = state.viewMode === 'day'
-          ? moment(state.selectedDate, 'MM/DD/YYYY')
-          : moment(state.selectedDate, 'MM/DD/YYYY').startOf('week')
-
-        const endDate = state.viewMode === 'day' ? startDate : moment(startDate).add(6, 'days')
-        const loopEndDate = moment(endDate).isAfter(item.EndDate) ? item.EndDate : endDate
+        const startDate = item.StartDate
+        const endDate = item.EndDate
+        moment(endDate).isAfter(moment(endDates[classId])) && (endDates[classId] = endDate)
 
         for (
           let st = moment(startDate)
-          ; moment(st).isBefore(moment(loopEndDate).add(1, 'day'));
+          ; moment(st).isBefore(moment(endDate).add(1, 'day'));
           st = moment(st).add(1, 'day')
         ) {
-
-          value[ind].push({
+          value[classId].push({
             'Date': moment(st).format('ddd MM/DD/YYYY'),
             'Start Time': `${moment(item.StartTime).format('h:mm a')}`,
-            'Classes': ind,
+            'Classes': className,
             'Teacher': `${item.Staff.FirstName} ${item.Staff.LastName}`,
             'Duration': `${moment.duration(moment(item.EndTime).diff(moment(item.StartTime))).asHours()} hours`,
             'LocationId': location_id,
+            'Description': item.Id,
           })
         }
-
-        text.push(ind)
-        description[ind] = item.Id
+        const flag = text.find(item => item.id === classId)
+        !flag && text.push({ name: className, id: classId })
       }
     })
 
-    const content = text.map(item => {
+    const content = text.map(({ name, id }) => {
       return {
-        text: item,
-        value: value[item],
-        description: description[item]
+        text: name,
+        id: id,
+        value: value[id],
+        endDate: moment(endDates[id]).format('ddd MM/DD/YYYY'),
       }
     })
 

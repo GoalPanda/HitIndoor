@@ -42,7 +42,7 @@ const ClassTable = ({
   const handleClickSignup = (key, index) => {
     const curIndexValue = content[key].value[index]
 
-    const mbo_id = content[key].description
+    const mbo_id = curIndexValue.Description
     const location_id = curIndexValue.LocationId
     const name = curIndexValue.Classes
     const dateTime = moment(curIndexValue.Date).format('ddd. MMM  D, YYYY  ') +
@@ -98,7 +98,9 @@ item[type]=Class`
                   return (
                     <Accordion key={key}>
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <div className={classes.classHeading}>{item.text}</div>
+                        <div className={classes.classHeading}>
+                          {`${item.text}${item.endDate ? ` (${item.endDate})` : ''}`}
+                        </div>
                       </AccordionSummary>
                       <AccordionDetails className={classes.detail}>
                         {

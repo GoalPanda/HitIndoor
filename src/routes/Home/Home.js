@@ -166,14 +166,12 @@ const Home = ({
 
   useEffect(() => {
     if (headerMode === 1 && date) {
-      const startDate = tableMode === 'day' ? date : moment(date, 'MM/DD/YYYY').startOf('week').format()
-      const endDate = tableMode === 'day' ? startDate : moment(startDate).add(6, 'days').format()
       let initValue = [{ text: 'All Classes', value: -1 }]
       setDropContent(initValue)
       getClass({
         body: {
-          startDate,
-          endDate,
+          startDate: moment(Date.now()),
+          endDate: moment('12/31/2050', 'MM/DD/YYYY'),
         }
       })
     }
@@ -184,14 +182,20 @@ const Home = ({
       setClassTableData(classContent)
       const classDropContent = classContent.map(item => {
         return {
-          text: item.value[0].Classes,
-          value: 1
+          text: item.text,
+          value: item.id
         }
       })
       let initValue = [{ text: 'All Classes', value: -1 }].concat(classDropContent)
       setDropContent(initValue)
     }
   }, [classContent, headerMode])
+
+  useEffect(() => {
+    if (headerMode === 1 && classContent.length > 0) {
+      setClassTableData(selectedResource === -1 ? classContent : [classContent[selectedResource]])
+    }
+  }, [selectedResource, classContent, headerMode])
 
   useEffect(() => {
     if (weekAppointment.length > 0 && tableMode === 'week') {
@@ -214,10 +218,10 @@ const Home = ({
   }, [weekAppointment, date, selectedResource, tableMode])
 
   useEffect(() => {
-    if (filteredAppointment.length > 0 && tableMode === 'day') {
+    if (headerMode === 2 && filteredAppointment.length > 0 && tableMode === 'day') {
       setTableContent(selectedResource === -1 ? filteredAppointment : [filteredAppointment[selectedResource]])
     }
-  }, [selectedResource, filteredAppointment, tableMode, filterMode])
+  }, [selectedResource, filteredAppointment, tableMode, filterMode, headerMode])
 
   const handleClickGetCage = (tableMode, text, time, staffId, availableTimes) => {
     const sessionTypeIds = bookContent.map(item => item.value)
@@ -335,13 +339,6 @@ const Home = ({
   }
 
   const handleSelectFilterMode = (value) => {
-    // if (selectedResource !== -1) {
-    //   const valueString = ['Null', 'Lesson', 'Cage', 'Both']
-    //   if (appointment[selectedResource].type === valueString[value] || valueString[value] === 'Null') {
-    //     window.alert(`You can't unselect "${appointment[selectedResource].type}" now!`)
-    //     return
-    //   }
-    // }
     setFilterMode(value)
     selectResource(-1)
     setTableContent(appointment)
@@ -382,22 +379,27 @@ const Home = ({
       <Mobile>
         <MobileHeader onChanageMode={(val) => setHeaderMode(val)} />
         <Container maxWidth={false}>
-          <Toolbar
-            title={headerMode === 2 ? 'Select an Appointment' : 'Class Schedule'}
-            mode={toolbarMode}
-            headerMode={headerMode}
-            date={date}
-            onClickMode={handleClickMode}
-            onChangeDate={handleChangeDate}
-            onChangeWeek={handleChangeWeek}
-          />
+          {
+            headerMode === 2
+              ?
+              <Toolbar
+                title={headerMode === 2 ? 'Select an Appointment' : 'Class Schedule'}
+                mode={toolbarMode}
+                headerMode={headerMode}
+                date={date}
+                onClickMode={handleClickMode}
+                onChangeDate={handleChangeDate}
+                onChangeWeek={handleChangeWeek}
+              />
+              :
+              <div style={{marginTop: '90px'}}></div>
+          }
           <Filterbar
             title={moment(date).format('dddd MM/DD/YYYY')}
             mode={headerMode}
             tableMode={tableMode}
             dropContent={dropContent}
             filterMode={filterMode}
-
           />
           {
             headerMode === 2
@@ -419,15 +421,21 @@ const Home = ({
       <Default>
         <Header mode={headerMode} onChanageMode={(val) => setHeaderMode(val)} />
         <Container maxWidth={false}>
-          <Toolbar
-            title={headerMode === 2 ? 'Select an Appointment' : 'Class Schedule'}
-            mode={toolbarMode}
-            headerMode={headerMode}
-            date={date}
-            onClickMode={handleClickMode}
-            onChangeDate={handleChangeDate}
-            onChangeWeek={handleChangeWeek}
-          />
+          {
+            headerMode === 2
+              ?
+              <Toolbar
+                title={headerMode === 2 ? 'Select an Appointment' : 'Class Schedule'}
+                mode={toolbarMode}
+                headerMode={headerMode}
+                date={date}
+                onClickMode={handleClickMode}
+                onChangeDate={handleChangeDate}
+                onChangeWeek={handleChangeWeek}
+              />
+              :
+              <div style={{marginTop: '90px'}}></div>
+          }
           <Filterbar
             title={moment(date).format('dddd MM/DD/YYYY')}
             mode={headerMode}
