@@ -45,7 +45,7 @@ const ClassTable = ({
     const mbo_id = curIndexValue.Description
     const location_id = curIndexValue.LocationId
     const name = curIndexValue.Classes
-    const dateTime = moment(curIndexValue.Date).format('ddd. MMM  D, YYYY  ') +
+    const dateTime = moment(curIndexValue.Date).format('ddd. MMM D, YYYY  ') +
       `${curIndexValue['Start Time']}`
 
     const url =
@@ -56,6 +56,7 @@ item[mbo_location_id]=${location_id}&
 item[name]=${name}&
 item[type]=Class`
 
+    console.log(url)
     setTimeout(() => { window.open(url, '_blank') }, 500)
   }
 

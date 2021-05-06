@@ -24,6 +24,7 @@ const ScheduleTable = ({
   const [openMoreInfo, setOpenMoreInfo] = useState(false)
   const [scrollWidth, setScrollWidth] = useState(1000)
   const [moreInfoContent, setMoreInfoContent] = useState({ title: '', content: '' })
+  const [overText, setOverText] = useState({ time: null, cage: null })
 
   const handleClickMoreInfo = (key) => (event) => {
     setMoreInfoContent(content[key].description)
@@ -46,6 +47,10 @@ const ScheduleTable = ({
     setScrollWidth(document.querySelector('#table-area').offsetWidth)
   }, [setScrollWidth])
 
+  const setMouseOverText = (time, cage) => {
+    setOverText({ time, cage })
+  }
+
   return (
     <div className={classes.root} id='table-area'>
       <MoreInfo info={moreInfoContent} anchorEl={anchorEl} open={openMoreInfo} onClose={handleClose} />
@@ -55,7 +60,7 @@ const ScheduleTable = ({
       }}>
         <PerfectScrollbar
           options={{
-            useBothWheelAxes: true,
+            useBothWheelAxes: false,
           }}
         >
           <div className={classes.contentTable} style={{ width: `100%`, display: 'flex' }}>
@@ -191,12 +196,24 @@ const ScheduleTable = ({
                                   availableHeader ?
                                     <td
                                       key={key1}
-                                      className={cx(classes.tableCell, stateTextClass)}
+                                      className={cx(
+                                        classes.tableCell,
+                                        stateTextClass,
+                                        ((value === 3 || value === 2)
+                                        && overText.time === time.text && overText.cage === item.text) && classes.hOver
+                                      )}
                                       onClick={() =>
                                         (value === 2 || value === 3) &&
                                         onClickGetCage(mode, item.text, time.text, item.staffId, item.value)
                                       }
-                                    >{stateText}</td>
+                                      onMouseEnter={() => setMouseOverText(time.text, item.text)}
+                                      onMouseLeave={() => setMouseOverText(null)}
+                                    >
+                                      {((value === 3 || value === 2)
+                                        && overText.time === time.text && overText.cage === item.text)
+                                        ? overText.time
+                                        : stateText}
+                                    </td>
                                     :
                                     null
                                 }

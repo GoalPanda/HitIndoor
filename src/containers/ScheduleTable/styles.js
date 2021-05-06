@@ -137,4 +137,11 @@ export default makeStyles(theme => ({
       lineHeight: '24px',
     }
   },
+  hOver: {
+    background: '#DBF5F5',
+    color: '#0CA82F',
+    fontWeight: '600',
+    fontSize: '15px',
+    lineHeight: '22px'
+  }
 }))
