@@ -8,9 +8,17 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Backdrop,
+  CircularProgress,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import moment from 'moment-timezone'
+import { getClassDetail } from 'redux/modules/global/actions'
+import PropTypes from 'prop-types'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import { CustomAlert } from 'components/CustomAlert'
+import { ClassMoreInfo } from 'components/ClassMoreInfo'
 
 const tableHeader = [
   { text: 'Date', value: 1 },
@@ -22,10 +30,13 @@ const tableHeader = [
 
 const ClassTable = ({
   content,
+  getClassDetail,
 }) => {
   const classes = useStyles()
   const [scrollWidth, setScrollWidth] = useState(10000)
   const [contentAreaWidth, setContentAreaWidth] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [alertOpen, setAlertOpen] = useState(false)
 
   window.addEventListener('resize', () => {
     const area1 = document.querySelector('#table-area')
@@ -39,29 +50,57 @@ const ClassTable = ({
     setScrollWidth(document.querySelector('#table-area').offsetWidth)
   }, [setScrollWidth, setContentAreaWidth])
 
-  const handleClickSignup = (key, index) => {
+  const handleClickSignup = async (key, index) => {
     const curIndexValue = content[key].value[index]
 
-    const mbo_id = curIndexValue.Description
-    const location_id = curIndexValue.LocationId
-    const name = curIndexValue.Classes
-    const dateTime = moment(curIndexValue.Date).format('ddd. MMM D, YYYY  ') +
-      `${curIndexValue['Start Time']}`
+    setIsLoading(true)
+    await getClassDetail({
+      body: {
+        startDateTime: curIndexValue.Date,
+        endDateTime: curIndexValue.Date,
+        classDescriptionId: curIndexValue.Description
+      },
+      success: async ({ data }) => {
+        setIsLoading(false)
+        if (data.Classes.length > 0) {
+          const classDetail = data.Classes.find(item => item.ClassScheduleId === curIndexValue.Description)
+          if (classDetail.MaxCapacity > classDetail.TotalBooked) {
+            const mbo_id = classDetail.Id
+            const location_id = curIndexValue.LocationId
+            const name = curIndexValue.Classes
+            const dateTime = moment(curIndexValue.Date).format('ddd. MMM D, YYYY  ') +
+              `${curIndexValue['Start Time']}`
 
-    const url =
-      `https://cart.mindbodyonline.com/sites/29397/cart/add_booking?
+            const url =
+              `https://cart.mindbodyonline.com/sites/29397/cart/add_booking?
 item[info]=${dateTime}&
 item[mbo_id]=${mbo_id}&
 item[mbo_location_id]=${location_id}&
 item[name]=${name}&
 item[type]=Class`
 
-    console.log(url)
-    setTimeout(() => { window.open(url, '_blank') }, 500)
+            setTimeout(() => { window.open(url, '_blank') }, 500)
+          } else {
+            setAlertOpen(true)
+          }
+        }
+      }
+    })
   }
 
   return (
     <div className={classes.root} id='table-area'>
+      <CustomAlert
+        isOpen={alertOpen}
+        type='error'
+        text='"This session is currently full !'
+        onClose={() => setAlertOpen(false)}
+      />
+
+      <Backdrop className={classes.backdrop} open={isLoading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+
       <div style={{ width: `${scrollWidth}px` }}>
         <PerfectScrollbar
           options={{
@@ -100,7 +139,7 @@ item[type]=Class`
                     <Accordion key={key} className={classes.accordion}>
                       <AccordionSummary expandIcon={<ExpandMoreIcon />} className={classes.summary}>
                         <div className={classes.classHeading}>
-                          {`${item.text}${item.endDate ? ` (${item.endDate})` : ''}`}
+                          {`${item.text}${item.startDate ? ` (${item.startDate})` : ''}`}
                         </div>
                       </AccordionSummary>
                       <AccordionDetails className={classes.detail}>
@@ -133,12 +172,18 @@ item[type]=Class`
                                                 }
                                                 {
                                                   key1 === 1 &&
-                                                  <CustomButton
-                                                    content='Sign Up'
-                                                    className={classes.signupButton}
-                                                    variant='contained'
-                                                    onClick={() => handleClickSignup(key, index)}
-                                                  />
+                                                  <>
+                                                    <CustomButton
+                                                      content='Sign Up'
+                                                      className={classes.signupButton}
+                                                      variant='contained'
+                                                      onClick={() => handleClickSignup(key, index)}
+                                                    />
+                                                    <ClassMoreInfo info={{
+                                                      date: content[key].value[index].Date,
+                                                      id: content[key].value[index].Description,
+                                                    }}/>
+                                                  </>
                                                 }
                                               </td>
                                             )
@@ -164,4 +209,12 @@ item[type]=Class`
   )
 }
 
-export default ClassTable
+ClassTable.propTypes = {
+  getClassDetail: PropTypes.func,
+}
+
+const actions = {
+  getClassDetail,
+}
+
+export default compose(connect(null, actions))(ClassTable)

@@ -20,6 +20,25 @@ const doGetClass = apiCall({
   path: 'mind/class',
 })
 
+const doGetClassDetail = apiCall({
+  type: CONSTANTS.GET_CLASS_DETAIL,
+  method: 'post',
+  path: 'mind/class-detail',
+})
+
+const doGetClassVisits = apiCall({
+  type: CONSTANTS.GET_CLASS_VISITS,
+  method: 'post',
+  path: 'mind/class-visit',
+})
+
+const doGetClients = apiCall({
+  type: CONSTANTS.GET_CLIENTS,
+  method: 'post',
+  path: 'mind/clients',
+})
+
+
 const doGetWeekAppointment = apiCall({
   type: CONSTANTS.GET_APPOINTMENT_BY_WEEK,
   method: 'post',
@@ -36,6 +55,9 @@ export default function* rootSaga() {
   yield takeLatest(CONSTANTS.GET_RESOURCE, doGetResource)
   yield takeLatest(CONSTANTS.GET_APPOINTMENT, doGetAppointment)
   yield takeLatest(CONSTANTS.GET_CLASS, doGetClass)
+  yield takeLatest(CONSTANTS.GET_CLASS_VISITS, doGetClassVisits)
+  yield takeLatest(CONSTANTS.GET_CLIENTS, doGetClients)
+  yield takeLatest(CONSTANTS.GET_CLASS_DETAIL, doGetClassDetail)
   yield takeLatest(CONSTANTS.GET_APPOINTMENT_BY_WEEK, doGetWeekAppointment)
   yield takeLatest(CONSTANTS.GET_BOOK, doGetBook)
 }

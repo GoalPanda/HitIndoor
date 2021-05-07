@@ -227,6 +227,7 @@ export default handleActions({
   [requestSuccess(CONSTANTS.GET_CLASS)]: (state, { payload }) => {
     let text = []
     let endDates = []
+    let startDates = []
     let value = []
 
     payload.ClassSchedules.forEach(item => {
@@ -238,6 +239,7 @@ export default handleActions({
         if (!value[classId]) {
           value[classId] = []
           endDates[classId] = Date.now()
+          startDates[classId] = item.StartDate
         }
         const startDate = item.StartDate
         const endDate = item.EndDate
@@ -250,7 +252,7 @@ export default handleActions({
         ) {
           value[classId].push({
             'Date': moment(st).format('ddd MM/DD/YYYY'),
-            'Start Time': `${moment(item.StartTime).format('h:mm a')}`,
+            'Start Time': `${moment(item.StartTime).format('hh:mm a')}`,
             'Classes': className,
             'Teacher': `${item.Staff.FirstName} ${item.Staff.LastName}`,
             'Duration': `${moment.duration(moment(item.EndTime).diff(moment(item.StartTime))).asHours()} hours`,
@@ -268,6 +270,7 @@ export default handleActions({
         text: name,
         id: id,
         value: value[id],
+        startDate: moment(startDates[id]).format('ddd MM/DD/YYYY'),
         endDate: moment(endDates[id]).format('ddd MM/DD/YYYY'),
       }
     })

@@ -193,5 +193,9 @@ export default makeStyles(theme => ({
     '& > .MuiAccordionSummary-expandIcon': {
       margin: '0 !important'
     }
-  }
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
 }))
