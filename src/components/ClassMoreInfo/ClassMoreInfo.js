@@ -52,7 +52,7 @@ const ClassMoreInfo = ({
                     body: { clientIDs },
                     success: ({ data }) => {
                       const clients = data.Clients.map(item => {
-                        return `${item.FirstName} ${item.LastName} / ${item.Email}`
+                        return `${item.FirstName} ${item.LastName}`
                       })
                       setClients(clients)
                       setIsLoading(false)
