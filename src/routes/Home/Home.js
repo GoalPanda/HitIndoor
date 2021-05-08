@@ -165,8 +165,10 @@ const Home = ({
   }, [resource, getAppointment, getWeekAppointment, headerMode, date, tableMode])
 
   useEffect(() => {
-    if (headerMode === 1 && date) {
+    if (headerMode === 1) {
       let initValue = [{ text: 'All Classes', value: -1 }]
+      setTableMode('day')
+      selectResource(-1)
       setDropContent(initValue)
       getClass({
         body: {
@@ -175,7 +177,7 @@ const Home = ({
         }
       })
     }
-  }, [headerMode, date, tableMode, getClass])
+  }, [headerMode, getClass, selectResource, setTableMode])
 
   useEffect(() => {
     if (classContent.length > 0 && headerMode === 1) {
@@ -392,7 +394,7 @@ const Home = ({
                 onChangeWeek={handleChangeWeek}
               />
               :
-              <div style={{marginTop: '90px'}}></div>
+              <div style={{ marginTop: '90px' }}></div>
           }
           <Filterbar
             title={moment(date).format('dddd MM/DD/YYYY')}
@@ -434,7 +436,7 @@ const Home = ({
                 onChangeWeek={handleChangeWeek}
               />
               :
-              <div style={{marginTop: '90px'}}></div>
+              <div style={{ marginTop: '90px' }}></div>
           }
           <Filterbar
             title={moment(date).format('dddd MM/DD/YYYY')}

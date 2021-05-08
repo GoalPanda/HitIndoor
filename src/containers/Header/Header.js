@@ -40,18 +40,18 @@ const Header = ({
           <Toolbar className={classes.toolbar} >
             <img className={classes.image} src={logo} alt='logo' onClick={handleClick('/')} />
             <div className={classes.grow} />
-            <div className={cx(classes.pin, mode === 1 && classes.hightBorder)}>
-              <CustomButton
-                onClick={handleAnchors(1)}
-                className={cx(classes.button, mode === 1 && classes.hightButton)}
-                content='Classes/Camps'
-              />
-            </div>
             <div className={cx(classes.pin, mode === 2 && classes.hightBorder)}>
               <CustomButton
                 onClick={handleAnchors(2)}
                 className={cx(classes.button, mode === 2 && classes.hightButton)}
                 content="Appointments"
+              />
+            </div>
+            <div className={cx(classes.pin, mode === 1 && classes.hightBorder)}>
+              <CustomButton
+                onClick={handleAnchors(1)}
+                className={cx(classes.button, mode === 1 && classes.hightButton)}
+                content='Classes/Camps'
               />
             </div>
             <div className={cx(classes.pin, mode === 3 && classes.hightBorder)}>
