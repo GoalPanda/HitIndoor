@@ -97,8 +97,13 @@ const Home = ({
   }, [location, history])
 
   useEffect(() => {
-    getResource()
-  }, [getResource])
+    if (headerMode === 2) {
+      setToolbarMode('today')
+      setDate(moment(Date.now()).format('MM/DD/YYYY'))
+      setTableMode('day')
+      getResource()
+    }
+  }, [headerMode, getResource])
 
   useEffect(() => {
     if (availableResource && headerMode === 2) {

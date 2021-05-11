@@ -23,6 +23,7 @@ const getInitialState = () => {
 export default handleActions({
   [CONSTANTS.GET_RESOURCE]: (state, { payload }) => ({
     ...state,
+    resource: null,
     status: 'PENDING'
   }),
 
