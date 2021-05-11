@@ -97,13 +97,6 @@ const Home = ({
   }, [location, history])
 
   useEffect(() => {
-    if (headerMode === 1) {
-      setToolbarMode('day')
-      setDate(prev => moment(prev).add(1, 'day').format('MM/DD/YYYY'))
-    }
-  }, [headerMode])
-
-  useEffect(() => {
     getResource()
   }, [getResource])
 
@@ -167,7 +160,7 @@ const Home = ({
   useEffect(() => {
     if (headerMode === 1) {
       let initValue = [{ text: 'All Classes', value: -1 }]
-      setTableMode('day')
+      setTableMode('today')
       selectResource(-1)
       setDropContent(initValue)
       getClass({
