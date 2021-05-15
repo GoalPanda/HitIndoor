@@ -118,7 +118,7 @@ const Home = ({
 
   useEffect(() => {
     if (headerMode === 1) {
-      setClassTableData([{ text: '...', value: [] }])
+      setClassTableData([{ text: 'Loading...', value: [] }])
     } else {
       if (tableMode === 'week') {
         const weekStartDate = moment(date, 'MM/DD/YYYY').startOf('week')

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import useStyles from './styles'
 import { CustomButton } from 'components/CustomButton'
 import { CustomGroupButton } from 'components/CustomGroupButton'
@@ -6,10 +6,18 @@ import { CustomCalendar } from 'components/CustomCalendar'
 import { Mobile, Default } from 'containers/ResponseLayout'
 import {
   Divider,
+  IconButton,
+  Popover,
 } from '@material-ui/core'
 import * as cx from 'classnames'
 import { HelpLabel } from 'components/HelpLabel'
 import moment from 'moment'
+import calendarSvg from 'assets/images/icon/calendar.svg'
+import DateFnsUtils from '@date-io/date-fns'
+import {
+  MuiPickersUtilsProvider,
+  DatePicker,
+} from '@material-ui/pickers'
 
 const Toolbar = ({
   title,
@@ -21,6 +29,8 @@ const Toolbar = ({
   onChangeWeek,
 }) => {
   const classes = useStyles()
+  const [openCalendar, setOpenCalendar] = useState(false)
+  const [anchorEl, setAnchorEl] = useState(null)
 
   const handleChange = (selectedDate) => {
     onChangeDate(selectedDate)
@@ -30,6 +40,17 @@ const Toolbar = ({
     onClickMode('today')
     onChangeDate(Date.now())
   }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+    setOpenCalendar(false)
+  }
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+    setOpenCalendar(true)
+  }
+
 
   const handleActionClick = (buttonMode, actionStr) => {
     onClickMode(buttonMode)
@@ -50,7 +71,11 @@ const Toolbar = ({
         <div className={classes.mobileRoot}>
           <h1 className={cx(classes.typo, classes.center)} >
             {title}
+            <IconButton onClick={handleClick}>
+              <img src={calendarSvg} alt='cal' />
+            </IconButton>
           </h1>
+
           <Divider className={classes.divider} />
           <div style={{ padding: '10px', display: 'flex' }}>
             <div>
@@ -91,6 +116,9 @@ const Toolbar = ({
         <div className={classes.pageTitleContainer}>
           <h1 className={cx(classes.typo, classes.center)} >
             {title}
+            <IconButton onClick={handleClick} >
+              <img src={calendarSvg} alt='cal' />
+            </IconButton>
           </h1>
           <div className={classes.center}>
             {
@@ -123,6 +151,33 @@ const Toolbar = ({
           </div>
         </div>
       </Default>
+
+      <Popover
+        open={openCalendar}
+        anchorEl={anchorEl}
+        className={classes.popper}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <div>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <DatePicker
+              autoOk
+              variant="static"
+              openTo="date"
+              value={date}
+              onChange={handleChange}
+            />
+          </MuiPickersUtilsProvider>
+        </div>
+      </Popover>
     </>
   )
 }
