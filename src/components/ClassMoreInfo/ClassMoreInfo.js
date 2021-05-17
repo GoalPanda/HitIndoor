@@ -52,7 +52,10 @@ const ClassMoreInfo = ({
                     body: { clientIDs },
                     success: ({ data }) => {
                       const clients = data.Clients.map(item => {
-                        return `${item.FirstName} ${item.LastName}`
+                        const duplicated = clientIDs.filter(ele => ele === item.Id)
+                        const extedStr = duplicated.length > 1 ? `(${duplicated.length})` : ''
+
+                        return `${item.FirstName} ${item.LastName} ${extedStr}`
                       })
                       setClients(clients)
                       setIsLoading(false)
