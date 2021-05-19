@@ -72,28 +72,28 @@ const Home = ({
   const [filteredAppointment, setFilteredAppointment] = useState([])
 
   useEffect(() => {
-    const params = new URLSearchParams(location.search)
-    const arg_date = params.get('date')
-    const arg_button = params.get('btn')
-    if (arg_date || arg_button) {
-      setDate(moment(arg_date, 'MM/DD/YYYY'))
-      setToolbarMode(moment(arg_date, 'MM/DD/YYYY') === moment(Date.now()).format('MM/DD/YYYY') ? 'today' : 'day')
-      switch (arg_button) {
-        case 'cage':
-          setFilterMode(1)
-          break
-        case 'lesson':
-          setFilterMode(2)
-          break
-        case 'both':
-          setFilterMode(3)
-          break
-        default:
-          setFilterMode(0)
-          break
-      }
-      history.push('/')
+    const path = location.pathname.slice(1)
+    switch (path) {
+      case 'class':
+        setHeaderMode(1)
+        break
+      case 'appointment':
+        setHeaderMode(2)
+        break
+      case 'btn=cage':
+        setFilterMode(1)
+        break
+      case 'btn=lesson':
+        setFilterMode(2)
+        break
+      case 'btn=both':
+        setFilterMode(3)
+        break
+      default:
+        history.push('/')
+        break
     }
+    // history.push('/')
   }, [location, history])
 
   useEffect(() => {
