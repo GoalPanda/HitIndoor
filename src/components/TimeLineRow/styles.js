@@ -12,7 +12,7 @@ export default makeStyles(theme => ({
   span: {
     height: '20px',
     background: '#616366',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       height: '15px',
     }
   },
@@ -28,7 +28,7 @@ export default makeStyles(theme => ({
     textAlign: 'center',
     background: '#616366',
 
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       height: '30px',
       minHeight: '30px',
       width: '66px',
@@ -50,7 +50,7 @@ export default makeStyles(theme => ({
     lineHeight: '30px',
     borderRadius: '10px 0px 0px 0px',
 
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       height: '90px ',
       width: '66px',
       minWidth: '66px',

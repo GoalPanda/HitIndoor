@@ -9,7 +9,7 @@ export default makeStyles(theme => ({
     fontSize: '25px',
     lineHeight: '37px',
     color: '#243DBF',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       fontSize: '14px',
       lineHeight: '21px',
     },
@@ -19,7 +19,7 @@ export default makeStyles(theme => ({
     fontSize: '20px',
     lineHeight: '30px',
     color: '#243DBF',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       fontSize: '14px',
       lineHeight: '21px',
     },
@@ -30,7 +30,7 @@ export default makeStyles(theme => ({
     fontSize: '18px',
     lineHeight: '27px',
     color: '#616366',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       fontSize: '12px',
       lineHeight: '18px',
     },
@@ -41,7 +41,7 @@ export default makeStyles(theme => ({
     lineHeight: '46px',
     color: '#616366',
     marginRight: '88px',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       marginRight: '0px',
       width: '100% !important',
       fontSize: '14px',
@@ -53,7 +53,7 @@ export default makeStyles(theme => ({
     display: 'flex',
     paddingTop: '50px !important',
     paddingBottom: '90px !important',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       paddingTop: '30px !important',
       paddingBottom: '50px !important',
       display: 'block',
@@ -61,7 +61,7 @@ export default makeStyles(theme => ({
   },
   paper: {
     padding: '32px',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       padding: '16px',
     },
   },
@@ -88,7 +88,7 @@ export default makeStyles(theme => ({
     '&:hOver': {
       background: '#ea5861',
     },
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       height: '35px',
       width: '100px',
       fontSize: '12px',
@@ -108,7 +108,7 @@ export default makeStyles(theme => ({
     lineHeight: '18px',
     '&:hOver': {
     },
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       height: '25px',
       width: '75px',
       fontSize: '12px',
@@ -130,7 +130,7 @@ export default makeStyles(theme => ({
     '&:hOver': {
       textDecoration: 'underline !important',
     },
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       marginLeft: '10px'
     }
   },

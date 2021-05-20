@@ -19,7 +19,7 @@ const ScheduleTable = ({
   filterMode,
 }) => {
   const classes = useStyles()
-  const isMobile = useMediaQuery({ maxWidth: 600 })
+  const isMobile = useMediaQuery({ maxWidth: 850 })
   const [anchorEl, setAnchorEl] = useState(null)
   const [openMoreInfo, setOpenMoreInfo] = useState(false)
   const [scrollWidth, setScrollWidth] = useState(1000)

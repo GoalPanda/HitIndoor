@@ -17,7 +17,7 @@ export default makeStyles(theme => ({
     width: '300px',
     boxShadow: '0px 15px 25px rgba(0, 0, 0, 0.25)',
     marginTop: '20px',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       width: 'calc(100% - 30px)',
     },
 

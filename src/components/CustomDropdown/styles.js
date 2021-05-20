@@ -23,7 +23,7 @@ export default makeStyles(theme => ({
       marginLeft: 'auto'
     },
 
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       height: '40px',
       width: '100%',
     }
@@ -35,7 +35,7 @@ export default makeStyles(theme => ({
     width: '350px',
     boxShadow: '0px 15px 25px rgba(0, 0, 0, 0.25)',
     marginTop: '10px',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       width: 'calc(100% - 30px)',
     },
 

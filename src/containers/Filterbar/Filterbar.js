@@ -25,7 +25,7 @@ const Filterbar = ({
   setFilterMode,
 }) => {
   const classes = useStyles()
-  const isMobile = useMediaQuery({ maxWidth: 767 })
+  const isMobile = useMediaQuery({ maxWidth: 850 })
   const [selected, setSelected] = useState(0)
 
   useEffect(() => {

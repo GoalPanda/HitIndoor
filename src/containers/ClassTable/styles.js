@@ -14,7 +14,7 @@ export default makeStyles(theme => ({
   },
   classArea: {
     border: '1px solid #999999',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       borderRight: 'none !important',
     }
   },
@@ -28,7 +28,7 @@ export default makeStyles(theme => ({
     width: '180px !important',
     minWidth: '180px !important',
     maxWidth: '180px !important',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       width: '135px !important',
       minWidth: '135px !important',
       maxWidth: '135px !important',
@@ -49,7 +49,7 @@ export default makeStyles(theme => ({
     background: '#828D9C',
     border: 'none',
     borderLeft: '1px solid #ffffff',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       minWidth: '100px',
       height: '40px',
       maxHeight: '40px',
@@ -72,7 +72,7 @@ export default makeStyles(theme => ({
     paddingRight: '8px',
     background: '#F9F9F5',
     border: '1px solid #999999',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       minWidth: '100px',
       height: '40px',
       maxHeight: '40px',
@@ -87,7 +87,7 @@ export default makeStyles(theme => ({
     width: '180px !important',
     minWidth: '180px !important',
     maxWidth: '180px !important',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       width: '135px !important',
       minWidth: '135px !important',
       maxWidth: '135px !important',
@@ -97,7 +97,7 @@ export default makeStyles(theme => ({
     width: '500px !important',
     minWidth: '500px !important',
     maxWidth: '500px !important',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       width: '300px !important',
       minWidth: '300px !important',
       maxWidth: '300px !important',
@@ -120,7 +120,7 @@ export default makeStyles(theme => ({
       background: '#ea5861',
     },
 
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       marginLeft: '20px',
       height: '30px',
       fontSize: '12px',
@@ -132,7 +132,7 @@ export default makeStyles(theme => ({
     fontSize: '25px',
     lineHeight: '37px',
 
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       fontSize: '16px',
       lineHeight: '24px',
     }
@@ -143,7 +143,7 @@ export default makeStyles(theme => ({
     lineHeight: '36px',
     color: '#E52F3A',
 
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       fontSize: '14px',
       lineHeight: '21px',
     }
@@ -169,7 +169,7 @@ export default makeStyles(theme => ({
     color: '#2D2D37',
     background: '#F9F9F5',
     borderTop: '1px solid #999999',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       height: '50px',
       lineHeight: '50px',
     }

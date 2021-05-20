@@ -10,8 +10,8 @@ import logo from 'assets/images/logo/logo.svg'
 import { useHistory } from 'react-router-dom'
 
 const content = [
-  { text: 'Classes/Camps', value: '1' },
-  { text: 'Appointments', value: '2' },
+  { text: 'Classes/Camps', url: '/class' },
+  { text: 'Appointments', url: '/appointment' },
 ]
 
 const NavMenu = ({
@@ -21,9 +21,9 @@ const NavMenu = ({
   const history = useHistory()
   const classes = useStyles()
 
-  const handleClick = (mode) => () => {
+  const handleClick = (url) => () => {
     onClose()
-    onClick(mode)
+    history.push(url)
   }
 
   return (
@@ -38,7 +38,7 @@ const NavMenu = ({
                 <ListItemText
                   primary={item.text}
                   className={classes.linkText}
-                  onClick={handleClick(item.value)}
+                  onClick={handleClick(item.url)}
                 />
               </ListItem>
             )

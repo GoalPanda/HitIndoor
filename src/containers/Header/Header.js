@@ -28,10 +28,6 @@ const Header = ({
     history.push(url)
   }
 
-  const handleAnchors = (value) => () => {
-    onChanageMode(value)
-  }
-
   return (
     <>
       <AppBar position='fixed' className={classes.root}>
@@ -42,14 +38,14 @@ const Header = ({
             <div className={classes.grow} />
             <div className={cx(classes.pin, mode === 2 && classes.hightBorder)}>
               <CustomButton
-                onClick={handleAnchors(2)}
+                onClick={() => history.push('/appointment')}
                 className={cx(classes.button, mode === 2 && classes.hightButton)}
                 content="Appointments"
               />
             </div>
             <div className={cx(classes.pin, mode === 1 && classes.hightBorder)}>
               <CustomButton
-                onClick={handleAnchors(1)}
+                onClick={() => history.push('/class')}
                 className={cx(classes.button, mode === 1 && classes.hightButton)}
                 content='Classes/Camps'
               />

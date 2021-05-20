@@ -15,7 +15,7 @@ export default makeStyles(theme => ({
       marginTop: '-10px !important',
     },
 
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       height: '40px',
       width: '100%',
     }

@@ -90,7 +90,6 @@ const Home = ({
         setFilterMode(3)
         break
       default:
-        history.push('/')
         break
     }
     // history.push('/')
@@ -347,23 +346,25 @@ const Home = ({
 
     let filteredAppointmentTmp
     let filteredResource
-    switch (value) {
-      case 1:
-        filteredAppointmentTmp = appointment.filter(item => item.type === 'Cage')
-        filteredResource = availableResource.filter(item => item.type === 'Cage')
-        setDropContent([{ text: 'All Resources', value: -1 }].concat(filteredResource))
-        setTableContent(filteredAppointmentTmp)
-        setFilteredAppointment(filteredAppointmentTmp)
-        break
-      case 2:
-        filteredAppointmentTmp = appointment.filter(item => item.type === 'Lesson')
-        filteredResource = availableResource.filter(item => item.type === 'Lesson')
-        setDropContent([{ text: 'All Resources', value: -1 }].concat(filteredResource))
-        setTableContent(filteredAppointmentTmp)
-        setFilteredAppointment(filteredAppointmentTmp)
-        break
-      default:
-        break
+    if (availableResource && appointment) {
+      switch (value) {
+        case 1:
+          filteredAppointmentTmp = appointment.filter(item => item.type === 'Cage')
+          filteredResource = availableResource.filter(item => item.type === 'Cage')
+          setDropContent([{ text: 'All Resources', value: -1 }].concat(filteredResource))
+          setTableContent(filteredAppointmentTmp)
+          setFilteredAppointment(filteredAppointmentTmp)
+          break
+        case 2:
+          filteredAppointmentTmp = appointment.filter(item => item.type === 'Lesson')
+          filteredResource = availableResource.filter(item => item.type === 'Lesson')
+          setDropContent([{ text: 'All Resources', value: -1 }].concat(filteredResource))
+          setTableContent(filteredAppointmentTmp)
+          setFilteredAppointment(filteredAppointmentTmp)
+          break
+        default:
+          break
+      }
     }
   }
 

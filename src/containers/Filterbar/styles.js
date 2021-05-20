@@ -18,7 +18,7 @@ export default makeStyles(theme => ({
     lineHeight: '30px',
     color: '#2D2D37',
 
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       fontSize: '14px',
       lineHeight: '21px',
       margin: 0,
@@ -56,12 +56,12 @@ export default makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       display: 'block',
     },
   },
   buttonArea: {
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       marginBottom: '10px',
     },
   }

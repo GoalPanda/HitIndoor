@@ -14,7 +14,7 @@ export default makeStyles(theme => ({
     height: '46px',
     backgroundColor: '#FEF7F7',
     marginRight: '20px',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       height: '35px',
       marginRight: '10px',
     }
@@ -25,7 +25,7 @@ export default makeStyles(theme => ({
     fontSize: '16px',
     lineHeight: '24px',
     border: 'none !important',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       fontSize: '14px',
       lineHeight: '21px',
     }

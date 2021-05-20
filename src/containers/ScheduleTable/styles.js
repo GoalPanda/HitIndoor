@@ -26,7 +26,7 @@ export default makeStyles(theme => ({
     boxShadow: '13px 0px 15px rgba(0, 0, 0, 0.25) !important',
     borderBottom: '1px solid #616366',
     borderRadius: '0px 0px 0px 10px',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       width: '66px',
       minWidth: '66px',
     }
@@ -54,7 +54,7 @@ export default makeStyles(theme => ({
     borderLeft: '1px solid #999999',
     borderBottom: '1px solid #999999',
     borderTop: 'none',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       minWidth: '100px',
       height: '90px',
       maxHeight: '90px',
@@ -83,7 +83,7 @@ export default makeStyles(theme => ({
     background: '#D0D0D0',
     border: '1px solid #999999',
     borderRight: 'none !important',
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       height: '30px',
     }
   },
@@ -132,7 +132,7 @@ export default makeStyles(theme => ({
     fontSize: '25px',
     lineHeight: '37px',
 
-    '@media only screen and (max-width: 768px)': {
+    '@media only screen and (max-width: 850px)': {
       fontSize: '16px',
       lineHeight: '24px',
     }

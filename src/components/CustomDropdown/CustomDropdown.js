@@ -92,7 +92,7 @@ const CustomDropdown = ({
                         onClick={handleClickItem(key)}
                         className={cx(classes.dropContentList)}
                       >
-                        {item.text}
+                        {item && item.text}
                       </ListItem>
                     </div>
                   ))
