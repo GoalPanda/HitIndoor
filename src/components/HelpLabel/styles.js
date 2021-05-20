@@ -11,7 +11,11 @@ export default makeStyles(theme => ({
     textTransform: 'none',
     fontweight: 'normal',
     fontSize: '14px',
-    lineHeight: '21px'
+    lineHeight: '21px',
+    '@media only screen and (max-width: 967px)': {
+      fontSize: '12px',
+      lineHeight: '15px',
+    }
   },
   label: {
     display: 'flex',

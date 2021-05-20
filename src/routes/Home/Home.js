@@ -401,6 +401,7 @@ const Home = ({
             tableMode={tableMode}
             dropContent={dropContent}
             filterMode={filterMode}
+            setFilterMode={(value) => handleSelectFilterMode(value)}
           />
           {
             headerMode === 2
