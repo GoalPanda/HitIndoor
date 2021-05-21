@@ -232,7 +232,7 @@ export default handleActions({
     let value = []
 
     payload.ClassSchedules.forEach(item => {
-      if (item.IsAvailable === true) {
+      // if (item.IsAvailable === true) {
         const className = item.ClassDescription.Name
         const classId = item.ClassDescription.Id
         const location_id = item.Location.Id
@@ -275,7 +275,7 @@ export default handleActions({
         }
         const flag = text.find(item => item.id === classId)
         !flag && text.push({ name: className, id: classId })
-      }
+      // }
     })
 
     const content = text.map(({ name, id }) => {

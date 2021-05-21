@@ -24,6 +24,12 @@ export default makeStyles(theme => ({
       justifyContent: 'left !important',
       paddingLeft: '12px',
     },
+    '@media only screen and (min-width: 851px) and (max-width: 1200px)': {
+      fontSize: '19px',
+      lineHeight: '23px',
+      margin: 0,
+      justifyContent: 'left !important',
+    },
   },
   center: {
     display: 'flex',
