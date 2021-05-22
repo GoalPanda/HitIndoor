@@ -17,7 +17,7 @@ const doGetAppointment = apiCall({
 const doGetClass = apiCall({
   type: CONSTANTS.GET_CLASS,
   method: 'post',
-  path: 'mind/class',
+  path: 'mind/class-detail',
 })
 
 const doGetClassDetail = apiCall({

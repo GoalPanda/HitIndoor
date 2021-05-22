@@ -231,60 +231,51 @@ export default handleActions({
     let startDates = []
     let value = []
 
-    payload.ClassSchedules.forEach(item => {
-      if (item.IsAvailable === true) {
+    payload.Classes.forEach(item => {
+      if (item.Active) {
         const className = item.ClassDescription.Name
-        const classId = item.ClassDescription.Id
-        const location_id = item.Location.Id
+        const ClassScheduleId = item.ClassDescription.Id
 
-        if (!value[classId]) {
-          value[classId] = []
-          endDates[classId] = Date.now()
-          startDates[classId] = item.StartDate
+        if (!value[ClassScheduleId]) {
+          value[ClassScheduleId] = []
+          endDates[ClassScheduleId] = Date.now()
+          startDates[ClassScheduleId] = item.StartDateTime
         }
-        const startDate = item.StartDate
-        const endDate = item.EndDate
-        moment(endDate).isAfter(moment(endDates[classId])) && (endDates[classId] = endDate)
 
-        const weekPossibilities = {
-          'Mon': item.DayMonday,
-          'Tue': item.DayTuesday,
-          'Wed': item.DayWednesday,
-          'Thu': item.DayThursday,
-          'Fri': item.DayFriday,
-          'Sat': item.DaySaturday,
-          'Sun': item.DaySunday,
-        }
-        for (
-          let st = moment(startDate)
-          ; moment(st).isBefore(moment(endDate).add(1, 'day'));
-          st = moment(st).add(1, 'day')
-        ) {
+        const startDate = item.StartDateTime
+        const endDate = item.EndDateTime
+        moment(endDate).isAfter(moment(endDates[ClassScheduleId])) && (endDates[ClassScheduleId] = endDate)
 
-          if (weekPossibilities[moment(st).format('ddd')]) {
-            value[classId].push({
-              'Date': moment(st).format('ddd MM/DD/YYYY'),
-              'Start Time': `${moment(item.StartTime).format('hh:mm a')}`,
-              'Classes': className,
-              'Teacher': `${item.Staff.FirstName} ${item.Staff.LastName}`,
-              'Duration': `${moment.duration(moment(item.EndTime).diff(moment(item.StartTime))).asHours()} hours`,
-              'LocationId': location_id,
-              'Description': item.Id,
-            })
-          }
-        }
-        const flag = text.find(item => item.id === classId)
-        !flag && text.push({ name: className, id: classId })
+        value[ClassScheduleId].push({
+          'Date': moment(startDate).format('ddd MM/DD/YYYY'),
+          'Start Time': `${moment(startDate).format('hh:mm a')}`,
+          'Classes': className,
+          'Teacher': `${item.Staff.FirstName} ${item.Staff.LastName}`,
+          'Duration': `${moment.duration(moment(endDate).diff(moment(startDate))).asHours()} hours`,
+          'IsAvailable': item.IsAvailable,
+          'Info': item,
+        })
+
+        const flag = text.find(item => item.id === ClassScheduleId)
+        !flag && text.push({ name: className, id: ClassScheduleId })
       }
     })
 
-    const content = text.map(({ name, id }) => {
+    let content = text.map(({ name, id }) => {
       return {
         text: name,
         id: id,
         value: value[id],
         startDate: moment(startDates[id]).format('ddd MM/DD/YYYY'),
         endDate: moment(endDates[id]).format('ddd MM/DD/YYYY'),
+      }
+    })
+
+    content.sort((a, b) => {
+      if (moment(a.startDate, 'ddd MM/DD/YYYY').isBefore(moment(b.startDate, 'ddd MM/DD/YYYY'))) {
+        return -1
+      } else {
+        return 1
       }
     })
 

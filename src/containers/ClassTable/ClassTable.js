@@ -10,6 +10,7 @@ import {
   AccordionDetails,
   Backdrop,
   CircularProgress,
+  Tooltip,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import moment from 'moment-timezone'
@@ -166,25 +167,34 @@ item[type]=Class`
                                                 )}
                                                 style={{ width: `${(contentAreaWidth - 680) / 3}px` }}
                                               >
-                                                {contentItem[ind]}
-                                                {
-                                                  key1 === 1 && ' CDT'
-                                                }
-                                                {
-                                                  key1 === 1 &&
-                                                  <>
-                                                    <CustomButton
-                                                      content='Sign Up'
-                                                      className={classes.signupButton}
-                                                      variant='contained'
-                                                      onClick={() => handleClickSignup(key, index)}
-                                                    />
-                                                    <ClassMoreInfo info={{
-                                                      date: content[key].value[index].Date,
-                                                      id: content[key].value[index].Description,
-                                                    }}/>
-                                                  </>
-                                                }
+                                                <div style={{ display: 'flex' }}>
+                                                  {contentItem[ind]}
+                                                  {
+                                                    key1 === 1 && ' CDT'
+                                                  }
+                                                  {
+                                                    key1 === 1 &&
+                                                    <>
+                                                      <Tooltip
+                                                        title={`${contentItem.Info.TotalBooked} Reserved,
+                                                      ${contentItem.Info.MaxCapacity} Open`}
+                                                        arrow
+                                                      >
+                                                        <div className={classes.signupButtonArea}>
+                                                          <CustomButton
+                                                            content='Sign Up'
+                                                            className={classes.signupButton}
+                                                            variant='contained'
+                                                            onClick={() => handleClickSignup(key, index)}
+                                                            disabled={!contentItem.IsAvailable}
+                                                          />
+                                                        </div>
+                                                      </Tooltip>
+
+                                                      <ClassMoreInfo info={contentItem.Info} />
+                                                    </>
+                                                  }
+                                                </div>
                                               </td>
                                             )
                                           })

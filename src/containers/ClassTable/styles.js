@@ -108,12 +108,17 @@ export default makeStyles(theme => ({
   lastTableCell: {
     borderRight: 'none !important',
   },
+  signupButtonArea: {
+    marginLeft: '50px',
+    '@media only screen and (max-width: 850px)': {
+      marginLeft: '20px',
+    }
+  },
   signupButton: {
     height: '46px',
     background: '#E52F3A',
     boxShadow: '0px 6px 20px rgba(229, 47, 58, 0.4)',
     color: 'white',
-    marginLeft: '50px',
     fontSize: '18px',
     lineHeight: '27px',
     '&:hOver': {
@@ -121,7 +126,6 @@ export default makeStyles(theme => ({
     },
 
     '@media only screen and (max-width: 850px)': {
-      marginLeft: '20px',
       height: '30px',
       fontSize: '12px',
       lineHeight: '18px',

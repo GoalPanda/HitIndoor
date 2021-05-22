@@ -28,50 +28,35 @@ const ClassMoreInfo = ({
 
   const handleClick = async () => {
     setIsLoading(true)
-    await getClassDetail({
-      body: {
-        startDateTime: info.date,
-        endDateTime: info.date,
-        classDescriptionId: info.id
-      },
+
+    const classid = info.Id
+    await getClassVisits({
+      body: { classid },
       success: async ({ data }) => {
-        if (data.Classes.length > 0) {
-          const classDetail = data.Classes.find(item => item.ClassScheduleId === info.id)
+        const clientIDs = data.Class.Visits.map(item => {
+          return item.ClientId
+        })
 
-          if (classDetail) {
-            const classid = classDetail.Id
-            await getClassVisits({
-              body: { classid },
-              success: async ({ data }) => {
-                const clientIDs = data.Class.Visits.map(item => {
-                  return item.ClientId
-                })
+        if (clientIDs.length > 0) {
+          await getClients({
+            body: { clientIDs },
+            success: ({ data }) => {
+              const clients = data.Clients.map(item => {
+                const duplicated = clientIDs.filter(ele => ele === item.Id)
+                const extedStr = duplicated.length > 1 ? `(${duplicated.length})` : ''
 
-                if (clientIDs.length > 0) {
-                  await getClients({
-                    body: { clientIDs },
-                    success: ({ data }) => {
-                      const clients = data.Clients.map(item => {
-                        const duplicated = clientIDs.filter(ele => ele === item.Id)
-                        const extedStr = duplicated.length > 1 ? `(${duplicated.length})` : ''
-
-                        return `${item.FirstName} ${item.LastName} ${extedStr}`
-                      })
-                      setClients(clients)
-                      setIsLoading(false)
-                      setClassData(classDetail)
-                      setOpen(true)
-                    }
-                  })
-                } else {
-                  setIsLoading(false)
-                  setClassData(classDetail)
-                  setOpen(true)
-                }
-              }
-            })
-
-          }
+                return `${item.FirstName} ${item.LastName} ${extedStr}`
+              })
+              setClients(clients)
+              setIsLoading(false)
+              setClassData(info)
+              setOpen(true)
+            }
+          })
+        } else {
+          setIsLoading(false)
+          setClassData(info)
+          setOpen(true)
         }
       }
     })

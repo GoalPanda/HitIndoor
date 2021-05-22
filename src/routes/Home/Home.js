@@ -169,8 +169,8 @@ const Home = ({
       setDropContent(initValue)
       getClass({
         body: {
-          startDate: moment(Date.now()).subtract(1, 'day'),
-          endDate: moment('12/31/2050', 'MM/DD/YYYY'),
+          startDateTime: moment(Date.now()).subtract(1, 'day').format('M/D/YYYY'),
+          endDateTime: moment(Date.now()).add(1, 'year').format('M/D/YYYY'),
         }
       })
     }
