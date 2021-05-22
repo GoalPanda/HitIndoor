@@ -148,7 +148,7 @@ item[type]=Class`
                                                       >
                                                         <div className={classes.signupButtonArea}>
                                                           <CustomButton
-                                                            content='Sign Up'
+                                                            content={contentItem.IsAvailable ? 'Sign Up' : 'FULL'}
                                                             className={classes.signupButton}
                                                             variant='contained'
                                                             onClick={() => handleClickSignup(key, index)}
