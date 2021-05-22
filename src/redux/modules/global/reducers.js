@@ -250,6 +250,7 @@ export default handleActions({
           'Date': moment(startDate).format('ddd MM/DD/YYYY'),
           'Start Time': `${moment(startDate).format('hh:mm a')}`,
           'Classes': className,
+          'LocationId': item.Location.Id,
           'Teacher': `${item.Staff.FirstName} ${item.Staff.LastName}`,
           'Duration': `${moment.duration(moment(endDate).diff(moment(startDate))).asHours()} hours`,
           'IsAvailable': item.IsAvailable,

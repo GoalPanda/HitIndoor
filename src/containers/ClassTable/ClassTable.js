@@ -8,8 +8,6 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Backdrop,
-  CircularProgress,
   Tooltip,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -18,7 +16,6 @@ import { getClassDetail } from 'redux/modules/global/actions'
 import PropTypes from 'prop-types'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { CustomAlert } from 'components/CustomAlert'
 import { ClassMoreInfo } from 'components/ClassMoreInfo'
 
 const tableHeader = [
@@ -36,8 +33,6 @@ const ClassTable = ({
   const classes = useStyles()
   const [scrollWidth, setScrollWidth] = useState(10000)
   const [contentAreaWidth, setContentAreaWidth] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [alertOpen, setAlertOpen] = useState(false)
 
   window.addEventListener('resize', () => {
     const area1 = document.querySelector('#table-area')
@@ -54,54 +49,25 @@ const ClassTable = ({
   const handleClickSignup = async (key, index) => {
     const curIndexValue = content[key].value[index]
 
-    setIsLoading(true)
-    await getClassDetail({
-      body: {
-        startDateTime: curIndexValue.Date,
-        endDateTime: curIndexValue.Date,
-        classDescriptionId: curIndexValue.Description
-      },
-      success: async ({ data }) => {
-        setIsLoading(false)
-        if (data.Classes.length > 0) {
-          const classDetail = data.Classes.find(item => item.ClassScheduleId === curIndexValue.Description)
-          if (classDetail.MaxCapacity > classDetail.TotalBooked) {
-            const mbo_id = classDetail.Id
-            const location_id = curIndexValue.LocationId
-            const name = curIndexValue.Classes
-            const dateTime = moment(curIndexValue.Date).format('ddd. MMM D, YYYY  ') +
-              `${curIndexValue['Start Time']}`
+    const mbo_id = curIndexValue.Info.Id
+    const name = curIndexValue.Classes
+    const location_id = curIndexValue.LocationId
+    const dateTime = moment(curIndexValue.Date).format('ddd. MMM D, YYYY  ') +
+      `${curIndexValue['Start Time']}`
 
-            const url =
-              `https://cart.mindbodyonline.com/sites/29397/cart/add_booking?
+    const url =
+      `https://cart.mindbodyonline.com/sites/29397/cart/add_booking?
 item[info]=${dateTime}&
 item[mbo_id]=${mbo_id}&
 item[mbo_location_id]=${location_id}&
 item[name]=${name}&
 item[type]=Class`
 
-            setTimeout(() => { window.open(url, '_blank') }, 500)
-          } else {
-            setAlertOpen(true)
-          }
-        }
-      }
-    })
+    setTimeout(() => { window.open(url, '_blank') }, 500)
   }
 
   return (
     <div className={classes.root} id='table-area'>
-      <CustomAlert
-        isOpen={alertOpen}
-        type='error'
-        text='"This session is currently full !'
-        onClose={() => setAlertOpen(false)}
-      />
-
-      <Backdrop className={classes.backdrop} open={isLoading}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
-
       <div style={{ width: `${scrollWidth}px` }}>
         <PerfectScrollbar
           options={{
@@ -167,7 +133,7 @@ item[type]=Class`
                                                 )}
                                                 style={{ width: `${(contentAreaWidth - 680) / 3}px` }}
                                               >
-                                                <div style={{ display: 'flex' }}>
+                                                <div style={{ display: 'flex', alignItems: 'center' }}>
                                                   {contentItem[ind]}
                                                   {
                                                     key1 === 1 && ' CDT'
