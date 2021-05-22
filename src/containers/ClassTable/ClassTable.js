@@ -143,7 +143,8 @@ item[type]=Class`
                                                     <>
                                                       <Tooltip
                                                         title={`${contentItem.Info.TotalBooked} Reserved,
-                                                      ${contentItem.Info.MaxCapacity} Open`}
+                                                      ${contentItem.Info.MaxCapacity
+                                                          - contentItem.Info.TotalBooked} Open`}
                                                         arrow
                                                       >
                                                         <div className={classes.signupButtonArea}>
