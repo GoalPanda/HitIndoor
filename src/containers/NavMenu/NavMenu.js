@@ -28,7 +28,10 @@ const NavMenu = ({
 
   return (
     <Container>
-      <img className={classes.logo} onClick={() => history.push('/')} src={logo} alt='logo' />
+      <img
+        className={classes.logo}
+        onClick={() => window.open('http://www.hitindoor.com', 'blank')}
+        src={logo} alt='logo' />
 
       <List component='nav' className={classes.linkList}>
         {

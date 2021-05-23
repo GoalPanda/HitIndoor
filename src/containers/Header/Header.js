@@ -25,7 +25,7 @@ const Header = ({
   const classes = useStyles()
 
   const handleClick = (url) => () => {
-    history.push(url)
+    window.open('http://www.hitindoor.com', 'blank')
   }
 
   return (

@@ -12,12 +12,14 @@ import { getClassDetail, getClassVisits, getClients } from 'redux/modules/global
 import PropTypes from 'prop-types'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
+import * as cx from 'classnames'
 
 const ClassMoreInfo = ({
   info,
   getClassDetail,
   getClassVisits,
   getClients,
+  isClassDetail = false,
 }) => {
   const classes = useStyles()
 
@@ -26,7 +28,8 @@ const ClassMoreInfo = ({
   const [classData, setClassData] = useState({})
   const [clients, setClients] = useState([])
 
-  const handleClick = async () => {
+  const handleClick = async (e) => {
+    e.preventDefault()
     setIsLoading(true)
 
     const classid = info.Id
@@ -64,7 +67,10 @@ const ClassMoreInfo = ({
 
   return (
     <>
-      <Button className={classes.moreInfo} onClick={handleClick}>More Info</Button>
+      <Button
+        className={cx(classes.moreInfo, isClassDetail && classes.detail)}
+        onClick={handleClick}>{isClassDetail ? 'Detail' : 'More Info'}
+      </Button>
 
       <Backdrop className={classes.backdrop} open={isLoading}>
         <CircularProgress color="inherit" />
@@ -78,18 +84,38 @@ const ClassMoreInfo = ({
         maxWidth='xl'
       >
         <div className={classes.paper}>
-          <div className={classes.title}>Class Schedule</div>
+          <div className={classes.title}>{info.ClassDescription.Name}</div>
           <Divider />
-          <div className={classes.description}>
-            Reserved: {classData.TotalBooked} Available: {classData.MaxCapacity - classData.TotalBooked}
+          <div style={{ display: 'flex', marginTop: '30px' }}>
+            {
+              isClassDetail &&
+              <div style={{ width: '700px' }}>
+                <div>
+                  {info.ClassDescription.ImageURL &&
+                    <img className={classes.background} src={info.ClassDescription.ImageURL} alt='back' />
+                  }
+                  <div
+                    className={classes.content} dangerouslySetInnerHTML={{ __html: info.ClassDescription.Description }}>
+                  </div>
+                </div>
+              </div>
+            }
+            {
+              !isClassDetail &&
+              <div style={{ width: '300px', marginLeft: '30px' }}>
+                <div className={classes.description}>
+                  Reserved: {classData.TotalBooked} Available: {classData.MaxCapacity - classData.TotalBooked}
+                </div>
+                <br />
+                <div className={classes.subtitle}>Booked clients</div>
+                {
+                  clients.map((item, key) => {
+                    return <div className={classes.description} key={key}>{key + 1}. {item}</div>
+                  })
+                }
+              </div>
+            }
           </div>
-          <br />
-          <div className={classes.subtitle}>Booked clients</div>
-          {
-            clients.map((item, key) => {
-              return <div className={classes.description}>{key + 1}. {item}</div>
-            })
-          }
           <div className={classes.buttons}>
             <CustomButton
               content='Close'

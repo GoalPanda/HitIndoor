@@ -107,6 +107,10 @@ item[type]=Class`
                       <AccordionSummary expandIcon={<ExpandMoreIcon />} className={classes.summary}>
                         <div className={classes.classHeading}>
                           {`${item.text}${item.startDate ? ` (${item.startDate})` : ''}`}
+                          {
+                            item.startDate &&
+                            <ClassMoreInfo info={item.info} isClassDetail/>
+                          }
                         </div>
                       </AccordionSummary>
                       <AccordionDetails className={classes.detail}>

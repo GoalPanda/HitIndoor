@@ -149,7 +149,7 @@ export default makeStyles(theme => ({
 
     '@media only screen and (max-width: 850px)': {
       fontSize: '14px',
-      lineHeight: '21px',
+      lineHeight: '17px',
     }
   },
   classHeader: {

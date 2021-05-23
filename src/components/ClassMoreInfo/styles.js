@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/styles'
 
 export default makeStyles(theme => ({
   root: {
-    zIndex: '2 !important',
+    zIndex: '2002 !important',
   },
   title: {
     fontWeight: '600',
@@ -35,6 +35,18 @@ export default makeStyles(theme => ({
       lineHeight: '18px',
     },
   },
+  background: {
+    // width: '100%',
+    padding: 'auto',
+    borderRadius: '6px',
+  },
+  content: {
+    marginTop: '12px',
+    fontWeight: 'normal',
+    fontSize: '14px',
+    lineHeight: '22px',
+    color: '#616366'
+  },
   type: {
     fontWeight: '500',
     fontSize: '18px',
@@ -64,17 +76,6 @@ export default makeStyles(theme => ({
     '@media only screen and (max-width: 850px)': {
       padding: '16px',
     },
-  },
-  background: {
-    width: '100%',
-    borderRadius: '6px',
-  },
-  content: {
-    marginTop: '12px',
-    fontWeight: 'normal',
-    fontSize: '16px',
-    lineHeight: '24px',
-    color: '#616366'
   },
   book: {
     height: '46px',
@@ -132,6 +133,13 @@ export default makeStyles(theme => ({
     },
     '@media only screen and (max-width: 850px)': {
       marginLeft: '10px'
+    }
+  },
+  detail: {
+    fontSize: '21px',
+    color: '#E52F3A',
+    '@media only screen and (max-width: 850px)': {
+      fontSize: '14px',
     }
   },
   backdrop: {

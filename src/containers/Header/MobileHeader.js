@@ -10,7 +10,6 @@ import {
 import useStyles from './MobileHeader.styles.js'
 import logo from 'assets/images/logo/logo.svg'
 import menuSvg from 'assets/images/icon/menu.svg'
-import { useHistory } from 'react-router-dom'
 import { NavMenu } from 'containers/NavMenu'
 import PropTypes from 'prop-types'
 import { compose } from 'redux'
@@ -22,12 +21,11 @@ const MobileHeader = ({
   onChanageMode,
   status,
 }) => {
-  const history = useHistory()
   const classes = useStyles()
   const [open, setOpen] = useState(false)
 
   const handleClick = (url) => () => {
-    history.push(url)
+    window.open('http://www.hitindoor.com', 'blank')
   }
 
   return (

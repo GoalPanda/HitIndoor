@@ -258,14 +258,15 @@ export default handleActions({
         })
 
         const flag = text.find(item => item.id === ClassScheduleId)
-        !flag && text.push({ name: className, id: ClassScheduleId })
+        !flag && text.push({ name: className, id: ClassScheduleId, info: item})
       }
     })
 
-    let content = text.map(({ name, id }) => {
+    let content = text.map(({ name, id, info }) => {
       return {
         text: name,
         id: id,
+        info: info,
         value: value[id],
         startDate: moment(startDates[id]).format('ddd MM/DD/YYYY'),
         endDate: moment(endDates[id]).format('ddd MM/DD/YYYY'),

@@ -35,7 +35,7 @@ import {
 import { createStructuredSelector } from 'reselect'
 import moment from 'moment-timezone'
 import { bookContent } from 'containers/ScheduleTable/mockup'
-import { useLocation, useHistory } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import useStyles from './styles.js'
 
 const Home = ({
@@ -56,7 +56,6 @@ const Home = ({
 }) => {
   const classes = useStyles()
   const location = useLocation()
-  const history = useHistory()
 
   const [tableContent, setTableContent] = useState([{ text: 'Loading...', value: {}, type: 'Cage' }])
   const [classTableData, setClassTableData] = useState([])
@@ -92,8 +91,7 @@ const Home = ({
       default:
         break
     }
-    // history.push('/')
-  }, [location, history])
+  }, [location])
 
   useEffect(() => {
     if (headerMode === 2) {
@@ -108,8 +106,12 @@ const Home = ({
     if (availableResource && headerMode === 2) {
       let initValue = [{ text: 'All Resources', value: -1 }].concat(availableResource)
       setDropContent(initValue)
+      const tmpType = filterMode === 1 ? 'Cage' : filterMode === 2 ? 'Lesson' : 'both'
+      const filteredResource =
+        tmpType === 'both' ? availableResource : availableResource.filter(item => item.type === tmpType)
+      setDropContent([{ text: 'All Resources', value: -1 }].concat(filteredResource))
     }
-  }, [availableResource, headerMode])
+  }, [availableResource, headerMode, filterMode])
 
   useEffect(() => {
     setFilteredAppointment(appointment)
@@ -131,10 +133,11 @@ const Home = ({
         }
         setTableContent(weekData)
       } else {
-        setTableContent([{ text: 'Loading...', value: {}, type: 'Cage' }])
+        const tmpType = filterMode === 1 ? 'Cage' : filterMode === 2 ? 'Lesson' : 'Cage'
+        setTableContent([{ text: 'Loading...', value: {}, type: tmpType }])
       }
     }
-  }, [date, tableMode, headerMode])
+  }, [date, tableMode, headerMode, filterMode])
 
   useEffect(() => {
     if (resource && date && headerMode === 2) {
