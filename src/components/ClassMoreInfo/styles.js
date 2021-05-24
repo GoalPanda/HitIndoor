@@ -138,8 +138,10 @@ export default makeStyles(theme => ({
   detail: {
     fontSize: '21px',
     color: '#E52F3A',
+    marginLeft: '30px',
     '@media only screen and (max-width: 850px)': {
       fontSize: '14px',
+      marginLeft: '10px',
     }
   },
   backdrop: {

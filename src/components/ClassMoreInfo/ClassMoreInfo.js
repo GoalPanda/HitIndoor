@@ -69,7 +69,7 @@ const ClassMoreInfo = ({
     <>
       <Button
         className={cx(classes.moreInfo, isClassDetail && classes.detail)}
-        onClick={handleClick}>{isClassDetail ? 'Detail' : 'More Info'}
+        onClick={handleClick}>{isClassDetail ? 'More Detail...' : 'More Info'}
       </Button>
 
       <Backdrop className={classes.backdrop} open={isLoading}>
