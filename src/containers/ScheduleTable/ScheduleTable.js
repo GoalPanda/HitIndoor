@@ -107,7 +107,7 @@ const ScheduleTable = ({
                                           className={classes.moreInfoButton}
                                           variant='contained'
                                           onClick={handleClickMoreInfo(key)}
-                                          disabled={item.text === 'Loading...' && true}
+                                          disabled={item.moreDisable && true}
                                         />
                                         :
                                         (<strong

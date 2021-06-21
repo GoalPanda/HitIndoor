@@ -57,7 +57,7 @@ const Home = ({
   const classes = useStyles()
   const location = useLocation()
 
-  const [tableContent, setTableContent] = useState([{ text: 'Loading...', value: {}, type: 'Cage' }])
+  const [tableContent, setTableContent] = useState([{ text: 'Loading...', value: {}, type: 'Cage', moreDisable: true }])
   const [classTableData, setClassTableData] = useState([])
   const [toolbarMode, setToolbarMode] = useState('today')
   const [tableMode, setTableMode] = useState('day')
@@ -119,7 +119,7 @@ const Home = ({
 
   useEffect(() => {
     if (headerMode === 1) {
-      setClassTableData([{ text: 'Loading...', value: [] }])
+      setClassTableData([{ text: 'Loading...', value: [], moreDisable: true }])
     } else {
       if (tableMode === 'week') {
         const weekStartDate = moment(date, 'MM/DD/YYYY').startOf('week')
@@ -133,11 +133,9 @@ const Home = ({
         }
         setTableContent(weekData)
       } else {
-        const tmpType = filterMode === 1 ? 'Cage' : filterMode === 2 ? 'Lesson' : 'Cage'
-        setTableContent([{ text: 'Loading...', value: {}, type: tmpType }])
       }
     }
-  }, [date, tableMode, headerMode, filterMode])
+  }, [date, tableMode, headerMode])
 
   useEffect(() => {
     if (resource && date && headerMode === 2) {
@@ -221,7 +219,13 @@ const Home = ({
 
   useEffect(() => {
     if (headerMode === 2 && filteredAppointment.length > 0 && tableMode === 'day') {
-      setTableContent(selectedResource === -1 ? filteredAppointment : [filteredAppointment[selectedResource]])
+      const tmpType = filterMode === 1 ? 'Cage' : filterMode === 2 ? 'Lesson' : 'Cage'
+      const availableAppointment = filteredAppointment.filter(item => item.type === tmpType)
+      if (availableAppointment.length > 0) {
+        setTableContent(selectedResource === -1 ? filteredAppointment : [filteredAppointment[selectedResource]])
+      } else {
+        setTableContent([{ text: 'No sessions available today.', value: {}, type: tmpType, moreDisable: true }])
+      }
     }
   }, [selectedResource, filteredAppointment, tableMode, filterMode, headerMode])
 
@@ -362,7 +366,11 @@ const Home = ({
           filteredAppointmentTmp = appointment.filter(item => item.type === 'Lesson')
           filteredResource = availableResource.filter(item => item.type === 'Lesson')
           setDropContent([{ text: 'All Resources', value: -1 }].concat(filteredResource))
-          setTableContent(filteredAppointmentTmp)
+          if (filteredAppointmentTmp.length > 0) {
+            setTableContent(filteredAppointmentTmp)
+          } else {
+            setTableContent([{ text: 'No sessions available today.', value: {}, type: 'Lesson', moreDisable: true }])
+          }
           setFilteredAppointment(filteredAppointmentTmp)
           break
         default:

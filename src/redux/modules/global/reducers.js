@@ -184,6 +184,24 @@ export default handleActions({
         weekValue[weekDate] = value
       })
 
+      item.Unavailabilities.forEach(element => {
+        const weekDate = moment(element.StartDateTime).format('ddd MM/DD')
+        let value = weekValue[weekDate] ? weekValue[weekDate] : {}
+        for (let i = moment(element.StartDateTime)
+          ;
+          moment(i).isBefore(element.EndDateTime)
+          ;
+          i = moment(i).add(30, 'minutes')) {
+          const dayOfWeek = moment(i).format('ddd')
+          if (isBusinessTime(dayOfWeek, i) === true) {
+            continue
+          }
+          const times = moment(i).format('h:mm a')
+          Object.assign(value, { [times]: 4 })
+        }
+        weekValue[weekDate] = value
+      })
+
       item.Appointments.forEach(element => {
         const weekDate = moment(element.StartDateTime).format('ddd MM/DD')
         let value = weekValue[weekDate] ? weekValue[weekDate] : {}
