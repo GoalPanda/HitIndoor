@@ -218,7 +218,7 @@ const Home = ({
   }, [weekAppointment, date, selectedResource, tableMode])
 
   useEffect(() => {
-    if (headerMode === 2 && filteredAppointment.length > 0 && tableMode === 'day') {
+    if (headerMode === 2 && tableMode === 'day') {
       const tmpType = filterMode === 1 ? 'Cage' : filterMode === 2 ? 'Lesson' : 'Cage'
       const availableAppointment = filteredAppointment.filter(item => item.type === tmpType)
       if (availableAppointment.length > 0) {
@@ -376,6 +376,15 @@ const Home = ({
         default:
           break
       }
+    }
+    if (availableResource?.length === 0 && appointment?.length === 0) {
+      setTableContent([{
+        text: 'No sessions available today.',
+        value: {},
+        type: value === 1 ? 'Cage' : 'Lesson',
+        moreDisable: true
+      }])
+      setFilteredAppointment([])
     }
   }
 
