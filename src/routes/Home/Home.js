@@ -25,6 +25,7 @@ import {
   setViewMode,
 } from 'redux/modules/global/actions'
 import {
+  statusSelector,
   resourceSelector,
   appointmentSelector,
   weekAppointmentSelector,
@@ -53,6 +54,7 @@ const Home = ({
   setViewMode,
   setStartDate,
   getBook,
+  status,
 }) => {
   const classes = useStyles()
   const location = useLocation()
@@ -224,10 +226,14 @@ const Home = ({
       if (availableAppointment.length > 0) {
         setTableContent(selectedResource === -1 ? filteredAppointment : [filteredAppointment[selectedResource]])
       } else {
-        setTableContent([{ text: 'No sessions available today.', value: {}, type: tmpType, moreDisable: true }])
+        status === 'PENDING'
+          ?
+          setTableContent([{ text: 'Loading...', value: {}, type: tmpType, moreDisable: true }])
+          :
+          setTableContent([{ text: 'No sessions available today.', value: {}, type: tmpType, moreDisable: true }])
       }
     }
-  }, [selectedResource, filteredAppointment, tableMode, filterMode, headerMode])
+  }, [selectedResource, filteredAppointment, tableMode, filterMode, headerMode, status])
 
   const handleClickGetCage = (tableMode, text, time, staffId, availableTimes) => {
     const sessionTypeIds = bookContent.map(item => item.value)
@@ -500,6 +506,7 @@ Home.propTypes = {
   weekAppointment: PropTypes.any,
   selectedResource: PropTypes.any,
   book: PropTypes.any,
+  status: PropTypes.any,
 }
 
 const actions = {
@@ -520,6 +527,7 @@ const selector = createStructuredSelector({
   classContent: classSelector,
   weekAppointment: weekAppointmentSelector,
   selectedResource: selectedResourceSelector,
+  status: statusSelector,
 })
 
 export default compose(connect(selector, actions))(Home)
