@@ -248,8 +248,12 @@ export default handleActions({
     let endDates = []
     let startDates = []
     let value = []
+    const classData = payload.Classes
 
-    payload.Classes.forEach(item => {
+    classData.sort((a, b) => {
+      return moment(a.StartDateTime).diff(moment(b.StartDateTime))
+    })
+    classData.forEach(item => {
       if (item.Active) {
         const className = item.ClassDescription.Name
         const ClassScheduleId = item.ClassDescription.Id
