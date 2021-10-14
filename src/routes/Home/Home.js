@@ -202,29 +202,36 @@ const Home = ({
   useEffect(() => {
     if (weekAppointment.length > 0 && tableMode === 'week') {
       const sel = selectedResource === -1 ? 0 : selectedResource
-
+      const filteredWeeks = weekAppointment.find(item => item.staffId === dropContent[sel + 1].value)
       const weekStartDate = moment(date, 'MM/DD/YYYY').startOf('week').format()
+      
       let weekData = []
-      for (let i = 0; i < 7; i++) {
-        let weekDates = moment(weekStartDate).add(i, 'day').format('ddd MM/DD')
-        let weekValue = weekAppointment[sel].value[weekDates]
-        const staffId = weekAppointment[sel].staffId
-        weekData.push({
-          text: weekDates,
-          value: weekValue ? weekValue : {},
-          staffId,
-        })
+      if(filteredWeeks) {
+        for (let i = 0; i < 7; i++) {
+          let weekDates = moment(weekStartDate).add(i, 'day').format('ddd MM/DD')
+          let weekValue = filteredWeeks.value[weekDates]
+          const staffId = filteredWeeks.staffId
+          weekData.push({
+            text: weekDates,
+            value: weekValue ? weekValue : {},
+            staffId,
+          })
+        }
       }
       setTableContent(weekData)
     }
-  }, [weekAppointment, date, selectedResource, tableMode])
+  }, [weekAppointment, date, selectedResource, tableMode, filterMode, dropContent])
 
   useEffect(() => {
     if (headerMode === 2 && tableMode === 'day') {
-      const tmpType = filterMode === 1 ? 'Cage' : filterMode === 2 ? 'Lesson' : 'Cage'
-      const availableAppointment = filteredAppointment.filter(item => item.type === tmpType)
+      const tmpType = filterMode === 1 ? 'Cage' : filterMode === 2 ? 'Lesson' : 'both'
+      const availableAppointment = 
+      tmpType === 'both' 
+        ? filteredAppointment 
+        : filteredAppointment.filter(item => item.type === tmpType)
+      
       if (availableAppointment.length > 0) {
-        setTableContent(selectedResource === -1 ? filteredAppointment : [filteredAppointment[selectedResource]])
+        setTableContent(selectedResource === -1 ? availableAppointment : [availableAppointment[selectedResource]])
       } else {
         status === 'PENDING'
           ?

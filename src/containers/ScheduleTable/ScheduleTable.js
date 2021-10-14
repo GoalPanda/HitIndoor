@@ -25,6 +25,7 @@ const ScheduleTable = ({
   const [scrollWidth, setScrollWidth] = useState(1000)
   const [moreInfoContent, setMoreInfoContent] = useState({ title: '', content: '' })
   const [overText, setOverText] = useState({ time: null, cage: null })
+  const [scrollEl, setScrollEl] = useState()
 
   const handleClickMoreInfo = (key) => (event) => {
     setMoreInfoContent(content[key].description)
@@ -51,6 +52,12 @@ const ScheduleTable = ({
     setOverText({ time, cage })
   }
 
+  useEffect(() => {
+    if (scrollEl) {
+      scrollEl.scrollTop = 500
+    }
+  }, [scrollEl, mode, content])
+
   return (
     <div className={classes.root} id='table-area'>
       <MoreInfo info={moreInfoContent} anchorEl={anchorEl} open={openMoreInfo} onClose={handleClose} />
@@ -59,6 +66,9 @@ const ScheduleTable = ({
         width: `${scrollWidth}px`,
       }}>
         <PerfectScrollbar
+          containerRef={ref => {
+            setScrollEl(ref)
+          }}
           options={{
             useBothWheelAxes: false,
           }}
@@ -74,14 +84,14 @@ const ScheduleTable = ({
                     content.map((item, key) => {
                       let availableHeader = true
 
-                      if (mode !== 'week') {
-                        if ((filterMode !== 2 && item.type === 'Cage')
-                          || (filterMode !== 1 && item.type === 'Lesson')) {
-                          availableHeader = true
-                        } else {
-                          availableHeader = false
-                        }
-                      }
+                      // if (mode !== 'week') {
+                      //   if ((filterMode !== 2 && item.type === 'Cage') 
+                      //     || (filterMode !== 1 && item.type === 'Lesson')) {
+                      //     availableHeader = true
+                      //   } else {
+                      //     availableHeader = false
+                      //   }
+                      // }
 
                       return (
                         <>
@@ -134,14 +144,14 @@ const ScheduleTable = ({
                   {
                     content.map((item, key) => {
                       let availableHeader = true
-                      if (mode !== 'week') {
-                        if ((filterMode !== 2 && item.type === 'Cage')
-                          || (filterMode !== 1 && item.type === 'Lesson')) {
-                          availableHeader = true
-                        } else {
-                          availableHeader = false
-                        }
-                      }
+                      // if (mode !== 'week') {
+                      //   if ((filterMode !== 2 && item.type === 'Cage')
+                      //     || (filterMode !== 1 && item.type === 'Lesson')) {
+                      //     availableHeader = true
+                      //   } else {
+                      //     availableHeader = false
+                      //   }
+                      // }
 
                       return (
                         <>
@@ -163,14 +173,14 @@ const ScheduleTable = ({
                         {
                           content.map((item, key1) => {
                             let availableHeader = true
-                            if (mode !== 'week') {
-                              if ((filterMode !== 2 && item.type === 'Cage')
-                                || (filterMode !== 1 && item.type === 'Lesson')) {
-                                availableHeader = true
-                              } else {
-                                availableHeader = false
-                              }
-                            }
+                            // if (mode !== 'week') {
+                            //   if ((filterMode !== 2 && item.type === 'Cage')
+                            //     || (filterMode !== 1 && item.type === 'Lesson')) {
+                            //     availableHeader = true
+                            //   } else {
+                            //     availableHeader = false
+                            //   }
+                            // }
 
                             const value = item.value[time.text]
                             let stateText = ''

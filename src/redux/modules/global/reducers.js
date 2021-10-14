@@ -178,7 +178,7 @@ export default handleActions({
             continue
           }
           const times = moment(i).format('h:mm a')
-          Object.assign(value, { [times]: 2 })
+          Object.assign(value, { [times]: item.Email ? 3: 2 })
         }
 
         weekValue[weekDate] = value
