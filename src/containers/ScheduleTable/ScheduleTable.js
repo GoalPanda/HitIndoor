@@ -8,6 +8,8 @@ import 'react-perfect-scrollbar/dist/css/styles.css'
 import { useMediaQuery } from 'react-responsive'
 import { MoreInfo } from 'components/MoreInfo'
 import { CustomButton } from 'components/CustomButton'
+import moment from 'moment'
+
 
 let openFlag = false
 
@@ -54,7 +56,8 @@ const ScheduleTable = ({
 
   useEffect(() => {
     if (scrollEl) {
-      scrollEl.scrollTop = 500
+      const curTime = moment(Date.now()).format('h')
+      scrollEl.scrollTop = (curTime - 9) * 80
     }
   }, [scrollEl, mode, content])
 

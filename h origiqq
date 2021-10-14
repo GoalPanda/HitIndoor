@@ -1,0 +1,335 @@
+[33mcommit c46304ce2c0945da5ec1739b062f640641220370[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: topsoftca <adilughratdar27.ca@gmail.com>
+Date:   Thu Oct 14 11:09:11 2021 -0700
+
+    ignore add:
+
+[33mcommit 207479a5164616ed3914b64a3188373a5747fe5c[m
+Author: topsoftca <adilughratdar27.ca@gmail.com>
+Date:   Thu Oct 14 11:08:48 2021 -0700
+
+    ignore
+
+[33mcommit 7b28d8a5021189ae2eeb1755828095787c59f987[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: topsoftca <adilughratdar27.ca@gmail.com>
+Date:   Thu Oct 14 11:06:03 2021 -0700
+
+    testing on server
+
+[33mcommit 239c27a95853b0989180887756b1d7feedd32579[m
+Author: topsoftca <adilughratdar27.ca@gmail.com>
+Date:   Wed Oct 13 21:53:27 2021 -0700
+
+    completed feedback
+
+[33mcommit 3588a251d7fe5b1c7ecafefc3148f639f2df9476[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Mon Aug 30 19:55:57 2021 -0700
+
+    build
+
+[33mcommit 1c0a22be1abdb38dfcb902bd524da55cc6016f29[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Mon Aug 30 18:04:10 2021 -0700
+
+    fixed issue on date order
+
+[33mcommit 20c071de3b737b4e5b874921276dd98c0da6c1ac[m
+Author: topsoftca <adilughratdar27.ca@gmail.com>
+Date:   Fri Jul 9 10:28:29 2021 -0700
+
+    fix minor issue
+
+[33mcommit 5bd4592bff234c030bc17a737d69c8742b702b33[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Wed Jul 7 04:08:22 2021 -0700
+
+    fix issue for closed day
+
+[33mcommit 2efb35e8a21f4704907720d5b2adad9187777935[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Sun Jun 20 22:54:39 2021 -0700
+
+    update feedback
+
+[33mcommit aaa06c812b611993a12cc5c5d818741fa7588a31[m
+Author: goalpanda <goalpanda111@gmail.com>
+Date:   Mon May 24 18:17:33 2021 -0700
+
+    fixed more details
+
+[33mcommit 92bc813fc2dc3cc559ddd0138971e4bff6bcfa4b[m
+Author: topsoftca <adilughratdar27.ca@gmail.com>
+Date:   Mon May 24 08:21:03 2021 -0700
+
+    fixed detail issue
+
+[33mcommit 642151e0c3ca21cd25c1f95b1ac504b29ad1c545[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Sat May 22 21:00:14 2021 -0700
+
+    fixed issue
+
+[33mcommit 42ce042e224a717f90289b219836787c63c33e1a[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Sat May 22 08:42:23 2021 -0700
+
+    fixed issue
+
+[33mcommit 58daa6902ef93f061851f06e21c80f4476d4988d[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Sat May 22 08:31:31 2021 -0700
+
+    fix issue
+
+[33mcommit 1e441a6b91b53c41b4a0f0e2cadf65ed1ff65a34[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Sat May 22 08:12:34 2021 -0700
+
+    fixed issue
+
+[33mcommit f0f0d5109b62823aee3fe398c3790cef019f6f98[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Sat May 22 08:00:34 2021 -0700
+
+    completed feedback
+
+[33mcommit c30b02725c1f01607ffed7a386859bf9dfc48250[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Fri May 21 09:39:36 2021 -0700
+
+    revert
+
+[33mcommit ca855ff9f39cf12f70c7dbc4fd79a26a50abe3a4[m
+Author: topsoftca <adilughratdar27.ca@gmail.com>
+Date:   Thu May 20 21:06:18 2021 -0700
+
+    fixed issue on class page
+
+[33mcommit 9907f1d7d6bb5d28be9260b614a0a54b6cb70c78[m
+Author: topsoftca <adilughratdar27.ca@gmail.com>
+Date:   Thu May 20 07:25:27 2021 -0700
+
+    fixed issue
+
+[33mcommit d5b81b0b29a8a40803794fad1983e7fb1398c216[m
+Author: topsoftca <adilughratdar27.ca@gmail.com>
+Date:   Wed May 19 23:44:11 2021 -0700
+
+    refactor responsive and fix issue
+
+[33mcommit edfd1a7b03d31feb03e0a016b3737c8a1b21b97c[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Wed May 19 07:16:19 2021 -0700
+
+    fixed issue
+
+[33mcommit ce2ec5afd3e40fbe71495f750c2d745195cad141[m
+Author: topsoftca <adilughratdar27.ca@gmail.com>
+Date:   Mon May 17 13:18:18 2021 -0700
+
+    complete issue
+
+[33mcommit fa7467cb734085ea48d231514d6c8cfb43cfd5e6[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Sun May 16 20:02:23 2021 -0700
+
+    fix issue
+
+[33mcommit e789bf96d1830f83e3591be019eb2a785ef6eac3[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Fri May 14 22:55:57 2021 -0700
+
+    complete issue
+
+[33mcommit 2f126afe9f2e0da8e8e19183686e300bfc3b16f4[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Tue May 11 08:28:46 2021 -0700
+
+    fix issue
+
+[33mcommit ecc738447c4ff984fb3fc8361713d1719b56a663[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Tue May 11 08:03:04 2021 -0700
+
+    fixed feedback
+
+[33mcommit 2f8a7cbd16e459105db2a8949b52a8f263382c36[m
+Author: topsoftca <adilughratdar27.ca@gmail.com>
+Date:   Sat May 8 06:32:26 2021 -0700
+
+    fix issues
+
+[33mcommit 1a905054792c9830ad06c30ca8a59969ca34d194[m
+Author: topsoftca <adilughratdar27.ca@gmail.com>
+Date:   Fri May 7 01:19:45 2021 -0700
+
+    remove email
+
+[33mcommit e90e0e0ec87593fe756ad291f30a25ee2bee3908[m
+Author: topsoftca <adilughratdar27.ca@gmail.com>
+Date:   Thu May 6 22:16:09 2021 -0700
+
+    complete feedback
+
+[33mcommit dee02289e6b13d42061c993393137ddbbeaf8b90[m
+Author: topsoftca <adilughratdar27.ca@gmail.com>
+Date:   Thu May 6 06:54:09 2021 -0700
+
+    complete feature
+
+[33mcommit 8de1476cb74cfc95411ba5ce67332037a9cfc7b5[m
+Author: topsoftca <adilughratdar27.ca@gmail.com>
+Date:   Wed May 5 08:28:26 2021 -0700
+
+    fix issue
+
+[33mcommit 9728b4bc167088abd11c17c57265a35ab59bc9e4[m
+Author: topsoftca <adilughratdar27.ca@gmail.com>
+Date:   Wed May 5 08:09:09 2021 -0700
+
+    fix minore issue
+
+[33mcommit 78e0af03304e721d8ae32a87a168bc559362bbdf[m
+Author: Adil Ughratdar <80440139+topsoftca@users.noreply.github.com>
+Date:   Wed May 5 05:59:01 2021 -0700
+
+    complete class page
+
+[33mcommit 99bd38d91d8a2f67379127e4a2d6a8a32c314e51[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Thu Apr 29 07:50:39 2021 -0700
+
+    complete feedback
+
+[33mcommit 88b6720ed250ba1f69cd22e6e3381056ab0a37b5[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Tue Apr 27 23:14:38 2021 -0700
+
+    fix issue
+
+[33mcommit 9a54f27e408154cf780fb42908f0ab1c52b93f6f[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Tue Apr 27 21:04:31 2021 -0700
+
+    complete feature
+
+[33mcommit 470cabc654975eb1d3664b6dc7d4cbd9f546a6ff[m
+Author: supermavens <sunavenue.ca@gmail.com>
+Date:   Tue Apr 27 19:11:32 2021 -0700
+
+    complete 2x scroll
+
+[33mcommit 89f1bd75d612915ac0bd8922b00c6a4d4301d04a[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Mon Apr 26 12:20:35 2021 -0700
+
+    complete business time
+
+[33mcommit 944e1e900b64ce399512a0d96d0d34e46f661f5a[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Mon Apr 26 11:32:03 2021 -0700
+
+    fix feedback
+
+[33mcommit e3b7d20faae1786a906f15e7d32577112098d69f[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Sat Apr 24 12:33:14 2021 -0700
+
+    complet issue
+
+[33mcommit dc8ed60d2ef7c1219a530bb4b3efa7e086fc955f[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Sat Apr 24 12:23:23 2021 -0700
+
+    issue
+
+[33mcommit d888825f811850c0ab971a3b0de8398c2f88c341[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Sat Apr 24 12:03:32 2021 -0700
+
+    fix issue
+
+[33mcommit 167524ad17d978803a6418a7bc89de2f094897dd[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Sat Apr 24 02:44:38 2021 -0700
+
+    complete issue
+
+[33mcommit 529c55bdd677ce5b2e1fc8f2fd24467887181b9a[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Thu Apr 22 12:15:25 2021 -0700
+
+    fix issues
+
+[33mcommit b3f08d2acf60efb636c8b494bc43534d3066e3a3[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Thu Apr 22 06:08:11 2021 -0700
+
+    complete issues
+
+[33mcommit bbac27e7fa228560a1bd2c1710cda1f538b96be8[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Mon Apr 19 19:00:16 2021 -0700
+
+    complete https
+
+[33mcommit e17106b1c1c1d8ac32dc65f62970f382a235d227[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Sun Apr 18 11:12:33 2021 -0700
+
+    complete all
+
+[33mcommit 0d78584cb97f23c33b5b96ec24a8d7ea4d61040b[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Sun Apr 18 03:44:54 2021 -0700
+
+    complete
+
+[33mcommit 800665f447f9359177d1e671a0dba00dc1e2d337[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Fri Apr 9 19:52:25 2021 -0700
+
+    tag issue
+
+[33mcommit 4167aa72ef3729620d58780c4491875cd022ca0d[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Thu Apr 8 08:56:05 2021 -0700
+
+    fixed and custom
+
+[33mcommit 24f33c5ee9bc00f24b3a5c53b3577862ff7bbb04[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Tue Apr 6 06:20:46 2021 -0700
+
+    complete all
+
+[33mcommit 7ce1e261a2c1b09a9e71ecaba169508098c87520[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Tue Apr 6 05:35:40 2021 -0700
+
+    complete
+
+[33mcommit 50c2d7ab3f021c016aafb82eae3242f755971ef8[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Sun Apr 4 18:48:15 2021 -0700
+
+    progress
+
+[33mcommit c564da305d7ad434c29c3d27afbf1104a70f6dcb[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Tue Mar 30 07:14:42 2021 -0700
+
+    intergrate backend
+
+[33mcommit 050f504c943bcbcae3e2f2fef0f0ed6f89cba9d6[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Mon Mar 22 09:34:08 2021 -0700
+
+    readme
+
+[33mcommit a6dd9d578593012c5b4164fce4f15ed3fa87b274[m
+Author: GoalPanda <goalpanda111@gmail.com>
+Date:   Mon Mar 22 09:26:24 2021 -0700
+
+    init project
