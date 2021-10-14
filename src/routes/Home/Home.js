@@ -152,12 +152,13 @@ const Home = ({
           }
         })
       } else if (tableMode === 'week') {
-        const weekStartDate = moment(date, 'MM/DD/YYYY').startOf('week').format()
+        const weekStartDate = moment(date, 'MM/DD/YYYY').startOf('week').format('MM/DD/YYYY')
+        setClassTableData([{ text: 'Loading...', value: [], moreDisable: true }])
         getWeekAppointment({
           body: {
             staffIds,
             startDate: weekStartDate,
-            endDate: moment(weekStartDate).add(6, 'days')
+            endDate: moment(weekStartDate).add(6, 'days').format('MM/DD/YYYY')
           }
         })
       }
@@ -200,7 +201,7 @@ const Home = ({
   }, [selectedResource, classContent, headerMode])
 
   useEffect(() => {
-    if (weekAppointment.length > 0 && tableMode === 'week') {
+    if (tableMode === 'week') {
       const sel = selectedResource === -1 ? 0 : selectedResource
       const filteredWeeks = weekAppointment.find(item => item.staffId === dropContent[sel + 1].value)
       const weekStartDate = moment(date, 'MM/DD/YYYY').startOf('week').format()
@@ -215,6 +216,14 @@ const Home = ({
             text: weekDates,
             value: weekValue ? weekValue : {},
             staffId,
+          })
+        }
+      } else {
+        for (let i = 0; i < 7; i++) {
+          let weekDates = moment(weekStartDate).add(i, 'day').format('ddd MM/DD')
+          weekData.push({
+            text: weekDates,
+            value: {}
           })
         }
       }
