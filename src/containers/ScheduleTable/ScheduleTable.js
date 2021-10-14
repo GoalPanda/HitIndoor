@@ -56,7 +56,7 @@ const ScheduleTable = ({
 
   useEffect(() => {
     if (scrollEl) {
-      const curTime = moment(Date.now()).format('h')
+      const curTime = moment(Date.now()).format('H')
       scrollEl.scrollTop = (curTime - 9) * 80
     }
   }, [scrollEl, mode, content])
